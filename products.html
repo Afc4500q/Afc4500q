@@ -164,15 +164,17 @@
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
     function sellToCustomer(productId) {
-  // الحصول على بيانات المنتج بناءً على الـ ID
+  // العثور على بيانات المنتج
   const product = products.find((p) => p.id === productId);
 
   if (product) {
     // تخزين بيانات المنتج في localStorage
     localStorage.setItem("selectedProduct", JSON.stringify(product));
 
-    // توجيه المستخدم إلى صفحة "بيع لزبون"
+    // توجيه المستخدم إلى صفحة بيع لزبون
     window.location.href = "sell-customer.html";
+  } else {
+    alert("لم يتم العثور على المنتج.");
   }
 }
 
