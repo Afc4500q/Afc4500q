@@ -13,7 +13,7 @@
   <p>الرصيد: <span id="balance">دينار عراقي</span></p>
   <p>الطلبات الناجحة: <span id="successfulOrders"></span></p>
   <p>الطلبات المعلقة: <span id="pendingOrders"></span></p>
-   <p>المعرف الخاص بك: <span id="myid"></span></p>
+   <p>المعرف الخاص بك: <span id="userId"></span></p>
   <script>
     // استرداد بيانات المستخدم من التخزين المحلي
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -23,10 +23,16 @@
       document.getElementById("balance").textContent = userData.balance;
       document.getElementById("successfulOrders").textContent = userData.successfulOrders;
       document.getElementById("pendingOrders").textContent = userData.pendingOrders;
-      document.getElementById("myid").textContent = userData.id;
+      document.getElementById("userId").textContent = userData.id;
     } else {
       alert("No user data found. Please log in again.");
       window.location.href = "index.html";
+    }
+
+    localStorage
+    window.onload = function() {
+      const userId = document.getElementById("userId").textContent; // استرجاع الـ ID من العنصر
+      localStorage.setItem("userId", userId);  // تخزينه في localStorage
     }
   </script>
 </body>
