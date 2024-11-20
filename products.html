@@ -15,12 +15,13 @@
 }
 
 header {
-  background-color: #004d30; /* أخضر غامق */
-  color: white;
+  background-color: #1A4973; /* الأزرق اللازوردي */
+  color: #FFD700; /* الذهبي */
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف */
 }
 
 header h1 {
@@ -30,14 +31,20 @@ header h1 {
   color: #FFD700; /* الذهبي */
 }
 
+header nav {
+  display: flex;
+  gap: 15px; /* مسافة بين الأزرار */
+}
+
 header nav button {
   background-color: #285A8D; /* أزرق داكن */
-  color: white;
+  color: #FFD700; /* الذهبي */
   border: none;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header nav button:hover {
