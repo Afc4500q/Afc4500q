@@ -1,181 +1,33 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بيع لزبون</title>
+  <title>Dashboard</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-
-    .form-container {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .form-container label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .form-container input, .form-container textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    .form-container input[readonly], .form-container textarea[readonly] {
-      background-color: #e9e9e9;
-      cursor: not-allowed;
-    }
-
-    .form-container button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .form-container button:hover {
-      background-color: #45a049;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>بيع لزبون</h2>
-    <form id="sellForm">
-      <label for="productName">اسم المنتج:</label>
-      <input type="text" id="productName" readonly>
-
-      <label for="minPrice">السعر الأدنى:</label>
-      <input type="text" id="minPrice" readonly>
-
-      <label for="maxPrice">السعر الأعلى:</label>
-      <input type="text" id="maxPrice" readonly>
-
-      <label for="description">وصف المنتج:</label>
-      <textarea id="description" rows="4" readonly></textarea>
-
-      <h3>معلومات الزبون</h3>
-      <label for="customerName">اسم الزبون الثلاثي:</label>
-      <input type="text" id="customerName" placeholder="أدخل اسم الزبون" required>
-
-      <label for="phone">رقم الهاتف:</label>
-      <input type="text" id="phone" placeholder="أدخل رقم الهاتف" required>
-
-      <label for="city">المدينة:</label>
-      <input type="text" id="city" placeholder="أدخل المدينة" required>
-
-      <label for="area">المنطقة:</label>
-      <input type="text" id="area" placeholder="أدخل المنطقة" required>
-
-      <button type="submit">إرسال</button>
-    </form>
-  </div>
-
-  <script>// في صفحة بيع لزبون
-const productId = localStorage.getItem("selectedProductId");
-
-if (!productId) {
-  alert("لم يتم العثور على المنتج. يرجى العودة إلى صفحة المنتجات.");
-  window.location.href = "products.html"; // العودة إلى صفحة المنتجات إذا لم يكن هناك ID
-} else {
-  // استرداد بيانات المنتج من API باستخدام id
-  fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("فشل في استرداد المنتج");
-      }
-      return response.json();
-    })
-    .then(product => {
-      if (!product) {
-        // إذا لم يتم العثور على المنتج
-        alert("منتج غير موجود");
-        window.location.href = "products.html";
-      } else {
-        // تعبئة الحقول بمعلومات المنتج
-        document.getElementById("productName").value = product.name || "غير موجود";
-        document.getElementById("minPrice").value = product.minprice || "غير موجود";
-        document.getElementById("maxPrice").value = product.maxprice || "غير موجود";
-        document.getElementById("description").value = product.description || "لا يوجد وصف";
-      }
-    })
-    .catch(error => {
-      console.error("خطأ في استرداد المنتج:", error);
-      alert("حدث خطأ أثناء استرداد بيانات المنتج. يرجى المحاولة لاحقًا.");
-      window.location.href = "products.html"; // العودة إلى صفحة المنتجات عند الخطأ
-    });
-}}
-
-    // معالجة إرسال النموذج
-    document.getElementById("sellForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // منع الإرسال الافتراضي
-
-      // استرداد بيانات الزبون
-      const customerName = document.getElementById("customerName").value;
-      const phone = document.getElementById("phone").value;
-      const city = document.getElementById("city").value;
-      const area = document.getElementById("area").value;
-
-      // إعداد البيانات للإرسال إلى بوت تيلجرام
-      const message = `
-        🛒 *طلب بيع لزبون*:
-        - 📦 اسم المنتج: ${document.getElementById("productName").value}
-        - 💰 السعر الأدنى: ${document.getElementById("minPrice").value}
-        - 💰 السعر الأعلى: ${document.getElementById("maxPrice").value}
-        - 📝 وصف المنتج: ${document.getElementById("description").value || "لا يوجد وصف"}
-        ---
-        👤 *معلومات الزبون*:
-        - 🏷️ الاسم: ${customerName}
-        - 📞 الهاتف: ${phone}
-        - 🏙️ المدينة: ${city}
-        - 📍 المنطقة: ${area}
-      `;
-
-      // إرسال البيانات إلى بوت تيلجرام عبر API
-      const telegramApiUrl = `https://api.telegram.org/bot<TOKEN>/sendMessage`;
-      const chatId = "<CHAT_ID>";
-
-      fetch(telegramApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown"
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            alert("تم إرسال الطلب بنجاح!");
-            window.location.href = "products.html"; // العودة إلى صفحة المنتجات
-          } else {
-            alert("فشل في إرسال الطلب. يرجى المحاولة مرة أخرى.");
-          }
-        })
-        .catch(error => {
-          console.error("خطأ أثناء الإرسال إلى تيلجرام:", error);
-          alert("حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقًا.");
-        });
-    });
+  <h1><span id="productName"></span></h1>
+  <p>السعر الأدنى: <span id="minPrice">دينار عراقي</span></p>
+  <p>السعر الأعلى: <span id="maxPrice"></span></p>
+  <p>الوصف: <span id="description"></span></p>
+  <p>المعرف الخاص بالمنتج: <span id="productId"></span></p>
+  <script>
+    // استرداد بيانات المنتج من التخزين المحلي
+    const productData = JSON.parse(localStorage.getItem("productData"));
+    
+    if (productData) {
+      document.getElementById("productName").textContent = productData.name;
+      document.getElementById("minPrice").textContent = productData.minPrice;
+      document.getElementById("maxPrice").textContent = productData.maxPrice;
+      document.getElementById("description").textContent = productData.description;
+      document.getElementById("productId").textContent = productData.id;
+    } else {
+      alert("No product data found. Please select a product.");
+      window.location.href = "products.html";
+    }
   </script>
 </body>
 </html>
