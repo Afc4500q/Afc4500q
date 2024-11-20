@@ -87,29 +87,40 @@
     </form>
   </div>
 
-  <script>
-    // استرداد id المنتج من localStorage
-    const productId = localStorage.getItem("selectedProductId");
+  <script>// في صفحة بيع لزبون
+const productId = localStorage.getItem("selectedProductId");
 
-    if (!productId) {
-      alert("لم يتم العثور على المنتج. يرجى العودة إلى صفحة المنتجات.");
-      window.location.href = "products.html"; // العودة إلى صفحة المنتجات إذا لم يكن هناك ID
-    } else {
-      // استرداد بيانات المنتج من API باستخدام id
-      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-        .then(response => response.json())
-        .then(product => {
-          // تعبئة الحقول بمعلومات المنتج
-          document.getElementById("productName").value = product.name;
-          document.getElementById("minPrice").value = product.minprice;
-          document.getElementById("maxPrice").value = product.maxprice;
-          document.getElementById("description").value = product.description || "لا يوجد وصف";
-        })
-        .catch(error => {
-          console.error("خطأ في استرداد المنتج:", error);
-          alert("حدث خطأ أثناء استرداد بيانات المنتج.");
-        });
-    }
+if (!productId) {
+  alert("لم يتم العثور على المنتج. يرجى العودة إلى صفحة المنتجات.");
+  window.location.href = "products.html"; // العودة إلى صفحة المنتجات إذا لم يكن هناك ID
+} else {
+  // استرداد بيانات المنتج من API باستخدام id
+  fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("فشل في استرداد المنتج");
+      }
+      return response.json();
+    })
+    .then(product => {
+      if (!product) {
+        // إذا لم يتم العثور على المنتج
+        alert("منتج غير موجود");
+        window.location.href = "products.html";
+      } else {
+        // تعبئة الحقول بمعلومات المنتج
+        document.getElementById("productName").value = product.name || "غير موجود";
+        document.getElementById("minPrice").value = product.minPrice || "غير موجود";
+        document.getElementById("maxPrice").value = product.maxPrice || "غير موجود";
+        document.getElementById("description").value = product.description || "لا يوجد وصف";
+      }
+    })
+    .catch(error => {
+      console.error("خطأ في استرداد المنتج:", error);
+      alert("حدث خطأ أثناء استرداد بيانات المنتج. يرجى المحاولة لاحقًا.");
+      window.location.href = "products.html"; // العودة إلى صفحة المنتجات عند الخطأ
+    });
+}}
 
     // معالجة إرسال النموذج
     document.getElementById("sellForm").addEventListener("submit", function(event) {
