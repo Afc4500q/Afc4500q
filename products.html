@@ -2,10 +2,79 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-   <link rel="stylesheet" href="p.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منتجات عشتار</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+    }
+    header {
+      background-color: #004d40;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Traditional Arabic', sans-serif;
+      font-size: 36px;
+      margin: 0;
+    }
+    header nav button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    header nav button:hover {
+      background-color: #00796b;
+    }
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .product-card h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .product-card p {
+      font-size: 16px;
+      color: #555;
+    }
+    .product-card button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .product-card button:hover {
+      background-color: #00796b;
+    }
   </style>
 </head>
 <body>
@@ -23,34 +92,6 @@
   <!-- Products Section -->
   <div class="products-container" id="productsContainer">
     <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
-    <!-- زر "بيع لزبون" -->
-
-
-<!-- نافذة منبثقة (Modal) -->
-<div id="customerModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3>معلومات الزبون</h3>
-    <form id="customerForm">
-      <label for="customerName">الاسم الثلاثي:</label>
-      <input type="text" id="customerName" required>
-      
-      <label for="phoneNumber">رقم الهاتف:</label>
-      <input type="text" id="phoneNumber" required>
-
-      <label for="province">المحافظة:</label>
-      <input type="text" id="province" required>
-
-      <label for="city">المدينة:</label>
-      <input type="text" id="city" required>
-
-      <label for="region">المنطقة:</label>
-      <input type="text" id="region" required>
-
-      <button type="submit">إرسال</button>
-    </form>
-  </div>
-</div>
   </div>
 
   <script>
@@ -80,12 +121,12 @@
 
         // إضافة محتوى المنتج
         productCard.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
+          <img src="${product.imageUrl}" alt="${product.name}">
           <h3 id="product-name-${product.id}">${product.name}</h3>
-          <p>سعر أدنى: ${product.minprice} </p>
-          <p>سعر أعلى: ${product.maxprice} </p>
+          <p>سعر أدنى: ${product.minPrice} دينار</p>
+          <p>سعر أعلى: ${product.maxPrice} دينار</p>
           <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-          <button id="sellToCustomerBtn">بيع لزبون</button>
+          <button onclick="sellToCustomer('${product.id}')">بيع لزبون</button>
         `;
         
         productsContainer.appendChild(productCard);
@@ -119,73 +160,10 @@
     }
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
-    // فتح نافذة منبثقة عند الضغط على زر "بيع لزبون"
-const sellToCustomerBtn = document.getElementById("sellToCustomerBtn");
-const customerModal = document.getElementById("customerModal");
-const closeModal = document.querySelector(".close");
-
-// إظهار النافذة عند الضغط على الزر
-sellToCustomerBtn.onclick = function() {
-  customerModal.style.display = "block";
-}
-
-// إغلاق النافذة عند الضغط على الـ X
-closeModal.onclick = function() {
-  customerModal.style.display = "none";
-}
-
-// إغلاق النافذة إذا تم النقر في أي مكان خارج النافذة
-window.onclick = function(event) {
-  if (event.target == customerModal) {
-    customerModal.style.display = "none";
-  }
-}
-
-// إرسال البيانات إلى بوت تيلجرام
-document.getElementById("customerForm").addEventListener("submit", async function(event) {
-  event.preventDefault(); // منع إعادة تحميل الصفحة
-
-  const customerName = document.getElementById("customerName").value;
-  const phoneNumber = document.getElementById("phoneNumber").value;
-  const province = document.getElementById("province").value;
-  const city = document.getElementById("city").value;
-  const region = document.getElementById("region").value;
-
-  // الحصول على ID المستخدم من التخزين المحلي أو أي مكان آخر حيث تم تخزينه
-  const userId = localStorage.getItem("userId"); // مثال باستخدام localStorage
-
-  const message = `
-    اسم الزبون: ${customerName}
-    رقم الهاتف: ${phoneNumber}
-    المحافظة: ${province}
-    المدينة: ${city}
-    المنطقة: ${region}
-    ID المستخدم: ${userId}
-  `;
-
-  // إرسال البيانات إلى بوت تيلجرام
-  const botToken = '7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak';
-  const chatId = '1434047374';
-  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-  const response = await fetch(telegramUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: message,
-    }),
-  });
-
-  if (response.ok) {
-    alert('تم إرسال المعلومات بنجاح!');
-    customerModal.style.display = "none"; // إغلاق النافذة
-  } else {
-    alert('حدث خطأ أثناء إرسال المعلومات.');
-  }
-});
+    function sellToCustomer(productId) {
+      console.log(`بيع المنتج ${productId} لزبون`);
+      // يمكن إضافة الكود هنا لتطوير عملية البيع
+    }
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
     fetchProducts();
