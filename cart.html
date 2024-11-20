@@ -11,8 +11,6 @@
       text-align: right;
       margin: 0;
     }
-
-    /* تصميم الهيدر */
     header {
       background-color: #004d40;
       color: white;
@@ -21,13 +19,11 @@
       justify-content: space-between;
       align-items: center;
     }
-
     header h1 {
       font-family: 'Traditional Arabic', sans-serif;
       font-size: 36px;
       margin: 0;
     }
-
     header nav button {
       background-color: #004d40;
       color: white;
@@ -36,16 +32,12 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     header nav button:hover {
       background-color: #00796b;
     }
-
-    /* تصميم سلة المنتجات */
     .cart-container {
       padding: 20px;
     }
-
     .product-card {
       border: 1px solid #ccc;
       padding: 15px;
@@ -53,23 +45,19 @@
       margin-bottom: 15px;
       background-color: #f9f9f9;
     }
-
     .product-card h3 {
       font-size: 20px;
       margin: 10px 0;
     }
-
     .product-card p {
       font-size: 16px;
       color: #555;
     }
-
     .product-card img {
       width: 100px;
       height: auto;
       margin-bottom: 10px;
     }
-
     .product-card button {
       background-color: #004d40;
       color: white;
@@ -81,58 +69,44 @@
       cursor: pointer;
       border-radius: 5px;
     }
-
     .product-card button:hover {
       background-color: #00796b;
     }
-
-    /* زر ارسال الى بوت تيليجرام */
     .send-to-telegram {
       margin-top: 20px;
       background-color: #00796b;
-      color: white;
       padding: 10px 20px;
-      border: none;
-      font-size: 16px;
+      color: white;
+      font-size: 18px;
       cursor: pointer;
+      border: none;
       border-radius: 5px;
-      display: block;
-      width: 100%;
     }
-
     .send-to-telegram:hover {
       background-color: #004d40;
     }
-
-    /* نافذة معلومات الزبون */
     .customer-info {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
-
     .customer-info input {
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
-    /* زر العودة */
-    .back-button {
+    .go-back-button {
       background-color: #004d40;
       color: white;
-      border: none;
       padding: 10px 20px;
+      border: none;
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
-      display: inline-block;
     }
-
-    .back-button:hover {
+    .go-back-button:hover {
       background-color: #00796b;
     }
-
   </style>
 </head>
 <body>
@@ -141,7 +115,7 @@
   <header>
     <h1>سلة المنتجات</h1>
     <nav>
-      <button class="back-button" onclick="window.location.href='products.html'">الرجوع إلى المنتجات</button>
+      <button class="go-back-button" onclick="window.location.href='products.html'">الرجوع إلى المنتجات</button>
     </nav>
   </header>
 
@@ -174,19 +148,19 @@
           <h3>${product.name}</h3>
           <p>سعر أدنى: ${product.minPrice} دينار</p>
           <p>سعر أعلى: ${product.maxPrice} دينار</p>
-          <p>الكمية: <input type="number" value="${product.quantity}" min="1" onchange="updateQuantity(${product.id}, this.value)" /> قطعة</p>
+          <p>الكمية: <input type="number" value="${product.quantity}" min="1" onchange="updateQuantity(${product.id}, this.value)" /></p>
           <button onclick="removeFromCart(${product.id})">حذف من السلة</button>
         `;
         cartContainer.appendChild(productCard);
       });
     }
 
-    // تحديث الكمية في السلة
-    function updateQuantity(productId, newQuantity) {
+    // تحديث الكمية
+    function updateQuantity(productId, quantity) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const productIndex = cart.findIndex(product => product.id === productId);
       if (productIndex !== -1) {
-        cart[productIndex].quantity = parseInt(newQuantity, 10);
+        cart[productIndex].quantity = parseInt(quantity);
         localStorage.setItem("cart", JSON.stringify(cart));
       }
     }
@@ -209,14 +183,14 @@
           <label for="customerPhone">رقم الهاتف:</label>
           <input type="text" id="customerPhone" placeholder="أدخل رقم الهاتف" required />
 
-          <label for="customerProvince">اسم المحافظة:</label>
-          <input type="text" id="customerProvince" placeholder="أدخل اسم المحافظة" required />
+          <label for="customerGovernorate">المحافظة:</label>
+          <input type="text" id="customerGovernorate" placeholder="أدخل اسم المحافظة" required />
 
-          <label for="customerCity">اسم المدينة:</label>
+          <label for="customerCity">المدينة:</label>
           <input type="text" id="customerCity" placeholder="أدخل اسم المدينة" required />
 
-          <label for="customerRegion">اسم المنطقة:</label>
-          <input type="text" id="customerRegion" placeholder="أدخل اسم المنطقة" required />
+          <label for="customerArea">المنطقة:</label>
+          <input type="text" id="customerArea" placeholder="أدخل اسم المنطقة" required />
 
           <label for="customerPrice">سعر البيع:</label>
           <input type="text" id="customerPrice" placeholder="أدخل سعر البيع" required />
@@ -224,19 +198,18 @@
         <button onclick="sendToTelegram()">إرسال</button>
       `;
       document.getElementById("cartContainer").innerHTML = customerInfoForm;
-      document.querySelector(".send-to-telegram").style.display = "none"; // إخفاء الزر بعد فتح نافذة المعلومات
     }
 
     // إرسال سلة المنتجات إلى بوت تيليجرام
     function sendToTelegram() {
       const customerName = document.getElementById("customerName").value;
       const customerPhone = document.getElementById("customerPhone").value;
-      const customerProvince = document.getElementById("customerProvince").value;
+      const customerGovernorate = document.getElementById("customerGovernorate").value;
       const customerCity = document.getElementById("customerCity").value;
-      const customerRegion = document.getElementById("customerRegion").value;
+      const customerArea = document.getElementById("customerArea").value;
       const customerPrice = document.getElementById("customerPrice").value;
 
-      if (!customerName || !customerPhone || !customerProvince || !customerCity || !customerRegion || !customerPrice) {
+      if (!customerName || !customerPhone || !customerGovernorate || !customerCity || !customerArea || !customerPrice) {
         alert("يرجى ملء جميع الحقول.");
         return;
       }
@@ -253,42 +226,59 @@
       let message = `معلومات الزبون:\n`;
       message += `الاسم: ${customerName}\n`;
       message += `رقم الهاتف: ${customerPhone}\n`;
-      message += `المحافظة: ${customerProvince}\n`;
+      message += `المحافظة: ${customerGovernorate}\n`;
       message += `المدينة: ${customerCity}\n`;
-      message += `المنطقة: ${customerRegion}\n`;
-            message += `سعر البيع: ${customerPrice}\n\n`;
-      message += `تفاصيل السلة:\n`;
+      message += `المنطقة: ${customerArea}\n`;
+      message += `سعر البيع: ${customerPrice}\n\n`;  // إضافة سعر البيع
+      message += `ID الحساب: ${userId}\n\n`;  // إضافة الـ ID في الرسالة
+      message += "تفاصيل سلة المنتجات:\n\n";
 
       cart.forEach(product => {
-        message += `اسم المنتج: ${product.name}\n`;
+                message += `اسم المنتج: ${product.name}\n`;
         message += `الكمية: ${product.quantity}\n`;
-        message += `سعر أدنى: ${product.minPrice} دينار\n`;
-        message += `سعر أعلى: ${product.maxPrice} دينار\n\n`;
+        message += `السعر: ${product.minPrice} - ${product.maxPrice} دينار\n\n`;
       });
 
-      // إرسال الرسالة إلى بوت تيليجرام
-      const telegramBotUrl = `https://api.telegram.org/bot7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak/sendMessage`;
-      const chatId = "<1434047374>";
+      const botToken = "YOUR_BOT_TOKEN";  // ضع هنا التوكن الخاص بك
+      const chatId = "YOUR_CHAT_ID";      // ضع هنا الـ chat ID الخاص بك
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-      fetch(`${telegramBotUrl}?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            alert("تم إرسال البيانات إلى بوت تيليجرام بنجاح.");
-            localStorage.removeItem("cart"); // مسح السلة بعد إرسالها
-            window.location.href = "products.html"; // الرجوع إلى صفحة المنتجات
-          } else {
-            alert("حدث خطأ أثناء إرسال البيانات.");
-          }
-        })
-        .catch(error => {
-          console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
-          alert("حدث خطأ أثناء إرسال البيانات.");
-        });
+      const data = {
+        chat_id: chatId,
+        text: message
+      };
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          alert("تم إرسال المعلومات بنجاح!");
+          // بعد إرسال الرسالة يمكن إرجاع الصفحة أو تفريغ السلة
+          localStorage.removeItem("cart"); // تفريغ السلة
+          window.location.href = 'products.html';  // العودة إلى صفحة المنتجات
+        } else {
+          alert("فشل في إرسال البيانات إلى تيليجرام.");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("حدث خطأ أثناء الاتصال بتيليجرام.");
+      });
     }
 
-    // استدعاء الدالة لعرض السلة عند تحميل الصفحة
-    displayCart();
+    // التحقق من وجود السلة عند تحميل الصفحة
+    window.onload = function() {
+      displayCart();  // عرض المنتجات في السلة عند تحميل الصفحة
+    };
+
   </script>
+
 </body>
 </html>
+       
