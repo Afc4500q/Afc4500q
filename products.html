@@ -129,7 +129,7 @@
           <p>سعر أدنى: ${product.minprice} </p>
           <p>سعر أعلى: ${product.maxprice} </p>
           <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-          <button onclick="sellToCustomer('${product.id}')">بيع لزبون</button>
+          <button onclick="sellToCustomer('${product.id}')">بيع</button>
         `;
         
         productsContainer.appendChild(productCard);
@@ -163,21 +163,13 @@
     }
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
-    function sellToCustomer(productId) {
-  // العثور على بيانات المنتج
-  const product = products.find((p) => p.id === productId);
+   function sellToCustomer(productId) {
+  // تخزين فقط id المنتج في localStorage
+  localStorage.setItem("selectedProductId", productId);
 
-  if (product) {
-    // تخزين بيانات المنتج في localStorage
-    localStorage.setItem("selectedProduct", JSON.stringify(product));
-
-    // توجيه المستخدم إلى صفحة بيع لزبون
-    window.location.href = "sell-customer.html";
-  } else {
-    alert("لم يتم العثور على المنتج.");
-  }
-}
-
+  // توجيه المستخدم إلى صفحة بيع لزبون
+  window.location.href = "sell-customer.html";
+} 
   
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
