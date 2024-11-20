@@ -222,7 +222,7 @@
         console.error(error);
       });
     }
-
+const userId = JSON.parse(localStorage.getItem("userData")).id || "غير معروف"; // استرجاع ID الحساب
     // استدعاء دالة عرض السلة عند تحميل الصفحة
     displayCart();
   </script>
