@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منتجات عشتار</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+    }
+    header {
+      background-color: #004d40;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Traditional Arabic', sans-serif;
+      font-size: 36px;
+      margin: 0;
+    }
+    header nav button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    header nav button:hover {
+      background-color: #00796b;
+    }
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .product-card h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .product-card p {
+      font-size: 16px;
+      color: #555;
+    }
+    .product-card button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .product-card button:hover {
+      background-color: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>عشتار</h1>
+    <nav>
+      <button onclick="window.location.href='account.html'">الحساب</button>
+      <button onclick="window.location.href='cart.html'">سلة المنتجات</button>
+      <button onclick="window.location.href='support.html'">الدعم الفني</button>
+    </nav>
+  </header>
+
+  <!-- Products Section -->
+  <div class="products-container" id="productsContainer">
+    <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
+  </div>
+
+  <script>
+    // جلب المنتجات من الـ API
+    async function fetchProducts() {
+      try {
+        const response = await fetch("https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products");
+        if (response.ok) {
+          const products = await response.json();
+          displayProducts(products);
+        } else {
+          console.error("فشل في تحميل المنتجات");
+        }
+      } catch (error) {
+        console.error("حدث خطأ عند جلب البيانات:", error);
+      }
+    }
+
+    // عرض المنتجات في الصفحة
+    function displayProducts(products) {
+      const productsContainer = document.getElementById("productsContainer");
+      productsContainer.innerHTML = "";  // تفريغ الحاوية قبل إضافة المنتجات الجديدة
+
+      products.forEach(product => {
+        const productCard = document.createElement("div");
+        productCard.classList.add("product-card");
+
+        // إضافة محتوى المنتج
+        productCard.innerHTML = `
+          <img src="${product.imageUrl}" alt="${product.name}">
+          <h3 id="product-name-${product.id}">${product.name}</h3>
+          <p>سعر أدنى: ${product.minPrice} دينار</p>
+          <p>سعر أعلى: ${product.maxPrice} دينار</p>
+          <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
+          <button onclick="sellToCustomer('${product.id}')">بيع لزبون</button>
+        `;
+        
+        productsContainer.appendChild(productCard);
+      });
+    }
+
+    // إضافة المنتج إلى السلة
+    function addToCart(productId) {
+      // جلب المنتجات المخزنة في السلة من localStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // جلب بيانات المنتج بناءً على المعرف
+      const productName = document.querySelector(`#product-name-${productId}`).innerText;
+      const productMinPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.innerText.split(':')[1].trim();
+      const productMaxPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.nextElementSibling.innerText.split(':')[1].trim();
+
+      const product = {
+        id: productId,
+        name: productName,
+        minPrice: productMinPrice,
+        maxPrice: productMaxPrice
+      };
+
+      // إضافة المنتج إلى السلة
+      cart.push(product);
+
+      // تخزين السلة مرة أخرى في localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      console.log(`تم إضافة المنتج ${productId} إلى السلة`);
+    }
+
+    // بيع المنتج لزبون (يمكن تطويره لاحقًا)
+    function sellToCustomer(productId) {
+      console.log(`بيع المنتج ${productId} لزبون`);
+      // يمكن إضافة الكود هنا لتطوير عملية البيع
+    }
+
+    // استدعاء دالة جلب المنتجات عند تحميل الصفحة
+    fetchProducts();
+  </script>
+
+</body>
+</html>
