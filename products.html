@@ -165,8 +165,10 @@
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
    // في صفحة المنتجات
 function sellProduct(productId) {
-  localStorage.setItem("selectedProductId", productId); // تخزين ID المنتج في localStorage
-  window.location.href = "sell-customer.html"; // التوجيه إلى صفحة بيع لزبون
+  localStorage.setItem("userData", JSON.stringify(user));
+
+            // التوجيه إلى الصفحة التالية (الـ Dashboard)
+window.location.href = "products.html";
 }
   
 
