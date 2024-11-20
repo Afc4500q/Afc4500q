@@ -110,8 +110,8 @@ if (!productId) {
       } else {
         // تعبئة الحقول بمعلومات المنتج
         document.getElementById("productName").value = product.name || "غير موجود";
-        document.getElementById("minPrice").value = product.minPrice || "غير موجود";
-        document.getElementById("maxPrice").value = product.maxPrice || "غير موجود";
+        document.getElementById("minPrice").value = product.minprice || "غير موجود";
+        document.getElementById("maxPrice").value = product.maxprice || "غير موجود";
         document.getElementById("description").value = product.description || "لا يوجد وصف";
       }
     })
