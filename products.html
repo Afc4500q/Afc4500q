@@ -129,7 +129,34 @@
           <p>سعر أدنى: ${product.minprice} </p>
           <p>سعر أعلى: ${product.maxprice} </p>
           <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-          <button onclick="sellProduct('${product.id}')">بيع</button>
+           });
+
+        // إضافة حدث لكل زر "بيع لزبون"
+        const sellButtons = document.querySelectorAll('.sell-button');
+        sellButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            // استخراج بيانات المنتج من الزر
+            const productName = button.getAttribute('data-name');
+            const minPrice = button.getAttribute('data-min-price');
+            const maxPrice = button.getAttribute('data-max-price');
+            const image = button.getAttribute('data-image');
+            const productId = button.getAttribute('data-id');
+
+            // تخزين بيانات المنتج في localStorage
+            localStorage.setItem("productData", JSON.stringify({
+              id: productId,
+              name: productName,
+              minPrice: minPrice,
+              maxPrice: maxPrice,
+              image: image
+            }));
+
+            // التوجيه إلى صفحة بيع لزبون
+            window.location.href = "sell-customer.html";
+          });
+        });
+      })
+      .catch(error => console.log('Error fetching products:', error));
         `;
         
         productsContainer.appendChild(productCard);
@@ -162,14 +189,7 @@
       console.log(`تم إضافة المنتج ${productId} إلى السلة`);
     }
 
-    // بيع المنتج لزبون (يمكن تطويره لاحقًا)
-   // في صفحة المنتجات
-function sellProduct(productId) {
-  localStorage.setItem("productData", JSON.stringify(product));
-
-            // التوجيه إلى الصفحة التالية (صفحة بيع لزبون)
-            window.location.href = "sell-customer.html";
-}
+    
   
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
