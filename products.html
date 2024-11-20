@@ -128,11 +128,16 @@
           <h3 id="product-name-${product.id}">${product.name}</h3>
           <p>سعر أدنى: ${product.minprice} </p>
           <p>سعر أعلى: ${product.maxprice} </p>
-          <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-           });
+        
+        <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
+        
+           
+        `;
+        
+        productsContainer.appendChild(productCard);
+      });
 
-        // إضافة حدث لكل زر "بيع لزبون"
-        const sellButtons = document.querySelectorAll('.sell-button');
+      const sellButtons = document.querySelectorAll('.sell-button');
         sellButtons.forEach(button => {
           button.addEventListener('click', function() {
             // استخراج بيانات المنتج من الزر
@@ -156,11 +161,7 @@
           });
         });
       })
-      .catch(error => console.log('Error fetching products:', error));
-        `;
-        
-        productsContainer.appendChild(productCard);
-      });
+      .catch(error => console.log('Error fetching products:', erro
     }
 
     // إضافة المنتج إلى السلة
