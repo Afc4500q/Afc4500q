@@ -76,6 +76,16 @@
       margin-top: 20px;
       background-color: #00796b;
     }
+    .customer-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .customer-info input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
@@ -96,7 +106,7 @@
   </div>
 
   <!-- زر إرسال إلى بوت تيليجرام -->
-  <button class="send-to-telegram" onclick="sendToTelegram()">إرسال إلى بوت تيليجرام</button>
+  <button class="send-to-telegram" onclick="promptCustomerInfo()">إرسال إلى بوت تيليجرام</button>
 
   <script>
     // عرض المنتجات في السلة
@@ -133,15 +143,50 @@
       displayCart();
     }
 
+    // عرض نافذة تطلب معلومات الزبون
+    function promptCustomerInfo() {
+      const customerInfoForm = `
+        <div class="customer-info">
+          <label for="customerName">اسم الزبون:</label>
+          <input type="text" id="customerName" placeholder="أدخل اسم الزبون" required />
+
+          <label for="customerPhone">رقم الهاتف:</label>
+          <input type="text" id="customerPhone" placeholder="أدخل رقم الهاتف" required />
+
+          <label for="customerAddress">العنوان:</label>
+          <input type="text" id="customerAddress" placeholder="أدخل العنوان" required />
+        </div>
+        <button onclick="sendToTelegram()">إرسال</button>
+      `;
+      document.getElementById("cartContainer").innerHTML = customerInfoForm;
+    }
+
     // إرسال سلة المنتجات إلى بوت تيليجرام
     function sendToTelegram() {
+      const customerName = document.getElementById("customerName").value;
+      const customerPhone = document.getElementById("customerPhone").value;
+      const customerAddress = document.getElementById("customerAddress").value;
+
+      if (!customerName || !customerPhone || !customerAddress) {
+        alert("يرجى ملء جميع الحقول.");
+        return;
+      }
+
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       if (cart.length === 0) {
         alert("السلة فارغة!");
         return;
       }
 
-      let message = "تفاصيل سلة المنتجات:\n\n";
+      // استرجاع الـ ID من صفحة Dashboard
+      const userId = JSON.parse(localStorage.getItem("userData")).id || "غير معروف"; // استرجاع ID الحساب
+
+      let message = `معلومات الزبون:\n`;
+      message += `الاسم: ${customerName}\n`;
+      message += `رقم الهاتف: ${customerPhone}\n`;
+      message += `العنوان: ${customerAddress}\n`;
+      message += `ID الحساب: ${userId}\n\n`;  // إضافة الـ ID في الرسالة
+      message += "تفاصيل سلة المنتجات:\n\n";
       cart.forEach(product => {
         message += `اسم المنتج: ${product.name}\n`;
         message += `السعر: ${product.minPrice} دينار\n`;
@@ -166,6 +211,8 @@
       .then(data => {
         if (data.ok) {
           alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
+          localStorage.removeItem("cart");  // حذف المنتجات من السلة
+          displayCart();  // إعادة عرض السلة (تكون فارغة الآن)
         } else {
           alert("حدث خطأ أثناء إرسال الرسالة.");
         }
