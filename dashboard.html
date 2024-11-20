@@ -9,11 +9,11 @@
   </style>
 </head>
 <body>
-  <h1>Welcome, <span id="name"></span>!</h1>
-  <p>Balance: <span id="balance"></span></p>
-  <p>Successful Orders: <span id="successfulOrders"></span></p>
-  <p>Pending Orders: <span id="pendingOrders"></span></p>
-
+  <h1><span id="name"></span>!</h1>
+  <p>الرصيد: <span id="balance"></span></p>
+  <p>الطلبات الناجحهة: <span id="successfulOrders"></span></p>
+  <p>الطلبات المعلقة: <span id="pendingOrders"></span></p>
+   <p>المعرف الخاص بك: <span id="myid"></span></p>
   <script>
     // استرداد بيانات المستخدم من التخزين المحلي
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -23,6 +23,7 @@
       document.getElementById("balance").textContent = userData.balance;
       document.getElementById("successfulOrders").textContent = userData.successfulOrders;
       document.getElementById("pendingOrders").textContent = userData.pendingOrders;
+      document.getElementById("myid").textContent = userData.id;
     } else {
       alert("No user data found. Please log in again.");
       window.location.href = "index.html";
