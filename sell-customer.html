@@ -95,8 +95,8 @@
     if (selectedProduct) {
       // تعبئة حقول المنتج
       document.getElementById("productName").value = selectedProduct.name;
-      document.getElementById("minPrice").value = selectedProduct.minPrice;
-      document.getElementById("maxPrice").value = selectedProduct.maxPrice;
+      document.getElementById("minPrice").value = selectedProduct.minprice;
+      document.getElementById("maxPrice").value = selectedProduct.maxprice;
       document.getElementById("description").value = selectedProduct.description || "لا يوجد وصف";
     } else {
       alert("لم يتم العثور على بيانات المنتج.");
