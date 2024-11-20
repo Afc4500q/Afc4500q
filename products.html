@@ -163,13 +163,11 @@
     }
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
-   function sellToCustomer(productId) {
-  // تخزين فقط id المنتج في localStorage
-  localStorage.setItem("selectedProductId", productId);
-
-  // توجيه المستخدم إلى صفحة بيع لزبون
-  window.location.href = "sell-customer.html";
-} 
+   // في صفحة المنتجات
+function sellProduct(productId) {
+  localStorage.setItem("selectedProductId", productId); // تخزين ID المنتج في localStorage
+  window.location.href = "sell-customer.html"; // التوجيه إلى صفحة بيع لزبون
+}
   
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
