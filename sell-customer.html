@@ -96,7 +96,7 @@
       window.location.href = "products.html"; // العودة إلى صفحة المنتجات إذا لم يكن هناك ID
     } else {
       // استرداد بيانات المنتج من API باستخدام id
-      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/2`)
         .then(response => response.json())
         .then(product => {
           // تعبئة الحقول بمعلومات المنتج
