@@ -121,10 +121,10 @@
 
         // إضافة محتوى المنتج
         productCard.innerHTML = `
-          <img src="${product.imageUrl}" alt="${product.name}">
+          <img src="${product.image}" alt="${product.name}">
           <h3 id="product-name-${product.id}">${product.name}</h3>
-          <p>سعر أدنى: ${product.minPrice} دينار</p>
-          <p>سعر أعلى: ${product.maxPrice} دينار</p>
+          <p>سعر أدنى: ${product.minprice} دينار</p>
+          <p>سعر أعلى: ${product.maxprice} دينار</p>
           <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
           <button onclick="sellToCustomer('${product.id}')">بيع لزبون</button>
         `;
