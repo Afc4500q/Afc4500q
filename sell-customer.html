@@ -3,30 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
-  </style>
+  <title>بيع لزبون</title>
 </head>
 <body>
-  <h1><span id="productName"></span></h1>
-  <p>السعر الأدنى: <span id="minPrice">دينار عراقي</span></p>
-  <p>السعر الأعلى: <span id="maxPrice"></span></p>
-  <p>الوصف: <span id="description"></span></p>
-  <p>المعرف الخاص بالمنتج: <span id="productId"></span></p>
-  <script>
-    // استرداد بيانات المنتج من التخزين المحلي
-    const productData = JSON.parse(localStorage.getItem("productData"));
+  <h1>معلومات المنتج</h1>
+  <p><strong>اسم المنتج: </strong><span id="productName"></span></p>
+  <p><strong>السعر الأدنى: </strong><span id="minPrice"></span></p>
+  <p><strong>السعر الأعلى: </strong><span id="maxPrice"></span></p>
+  <img id="productImage" alt="صورة المنتج" width="200">
+
+  <h2>معلومات الزبون</h2>
+  <form>
+    <label for="customerName">اسم الزبون:</label>
+    <input type="text" id="customerName" name="customerName"><br><br>
     
+    <label for="customerPhone">رقم الهاتف:</label>
+    <input type="text" id="customerPhone" name="customerPhone"><br><br>
+    
+    <label for="customerCity">المدينة:</label>
+    <input type="text" id="customerCity" name="customerCity"><br><br>
+    
+    <label for="customerRegion">المنطقة:</label>
+    <input type="text" id="customerRegion" name="customerRegion"><br><br>
+
+    <button type="submit">إرسال</button>
+    <button type="button" onclick="window.location.href='products.html'">إغلاق</button>
+  </form>
+
+  <script>
+    // استرجاع بيانات المنتج من localStorage
+    const productData = JSON.parse(localStorage.getItem("productData"));
+
     if (productData) {
       document.getElementById("productName").textContent = productData.name;
       document.getElementById("minPrice").textContent = productData.minPrice;
       document.getElementById("maxPrice").textContent = productData.maxPrice;
-      document.getElementById("description").textContent = productData.description;
-      document.getElementById("productId").textContent = productData.id;
+      document.getElementById("productImage").src = productData.image;
     } else {
-      alert("No product data found. Please select a product.");
-      window.location.href = "products.html";
+      alert("لم يتم العثور على بيانات المنتج.");
     }
   </script>
 </body>
