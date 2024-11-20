@@ -32,9 +32,6 @@
         if (response.ok) {
           const users = await response.json();
           
-          // طباعة البيانات للتحقق من أن المستخدمين تم تحميلهم بشكل صحيح
-          console.log("Fetched users:", users);
-          
           // البحث عن المستخدم بناءً على اسم المستخدم وكلمة المرور
           const user = users.find(u => u.username === username && u.password === password);
 
