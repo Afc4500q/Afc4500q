@@ -2,6 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
+   <link rel="stylesheet" href="p.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منتجات عشتار</title>
   <style>
@@ -84,7 +85,7 @@
           <p>سعر أدنى: ${product.minprice} </p>
           <p>سعر أعلى: ${product.maxprice} </p>
           <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-          <button onclick="sellToCustomerBtn('${product.id}')">بيع لزبون</button>
+          <button id="sellToCustomerBtn">بيع لزبون</button>
         `;
         
         productsContainer.appendChild(productCard);
