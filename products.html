@@ -164,9 +164,17 @@
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
     function sellToCustomer(productId) {
-console.log("hi")
-      // يمكن إضافة الكود هنا لتطوير عملية البيع
-    }
+  // الحصول على بيانات المنتج بناءً على الـ ID
+  const product = products.find((p) => p.id === productId);
+
+  if (product) {
+    // تخزين بيانات المنتج في localStorage
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+    // توجيه المستخدم إلى صفحة "بيع لزبون"
+    window.location.href = "sell-customer.html";
+  }
+}
 
   
 
