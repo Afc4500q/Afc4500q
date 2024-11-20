@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سلة المنتجات</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+    }
+    header {
+      background-color: #004d40;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Traditional Arabic', sans-serif;
+      font-size: 36px;
+      margin: 0;
+    }
+    header nav button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    header nav button:hover {
+      background-color: #00796b;
+    }
+    .cart-container {
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      background-color: #f9f9f9;
+    }
+    .product-card h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .product-card p {
+      font-size: 16px;
+      color: #555;
+    }
+    .product-card button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .product-card button:hover {
+      background-color: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>سلة المنتجات</h1>
+    <nav>
+      <button onclick="window.location.href='account.html'">الحساب</button>
+      <button onclick="window.location.href='products.html'">المنتجات</button>
+      <button onclick="window.location.href='support.html'">الدعم الفني</button>
+    </nav>
+  </header>
+
+  <!-- Cart Section -->
+  <div class="cart-container" id="cartContainer">
+    <!-- المنتجات ستظهر هنا عبر JavaScript -->
+  </div>
+
+  <script>
+    // عرض المنتجات في السلة
+    function displayCart() {
+      const cartContainer = document.getElementById("cartContainer");
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>السلة فارغة</p>";
+        return;
+      }
+
+      cartContainer.innerHTML = ""; // تفريغ المحتوى القديم
+
+      cart.forEach(product => {
+        const productCard = document.createElement("div");
+        productCard.classList.add("product-card");
+        productCard.innerHTML = `
+          <h3>${product.name}</h3>
+          <p>سعر أدنى: ${product.minPrice} دينار</p>
+          <p>سعر أعلى: ${product.maxPrice} دينار</p>
+        `;
+        cartContainer.appendChild(productCard);
+      });
+    }
+
+    // استدعاء دالة عرض السلة عند تحميل الصفحة
+    displayCart();
+  </script>
+
+</body>
+</html>
