@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    .info { margin: 20px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Your Dashboard</h1>
+  <div class="info" id="userInfo"></div>
+
+  <script>
+    async function fetchUserData() {
+      // استرداد البيانات من التخزين المحلي
+      const userData = JSON.parse(localStorage.getItem("userData"));
+
+      if (!userData) {
+        alert("No user data found. Please log in again.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        // طلب البيانات من API باستخدام معلومات المستخدم
+        const response = await fetch(`https://673a394a339a4ce445179ae7.mockapi.io/User${userData.id}`, {
+          headers: { Authorization: `Bearer ${userData.token}` },
+        });
+
+        if (response.ok) {
+          const userDetails = await response.json();
+
+          // عرض البيانات في الصفحة
+          document.getElementById("userInfo").innerHTML = `
+            <p><strong>ID:</strong> ${userDetails.id}</p>
+            <p><strong>Name:</strong> ${userDetails.name}</p>
+            <p><strong>Successful Orders:</strong> ${userDetails.successfulOrders}</p>
+            <p><strong>Pending Orders:</strong> ${userDetails.pendingOrders}</p>
+            <p><strong>Balance:</strong> ${userDetails.balance} EUR</p>
+          `;
+        } else {
+          alert("Failed to fetch user details.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while fetching user data.");
+      }
+    }
+
+    fetchUserData();
+  </script>
+</body>
+</html>
