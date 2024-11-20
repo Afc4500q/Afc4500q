@@ -55,7 +55,6 @@
   </style>
 </head>
 <body>
-
   <div class="form-container">
     <h2>بيع لزبون</h2>
     <form id="sellForm">
@@ -89,22 +88,32 @@
   </div>
 
   <script>
-    // استرداد بيانات المنتج من localStorage
-    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    // استرداد id المنتج من localStorage
+    const productId = localStorage.getItem("selectedProductId");
 
-    if (selectedProduct) {
-      // تعبئة الحقول بمعلومات المنتج
-      document.getElementById("productName").value = selectedProduct.name;
-      document.getElementById("minPrice").value = selectedProduct.minprice;
-      document.getElementById("maxPrice").value = selectedProduct.maxPrice;
-      document.getElementById("description").value = selectedProduct.description || "لا يوجد وصف";
+    if (!productId) {
+      alert("لم يتم العثور على المنتج. يرجى العودة إلى صفحة المنتجات.");
+      window.location.href = "products.html"; // العودة إلى صفحة المنتجات إذا لم يكن هناك ID
     } else {
-      alert("لم يتم العثور على بيانات المنتج.");
+      // استرداد بيانات المنتج من API باستخدام id
+      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+        .then(response => response.json())
+        .then(product => {
+          // تعبئة الحقول بمعلومات المنتج
+          document.getElementById("productName").value = product.name;
+          document.getElementById("minPrice").value = product.minprice;
+          document.getElementById("maxPrice").value = product.maxprice;
+          document.getElementById("description").value = product.description || "لا يوجد وصف";
+        })
+        .catch(error => {
+          console.error("خطأ في استرداد المنتج:", error);
+          alert("حدث خطأ أثناء استرداد بيانات المنتج.");
+        });
     }
 
     // معالجة إرسال النموذج
     document.getElementById("sellForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // منع الإرسال الفعلي للنموذج
+      event.preventDefault(); // منع الإرسال الافتراضي
 
       // استرداد بيانات الزبون
       const customerName = document.getElementById("customerName").value;
@@ -115,10 +124,10 @@
       // إعداد البيانات للإرسال إلى بوت تيلجرام
       const message = `
         🛒 *طلب بيع لزبون*:
-        - 📦 اسم المنتج: ${selectedProduct.name}
-        - 💰 السعر الأدنى: ${selectedProduct.minPrice}
-        - 💰 السعر الأعلى: ${selectedProduct.maxprice}
-        - 📝 وصف المنتج: ${selectedProduct.description || "لا يوجد وصف"}
+        - 📦 اسم المنتج: ${document.getElementById("productName").value}
+        - 💰 السعر الأدنى: ${document.getElementById("minPrice").value}
+        - 💰 السعر الأعلى: ${document.getElementById("maxPrice").value}
+        - 📝 وصف المنتج: ${document.getElementById("description").value || "لا يوجد وصف"}
         ---
         👤 *معلومات الزبون*:
         - 🏷️ الاسم: ${customerName}
@@ -127,7 +136,7 @@
         - 📍 المنطقة: ${area}
       `;
 
-      // إرسال البيانات إلى بوت تيلجرام عبر API (ضع رابط البوت هنا)
+      // إرسال البيانات إلى بوت تيلجرام عبر API
       const telegramApiUrl = `https://api.telegram.org/bot<TOKEN>/sendMessage`;
       const chatId = "<CHAT_ID>";
 
@@ -142,8 +151,8 @@
           parse_mode: "Markdown"
         })
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           if (data.ok) {
             alert("تم إرسال الطلب بنجاح!");
             window.location.href = "products.html"; // العودة إلى صفحة المنتجات
@@ -151,7 +160,7 @@
             alert("فشل في إرسال الطلب. يرجى المحاولة مرة أخرى.");
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error("خطأ أثناء الإرسال إلى تيلجرام:", error);
           alert("حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقًا.");
         });
