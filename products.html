@@ -75,6 +75,20 @@
     .product-card button:hover {
       background-color: #00796b;
     }
+
+    /* تنسيق نافذة منبثقة */
+.mode {
+  display: none; /* نافذة مخفية بشكل افتراضي */
+  position: fixed;
+  z-index: 1; /* تأكد من أن النافذة فوق كل شيء */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة */
+  padding-top: 50px; /* المسافة من أعلى الشاشة */
+  overflow: auto; /* لتحديد التمرير إذا كانت المحتويات كبيرة */
+}
   </style>
 </head>
 <body>
@@ -94,7 +108,7 @@
     <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
   </div>
 
-  <div calss="mode">
+  <div id="bod" class="mode">
     
   </div>
 
@@ -165,7 +179,8 @@
 
     // بيع المنتج لزبون (يمكن تطويره لاحقًا)
     function sellToCustomer(productId) {
-      console.log(`بيع المنتج ${productId} لزبون`);
+      const bod = document.querySelector("#bod");
+      bod.style.display = "block";  
       // يمكن إضافة الكود هنا لتطوير عملية البيع
     }
 
