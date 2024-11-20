@@ -53,6 +53,11 @@
       font-size: 16px;
       color: #555;
     }
+    .product-card img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
     .product-card button {
       background-color: #004d40;
       color: white;
@@ -65,6 +70,10 @@
       border-radius: 5px;
     }
     .product-card button:hover {
+      background-color: #00796b;
+    }
+    .send-to-telegram {
+      margin-top: 20px;
       background-color: #00796b;
     }
   </style>
@@ -86,6 +95,9 @@
     <!-- المنتجات ستظهر هنا عبر JavaScript -->
   </div>
 
+  <!-- زر إرسال إلى بوت تيليجرام -->
+  <button class="send-to-telegram" onclick="sendToTelegram()">إرسال إلى بوت تيليجرام</button>
+
   <script>
     // عرض المنتجات في السلة
     function displayCart() {
@@ -103,11 +115,64 @@
         const productCard = document.createElement("div");
         productCard.classList.add("product-card");
         productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
           <h3>${product.name}</h3>
           <p>سعر أدنى: ${product.minPrice} دينار</p>
           <p>سعر أعلى: ${product.maxPrice} دينار</p>
+          <button onclick="removeFromCart(${product.id})">حذف من السلة</button>
         `;
         cartContainer.appendChild(productCard);
+      });
+    }
+
+    // إزالة المنتج من السلة
+    function removeFromCart(productId) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart = cart.filter(product => product.id !== productId);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      displayCart();
+    }
+
+    // إرسال سلة المنتجات إلى بوت تيليجرام
+    function sendToTelegram() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("السلة فارغة!");
+        return;
+      }
+
+      let message = "تفاصيل سلة المنتجات:\n\n";
+      cart.forEach(product => {
+        message += `اسم المنتج: ${product.name}\n`;
+        message += `السعر: ${product.minPrice} دينار\n`;
+        message += `رابط الصورة: ${product.image}\n\n`;
+      });
+
+      const botToken = "YOUR_BOT_TOKEN";
+      const chatId = "YOUR_CHAT_ID";
+      const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+      fetch(telegramApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
+        } else {
+          alert("حدث خطأ أثناء إرسال الرسالة.");
+        }
+      })
+      .catch(error => {
+        alert("حدث خطأ أثناء إرسال الرسالة.");
+        console.error(error);
       });
     }
 
