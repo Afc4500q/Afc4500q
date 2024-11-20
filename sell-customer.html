@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بيع لزبون</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .form-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-container input, .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .form-container input[readonly], .form-container textarea[readonly] {
+      background-color: #e9e9e9;
+      cursor: not-allowed;
+    }
+
+    .form-container button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>بيع لزبون</h2>
+    <form id="sellForm">
+      <label for="productName">اسم المنتج:</label>
+      <input type="text" id="productName" readonly>
+
+      <label for="minPrice">السعر الأدنى:</label>
+      <input type="text" id="minPrice" readonly>
+
+      <label for="maxPrice">السعر الأعلى:</label>
+      <input type="text" id="maxPrice" readonly>
+
+      <label for="description">وصف المنتج:</label>
+      <textarea id="description" rows="4" readonly></textarea>
+
+      <h3>معلومات الزبون</h3>
+      <label for="customerName">اسم الزبون الثلاثي:</label>
+      <input type="text" id="customerName" placeholder="أدخل اسم الزبون" required>
+
+      <label for="phone">رقم الهاتف:</label>
+      <input type="text" id="phone" placeholder="أدخل رقم الهاتف" required>
+
+      <label for="city">المدينة:</label>
+      <input type="text" id="city" placeholder="أدخل المدينة" required>
+
+      <label for="area">المنطقة:</label>
+      <input type="text" id="area" placeholder="أدخل المنطقة" required>
+
+      <button type="submit">إرسال</button>
+    </form>
+  </div>
+
+  <script>
+    // استرداد بيانات المنتج من localStorage
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    if (selectedProduct) {
+      // تعبئة حقول المنتج
+      document.getElementById("productName").value = selectedProduct.name;
+      document.getElementById("minPrice").value = selectedProduct.minPrice;
+      document.getElementById("maxPrice").value = selectedProduct.maxPrice;
+      document.getElementById("description").value = selectedProduct.description || "لا يوجد وصف";
+    } else {
+      alert("لم يتم العثور على بيانات المنتج.");
+    }
+
+    // معالجة إرسال النموذج
+    document.getElementById("sellForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // منع الإرسال الفعلي للنموذج
+
+      // استرداد بيانات الزبون
+      const customerName = document.getElementById("customerName").value;
+      const phone = document.getElementById("phone").value;
+      const city = document.getElementById("city").value;
+      const area = document.getElementById("area").value;
+
+      // إعداد البيانات للإرسال إلى بوت تيلجرام
+      const message = `
+        🛒 *طلب بيع لزبون*:
+        - 📦 اسم المنتج: ${selectedProduct.name}
+        - 💰 السعر الأدنى: ${selectedProduct.minPrice}
+        - 💰 السعر الأعلى: ${selectedProduct.maxPrice}
+        - 📝 وصف المنتج: ${selectedProduct.description || "لا يوجد وصف"}
+        ---
+        👤 *معلومات الزبون*:
+        - 🏷️ الاسم: ${customerName}
+        - 📞 الهاتف: ${phone}
+        - 🏙️ المدينة: ${city}
+        - 📍 المنطقة: ${area}
+      `;
+
+      // إرسال البيانات إلى بوت تيلجرام عبر API (ضع رابط البوت هنا)
+      const telegramApiUrl = `https://api.telegram.org/bot<TOKEN>/sendMessage`;
+      const chatId = "<CHAT_ID>";
+
+      fetch(telegramApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            alert("تم إرسال الطلب بنجاح!");
+            window.location.href = "products.html"; // العودة إلى صفحة المنتجات
+          } else {
+            alert("فشل في إرسال الطلب. يرجى المحاولة مرة أخرى.");
+          }
+        })
+        .catch((error) => {
+          console.error("خطأ أثناء الإرسال إلى تيلجرام:", error);
+          alert("حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقًا.");
+        });
+    });
+  </script>
+</body>
+</html>
