@@ -77,18 +77,56 @@
     }
 
     /* تنسيق نافذة منبثقة */
-.mode {
-  display: none; /* نافذة مخفية بشكل افتراضي */
-  position: fixed;
-  z-index: 1; /* تأكد من أن النافذة فوق كل شيء */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة */
-  padding-top: 50px; /* المسافة من أعلى الشاشة */
-  overflow: auto; /* لتحديد التمرير إذا كانت المحتويات كبيرة */
-}
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display:none;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .form-container button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+
+    .form-container button.close {
+      background-color: #f44336;
+      margin-left: 10px;
+    }
+
+    .form-container button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    
+
   </style>
 </head>
 <body>
@@ -108,9 +146,28 @@
     <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
   </div>
 
-  <div id="bod" class="mode">
-    ggg
-  </div>
+    <div  id="bod" class="form-container">
+    <h2>نموذج البيانات</h2>
+    <form id="myForm">
+      <label for="name">الاسم الكامل:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">رقم الهاتف:</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="city">المدينة:</label>
+      <input type="text" id="city" name="city" required>
+
+      <label for="area">المنطقة:</label>
+      <input type="text" id="area" name="area" required>
+
+      <label for="email">البريد الإلكتروني:</label>
+      <input type="text" id="email" name="email" required>
+
+      <button type="submit">إرسال</button>
+      <button type="button" class="close" onclick="closefrom()">إغلاق</button>
+    </form>
+  </di
 
   <script>
     // جلب المنتجات من الـ API
@@ -183,6 +240,11 @@
       bod.style.display = "block";  
       // يمكن إضافة الكود هنا لتطوير عملية البيع
     }
+
+    function closefrom{
+      const bod = document.querySelector("#bod");
+      bod.style.display = "none";  
+    } 
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
     fetchProducts();
