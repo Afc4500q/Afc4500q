@@ -17,6 +17,7 @@
   <script>
     // استرداد بيانات المستخدم من التخزين المحلي
     const userData = JSON.parse(localStorage.getItem("userData"));
+    
     if (userData) {
       document.getElementById("name").textContent = userData.name;
       document.getElementById("balance").textContent = userData.balance;
