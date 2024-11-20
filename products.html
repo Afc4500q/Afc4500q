@@ -136,32 +136,6 @@
         
         productsContainer.appendChild(productCard);
       });
-
-      const sellButtons = document.querySelectorAll('.sell-button');
-        sellButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            // استخراج بيانات المنتج من الزر
-            const productName = button.getAttribute('data-name');
-            const minPrice = button.getAttribute('data-min-price');
-            const maxPrice = button.getAttribute('data-max-price');
-            const image = button.getAttribute('data-image');
-            const productId = button.getAttribute('data-id');
-
-            // تخزين بيانات المنتج في localStorage
-            localStorage.setItem("productData", JSON.stringify({
-              id: productId,
-              name: productName,
-              minPrice: minPrice,
-              maxPrice: maxPrice,
-              image: image
-            }));
-
-            // التوجيه إلى صفحة بيع لزبون
-            window.location.href = "sell-customer.html";
-          });
-        });
-      })
-      .catch(error => console.log('Error fetching products:', error));
     }
 
     // إضافة المنتج إلى السلة
