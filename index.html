@@ -26,28 +26,29 @@
       const password = document.getElementById("password").value;
 
       try {
-        // إرسال طلب تحقق إلى API
-        const response = await fetch("https://673a394a339a4ce445179ae7.mockapi.io/User", {
-          method: "POST", // تحقق فقط (حسب الـ API)
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-
+        // إرسال طلب GET لجلب جميع المستخدمين
+        const response = await fetch("https://673a394a339a4ce445179ae7.mockapi.io/User");
         if (response.ok) {
-          const data = await response.json();
+          const users = await response.json();
 
-          // حفظ البيانات المسترجعة في التخزين المحلي
-          localStorage.setItem("userData", JSON.stringify(data));
+          // البحث عن المستخدم بناءً على اسم المستخدم وكلمة المرور
+          const user = users.find(u => u.username === username && u.password === password);
 
-          // توجيه المستخدم إلى الصفحة التالية
-          window.location.href = "user.html";
+          if (user) {
+            // حفظ بيانات المستخدم في التخزين المحلي
+            localStorage.setItem("userData", JSON.stringify(user));
+
+            // التوجيه إلى الصفحة التالية
+            window.location.href = "user.html";
+          } else {
+            alert("Invalid username or password.");
+          }
         } else {
-          // في حالة الخطأ، عرض رسالة مناسبة
-          alert("Invalid username or password.");
+          alert("Failed to fetch users from the server.");
         }
       } catch (error) {
         console.error("Error:", error);
-        alert("An error occurred while logging in.");
+        alert("An error occurred while connecting to the server.");
       }
     });
   </script>
