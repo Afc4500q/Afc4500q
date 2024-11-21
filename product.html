@@ -57,41 +57,56 @@
   </div>
 
   <script>
-    // جلب تفاصيل المنتج من URL
-    function getProductDetails() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get('id');
+  // جلب تفاصيل المنتج من URL
+  function getProductDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-      if (productId) {
-        fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-          .then(response => response.json())
-          .then(product => {
-            document.getElementById('productName').innerText = product.name;
-            document.getElementById('productImage').src = product.image;
-            document.getElementById('productMinPrice').innerText = `سعر أدنى: ${product.minprice}`;
-            document.getElementById('productMaxPrice').innerText = `سعر أعلى: ${product.maxprice}`;
+    if (productId) {
+      // التأكد من أن المنتج موجود في الـ API
+      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+        .then(response => response.json())
+        .then(product => {
+          if (product && product.id) {
+            // إذا كانت البيانات موجودة، نقوم بعرضها
+            document.getElementById('productName').innerText = product.name || 'اسم المنتج غير متوفر';
+            document.getElementById('productImage').src = product.image || 'path/to/default-image.jpg'; // صورة افتراضية إذا كانت الصورة غير موجودة
+            document.getElementById('productMinPrice').innerText = `سعر أدنى: ${product.minprice || 'غير متوفر'}`;
+            document.getElementById('productMaxPrice').innerText = `سعر أعلى: ${product.maxprice || 'غير متوفر'}`;
+
+            // تأكد من أن الزر يعمل بشكل صحيح
             document.getElementById('addToCartBtn').onclick = () => addToCartFromDetails(product);
-          })
-          .catch(error => console.error("حدث خطأ عند جلب تفاصيل المنتج:", error));
-      }
+          } else {
+            console.error("المنتج غير موجود");
+            document.getElementById('productDetails').innerHTML = "<p>عذرًا، المنتج غير موجود.</p>";
+          }
+        })
+        .catch(error => {
+          console.error("حدث خطأ عند جلب تفاصيل المنتج:", error);
+          document.getElementById('productDetails').innerHTML = "<p>حدث خطأ في تحميل بيانات المنتج. الرجاء المحاولة لاحقًا.</p>";
+        });
+    } else {
+      console.error("المعرف غير موجود في الرابط");
+      document.getElementById('productDetails').innerHTML = "<p>المعرف غير صحيح. الرجاء العودة إلى الصفحة الرئيسية.</p>";
     }
+  }
 
-    // إضافة المنتج إلى السلة من صفحة التفاصيل
-    function addToCartFromDetails(product) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({
-        id: product.id,
-        name: product.name,
-        minPrice: product.minprice,
-        maxPrice: product.maxprice
-      });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      console.log(`تم إضافة المنتج ${product.name} إلى السلة`);
-    }
+  // إضافة المنتج إلى السلة من صفحة التفاصيل
+  function addToCartFromDetails(product) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({
+      id: product.id,
+      name: product.name,
+      minPrice: product.minprice,
+      maxPrice: product.maxprice
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log(`تم إضافة المنتج ${product.name} إلى السلة`);
+  }
 
-    // استدعاء دالة جلب التفاصيل عند تحميل الصفحة
-    getProductDetails();
-  </script>
+  // استدعاء دالة جلب التفاصيل عند تحميل الصفحة
+  getProductDetails();
+</script>
 
 </body>
 </html>
