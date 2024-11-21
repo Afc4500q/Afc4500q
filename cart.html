@@ -69,6 +69,7 @@
       padding: 20px;
       background-color: #f8f9fa;
       border-radius: 5px;
+      display: none; /* إخفاء نافذة معلومات الزبون بشكل افتراضي */
     }
 
     .customer-info label {
@@ -105,7 +106,7 @@
     <!-- سلة المنتجات ستظهر هنا -->
   </div>
 
-  <div class="customer-info">
+  <div class="customer-info" id="customerInfo">
     <h3>معلومات الزبون</h3>
     <label for="customerName">الاسم الثلاثي</label>
     <input type="text" id="customerName" placeholder="الاسم الثلاثي" />
@@ -135,7 +136,14 @@
     function displayCart() {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const cartContainer = document.getElementById("cartContainer");
+      const customerInfo = document.getElementById("customerInfo");
       cartContainer.innerHTML = ''; // مسح محتويات السلة الحالية
+
+      if (cart.length === 0) {
+        customerInfo.style.display = 'none'; // إخفاء نافذة معلومات الزبون إذا كانت السلة فارغة
+      } else {
+        customerInfo.style.display = 'block'; // إظهار نافذة معلومات الزبون إذا كانت السلة تحتوي على منتجات
+      }
 
       cart.forEach(product => {
         const productDiv = document.createElement("div");
@@ -221,18 +229,17 @@
           alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
           localStorage.removeItem("cart");  // حذف المنتجات من السلة
           displayCart();  // إعادة عرض السلة (تكون فارغة الآن)
-          document.querySelector('.send-to-telegram').style.display = 'none'; // إخفاء زر الإرسال بعد النجاح
+                    document.querySelector('.send-to-telegram').style.display = 'none'; // إخفاء زر الإرسال بعد إرسال البيانات
         } else {
-          alert("حدث خطأ أثناء إرسال الرسالة.");
+          alert("حدث خطأ أثناء إرسال البيانات إلى بوت تيليجرام.");
         }
       })
       .catch(error => {
-        alert("حدث خطأ أثناء إرسال الرسالة.");
-        console.error(error);
+        alert("حدث خطأ في الاتصال: " + error);
       });
     }
 
-    // عند تحميل الصفحة، عرض السلة
+    // استدعاء دالة عرض السلة عند تحميل الصفحة
     window.onload = function() {
       displayCart();
     };
