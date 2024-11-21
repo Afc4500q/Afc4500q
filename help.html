@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update User</title>
+    <title>Update User by Username</title>
 </head>
 <body>
     <h1>Update User by Username</h1>
@@ -35,6 +35,7 @@
     <script>
         const apiUrl = 'https://673a394a339a4ce445179ae7.mockapi.io/User';
 
+        // جلب المستخدم بناءً على اسم المستخدم
         async function fetchUserByUsername(username) {
             try {
                 const response = await fetch(`${apiUrl}?username=${username}`);
@@ -46,13 +47,14 @@
                     alert('User not found');
                     return null;
                 }
-                return users[0]; // Assume username is unique
+                return users[0]; // نفترض أن اسم المستخدم فريد
             } catch (error) {
                 console.error('Error fetching user:', error);
                 return null;
             }
         }
 
+        // تحديث بيانات المستخدم
         async function updateUserByUsername() {
             const username = document.getElementById('username').value;
             if (!username) {
@@ -61,21 +63,23 @@
             }
 
             const updatedData = {
-                username: document.getElementById('newUsername').value,
-                password: document.getElementById('newPassword').value,
-                name: document.getElementById('newName').value,
-                balance: parseFloat(document.getElementById('newBalance').value),
-                successfulOrders: parseInt(document.getElementById('newSuccessfulOrders').value, 10),
-                pendingOrders: parseInt(document.getElementById('newPendingOrders').value, 10),
+                username: document.getElementById('newUsername').value || undefined,
+                password: document.getElementById('newPassword').value || undefined,
+                name: document.getElementById('newName').value || undefined,
+                balance: parseFloat(document.getElementById('newBalance').value) || undefined,
+                successfulOrders: parseInt(document.getElementById('newSuccessfulOrders').value, 10) || undefined,
+                pendingOrders: parseInt(document.getElementById('newPendingOrders').value, 10) || undefined,
             };
 
-            const user = await fetchUserByUsername(username);
-            if (!user) {
-                alert('Cannot update: User not found');
-                return;
-            }
-
             try {
+                // الخطوة 1: جلب المستخدم
+                const user = await fetchUserByUsername(username);
+                if (!user) {
+                    alert('Cannot update: User not found');
+                    return;
+                }
+
+                // الخطوة 2: تحديث بيانات المستخدم
                 const response = await fetch(`${apiUrl}/${user.id}`, {
                     method: 'PUT',
                     headers: {
@@ -97,6 +101,7 @@
             }
         }
 
+        // ربط الحدث بزر التحديث
         document.getElementById('updateButton').addEventListener('click', updateUserByUsername);
     </script>
 </body>
