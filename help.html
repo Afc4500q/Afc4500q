@@ -153,37 +153,36 @@
         // Update user
         
         
-        async function updateUser() {
-    const userId = document.getElementById('updateUserForm').dataset.userId;
+        
+        
 
-    if (!userId) {
-        alert('User ID is missing. Please fetch the user first.');
+async function fetchUserByUsername(username) {
+    try {
+        const response = await fetch(`${apiUrl}?username=${username}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user');
+        }
+        const users = await response.json();
+        if (users.length === 0) {
+            alert('User not found');
+            return null;
+        }
+        return users[0]; // نفترض أن اسم المستخدم فريد
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        return null;
+    }
+}
+
+async function updateUserByUsername(username, updatedData) {
+    const user = await fetchUserByUsername(username);
+    if (!user) {
+        alert('Cannot update: User not found');
         return;
     }
-
-    // البيانات المحدثة
-   async function updateUser() {
-    const userId = document.getElementById('updateUserForm').dataset.userId;
-
-    if (!userId) {
-        alert('User ID is missing. Please fetch the user first.');
-        return;
-    }
-
-    // التأكد من رابط API
-    console.log(`Updating user at: ${apiUrl}/${userId}`);
-
-    const updatedData = {
-        username: document.getElementById('updateUsername').value,
-        password: document.getElementById('updatePassword').value,
-        name: document.getElementById('updateName').value,
-        balance: parseFloat(document.getElementById('updateBalance').value),
-        successfulOrders: parseInt(document.getElementById('updateSuccessfulOrders').value, 10),
-        pendingOrders: parseInt(document.getElementById('updatePendingOrders').value, 10),
-    };
 
     try {
-        const response = await fetch(`${apiUrl}/${userId}`, {
+        const response = await fetch(`${apiUrl}/${user.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -192,19 +191,30 @@
         });
 
         if (!response.ok) {
-            console.error('Error details:', await response.json());
-            alert(`Failed to update user. Status: ${response.status}`);
-            return;
+            throw new Error(`Failed to update user: ${response.statusText}`);
         }
 
         const result = await response.json();
         alert('User updated successfully!');
         console.log('Updated user:', result);
     } catch (error) {
-        console.error('Error occurred:', error);
+        console.error('Error updating user:', error);
         alert('An error occurred while updating the user.');
     }
 }
+
+// مثال على الاستخدام:
+const usernameToUpdate = 'testUsername';
+const updatedData = {
+    username: 'newUsername',
+    password: 'newPassword',
+    name: 'newName',
+    balance: 200,
+    successfulOrders: 10,
+    pendingOrders: 2,
+};
+
+updateUserByUsername(usernameToUpdate, updatedData);
     </script>
 </body>
 </html>
