@@ -5,38 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تفاصيل المنتج</title>
   <style>
-    /* قم بتخصيص الأنماط حسب الحاجة */
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .product-details {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    h1 {
+      color: #1A4973;
+    }
+    p {
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
-
-  <div id="productDetailsContainer">
-    <!-- تفاصيل المنتج ستظهر هنا -->
+  <div class="product-details" id="productDetails">
+    <!-- سيتم عرض تفاصيل المنتج هنا -->
   </div>
 
   <script>
-    // استرجاع بيانات المنتج من localStorage
-    function loadProductDetails() {
-      const productDetails = JSON.parse(localStorage.getItem("productDetails"));
+    // جلب بيانات المنتج من localStorage
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
 
-      if (!productDetails) {
-        document.getElementById("productDetailsContainer").innerHTML = "عذراً، المنتج غير موجود.";
-        return;
-      }
+    // التحقق من وجود المنتج
+    if (!selectedProduct) {
+      document.getElementById("productDetails").innerHTML = "<p>حدث خطأ في تحميل التفاصيل.</p>";
+    } else {
+      const { name, image, minPrice, maxPrice, description } = selectedProduct;
 
-      const productDetailsContainer = document.getElementById("productDetailsContainer");
-      productDetailsContainer.innerHTML = `
-        <h1>${productDetails.name}</h1>
-        <img src="${productDetails.image}" alt="${productDetails.name}" style="width: 100%; max-width: 400px;">
-        <p>سعر أدنى: ${productDetails.minPrice}</p>
-        <p>سعر أعلى: ${productDetails.maxPrice}</p>
-        <button onclick="addToCart('${productDetails.id}')">إضافة إلى السلة</button>
+      // عرض بيانات المنتج
+      document.getElementById("productDetails").innerHTML = `
+        <img src="${image}" alt="${name}">
+        <h1>${name}</h1>
+        <p><strong>سعر أدنى:</strong> ${minPrice}</p>
+        <p><strong>سعر أعلى:</strong> ${maxPrice}</p>
+        <p><strong>الوصف:</strong> ${description}</p>
       `;
     }
-
-    // استدعاء دالة تحميل تفاصيل المنتج عند تحميل الصفحة
-    loadProductDetails();
   </script>
-
 </body>
 </html>
