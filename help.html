@@ -93,7 +93,7 @@
     </div>
 
     <script>
-        const apiUrl = 'https://673a394a339a4ce445179ae7.mockapi.io/User';
+        const apiUrl = 'https://673a394a339a4ce445179ae7.mockapi.io/User/<userId>';
 
         // Add new user
         async function addUser() {
@@ -152,6 +152,7 @@
 
         // Update user
         
+        
         async function updateUser() {
     const userId = document.getElementById('updateUserForm').dataset.userId;
 
@@ -160,27 +161,28 @@
         return;
     }
 
+    // البيانات المحدثة
     const updatedData = {
         username: document.getElementById('updateUsername').value,
         password: document.getElementById('updatePassword').value,
         name: document.getElementById('updateName').value,
-        balance: +document.getElementById('updateBalance').value,
-        successfulOrders: +document.getElementById('updateSuccessfulOrders').value,
-        pendingOrders: +document.getElementById('updatePendingOrders').value,
+        balance: parseFloat(document.getElementById('updateBalance').value),
+        successfulOrders: parseInt(document.getElementById('updateSuccessfulOrders').value, 10),
+        pendingOrders: parseInt(document.getElementById('updatePendingOrders').value, 10),
     };
 
     try {
         const response = await fetch(`${apiUrl}/${userId}`, {
-            method: 'PUT',
+            method: 'PUT', // جرب تغييرها إلى PATCH إذا لم تعمل
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedData),
         });
 
+        // فحص الاستجابة
         if (!response.ok) {
-            // عرض السبب المفصل للفشل
             const errorDetails = await response.json();
             console.error('Error details:', errorDetails);
-            alert(`Failed to update user. Error: ${response.statusText}`);
+            alert(`Failed to update user. Status: ${response.status}, Error: ${response.statusText}`);
             return;
         }
 
@@ -188,7 +190,7 @@
         alert('User updated successfully!');
         console.log('Updated user:', result);
     } catch (error) {
-        console.error('Network error:', error);
+        console.error('Network or other error:', error);
         alert('An error occurred while updating the user.');
     }
 }
