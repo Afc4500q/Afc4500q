@@ -1,74 +1,104 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ردود الدعم الفني</title>
-    <style>
-        body { font-family: Arial, sans-serif; direction: rtl; }
-        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
-        .messages { margin-top: 20px; }
-        .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        .user { background-color: #f1f1f1; }
-        .support { background-color: #e0f7fa; }
-        .chat-box { max-width: 600px; margin: 0 auto; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إضافة منتج</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
+  <h1 style="text-align: center;">إضافة منتج جديد</h1>
+  <form id="productForm">
+    <label for="name">اسم المنتج:</label>
+    <input type="text" id="name" name="name" required>
 
-    <div class="chat-box">
-        <h1>ردود الدعم الفني</h1>
+    <label for="minprice">السعر الأدنى:</label>
+    <input type="number" id="minprice" name="minprice" required>
 
-        <!-- عرض الرسائل -->
-        <div class="messages" id="messages"></div>
+    <label for="maxprice">السعر الأعلى:</label>
+    <input type="number" id="maxprice" name="maxprice" required>
 
-        <!-- نموذج الرد -->
-        <textarea id="response" placeholder="اكتب ردك هنا..." required></textarea><br>
-        <button onclick="sendResponse()">إرسال الرد</button>
-        <button onclick="window.location.href='page1.html'">الذهاب إلى صفحة الدعم الفني</button>  <!-- العودة إلى الصفحة الأولى -->
-    </div>
+    <label for="condition">الحالة:</label>
+    <input type="text" id="condition" name="condition" required>
 
-    <script>
-        // دالة لإرسال الرد على الرسالة
-        function sendResponse() {
-            const response = document.getElementById('response').value;
-            if (response.trim() !== '') {
-                let messages = JSON.parse(localStorage.getItem('messages')) || [];
-                // إضافة الرد على الرسالة الأخيرة
-                messages[messages.length - 1].support = response;
-                localStorage.setItem('messages', JSON.stringify(messages));
+    <label for="discount">نسبة الخصم:</label>
+    <input type="number" id="discount" name="discount" required>
 
-                // عرض الرد في صفحة الردود
-                displayMessage('رد الدعم الفني: ' + response, 'support');
-                document.getElementById('response').value = '';  // مسح مربع النص
-            }
+    <label for="description">الوصف:</label>
+    <textarea id="description" name="description" rows="4" required></textarea>
+
+    <label for="images">الصور (روابط مفصولة بفواصل):</label>
+    <input type="text" id="images" name="images" required>
+
+    <button type="submit">إضافة المنتج</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('productForm');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // جمع بيانات الاستمارة
+      const formData = {
+        name: document.getElementById('name').value,
+        minprice: parseFloat(document.getElementById('minprice').value),
+        maxprice: parseFloat(document.getElementById('maxprice').value),
+        condition: document.getElementById('condition').value,
+        discount: parseFloat(document.getElementById('discount').value),
+        description: document.getElementById('description').value,
+        images: document.getElementById('images').value.split(','), // تحويل الروابط إلى مصفوفة
+      };
+
+      try {
+        // إرسال الطلب إلى الـ API
+        const response = await fetch('https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          alert('تمت إضافة المنتج بنجاح!');
+          form.reset(); // إعادة تعيين الاستمارة
+        } else {
+          alert('حدث خطأ أثناء إضافة المنتج.');
         }
-
-        // دالة لعرض الرسالة في صفحة الردود
-        function displayMessage(message, sender) {
-            const messageContainer = document.createElement('div');
-            messageContainer.classList.add('message');
-            messageContainer.classList.add(sender);
-            messageContainer.textContent = message;
-            document.getElementById('messages').appendChild(messageContainer);
-        }
-
-        // عرض الرسائل عند تحميل الصفحة
-        window.onload = function() {
-            let messages = JSON.parse(localStorage.getItem('messages')) || [];
-            messages.forEach(function(msg) {
-                displayMessage(msg.user, 'user');
-                if (msg.support) {
-                    displayMessage(msg.support, 'support');
-                }
-            });
-
-            // حذف الرسائل التي مر عليها أكثر من 15 دقيقة
-            const currentTime = Date.now();
-            messages = messages.filter(msg => currentTime - msg.timestamp <= 900000); // 15 دقيقة = 900000 مللي ثانية
-            localStorage.setItem('messages', JSON.stringify(messages));
-        };
-    </script>
-
+      } catch (error) {
+        console.error('Error:', error);
+        alert('حدث خطأ أثناء الاتصال بالخادم.');
+      }
+    });
+  </script>
 </body>
 </html>
