@@ -134,54 +134,52 @@ header nav i:hover {
     }
 
     // عرض المنتجات في الصفحة
-    function displayProducts(products) {
-      const productsContainer = document.getElementById("productsContainer");
-      productsContainer.innerHTML = "";  // تفريغ الحاوية قبل إضافة المنتجات الجديدة
+    // عرض المنتجات في الصفحة
+function displayProducts(products) {
+  const productsContainer = document.getElementById("productsContainer");
+  productsContainer.innerHTML = "";  // تفريغ الحاوية قبل إضافة المنتجات الجديدة
 
-      products.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
+  products.forEach(product => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
 
-        // إضافة محتوى المنتج
-        productCard.innerHTML = `
-          <a href="product.html?id=${product.id}" class="product-link">
-            <img src="${product.image}" alt="${product.name}">
-            <h3 id="product-name-${product.id}">${product.name}</h3>
-            <p>سعر أدنى: ${product.minprice}</p>
-            <p>سعر أعلى: ${product.maxprice}</p>
-          </a>
-          <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-        `;
-        
-        productsContainer.appendChild(productCard);
-      });
-    }
+    // إضافة محتوى المنتج
+    productCard.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3 id="product-name-${product.id}">${product.name}</h3>
+      <p>سعر أدنى: ${product.minprice} </p>
+      <p>سعر أعلى: ${product.maxprice} </p>
+    
+      <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
+      <button onclick="viewProductDetails('${product.id}')">عرض التفاصيل</button>
+    `;
+    
+    productsContainer.appendChild(productCard);
+  });
+}
 
-    // إضافة المنتج إلى السلة
-    function addToCart(productId) {
-      // جلب المنتجات المخزنة في السلة من localStorage
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+// عند النقر على عرض التفاصيل، نقوم بتخزين معلومات المنتج في localStorage
+function viewProductDetails(productId) {
+  // جلب بيانات المنتج بناءً على المعرف
+  const productName = document.querySelector(`#product-name-${productId}`).innerText;
+  const productMinPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.innerText.split(':')[1].trim();
+  const productMaxPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.nextElementSibling.innerText.split(':')[1].trim();
+  const productImage = document.querySelector(`#product-name-${productId}`).previousElementSibling.src;
 
-      // جلب بيانات المنتج بناءً على المعرف
-      const productName = document.querySelector(`#product-name-${productId}`).innerText;
-      const productMinPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.innerText.split(':')[1].trim();
-      const productMaxPrice = document.querySelector(`#product-name-${productId}`).nextElementSibling.nextElementSibling.innerText.split(':')[1].trim();
+  const productDetails = {
+    id: productId,
+    name: productName,
+    minPrice: productMinPrice,
+    maxPrice: productMaxPrice,
+    image: productImage
+  };
 
-      const product = {
-        id: productId,
-        name: productName,
-        minPrice: productMinPrice,
-        maxPrice: productMaxPrice
-      };
+  // تخزين معلومات المنتج في localStorage
+  localStorage.setItem("productDetails", JSON.stringify(productDetails));
 
-      // إضافة المنتج إلى السلة
-      cart.push(product);
-
-      // تخزين السلة مرة أخرى في localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      console.log(`تم إضافة المنتج ${productId} إلى السلة`);
-    }
+  // الانتقال إلى صفحة المنتج الواحد
+  window.location.href = 'product-detail.html'; // تأكد من أن الصفحة موجودة
+}
 
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
     fetchProducts();
