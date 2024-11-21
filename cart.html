@@ -291,74 +291,77 @@
             document.getElementById("customerInfo").style.display = "block"; // عرض نافذة معلومات الزبون
         }
 
-        // إرسال البيانات إلى بوت تيليجرام
-        function sendToTelegram() {
-            const customerName = document.getElementById("customerName").value;
-            const customerPhone = document.getElementById("customerPhone").value;
-            const customerCity = document.getElementById("customerCity").value;
-            const customerDistrict = document.getElementById("customerDistrict").value;
-            const customerRegion = document.getElementById("customerRegion").value;
-            const customerPrice = document.getElementById("customerPrice").value;
+        // إرسال البيانات إلى بوت 
+        // تعديل دالة sendToTelegram لإضافة معرف المستخدم:
+function sendToTelegram() {
+    const customerName = document.getElementById("customerName").value;
+    const customerPhone = document.getElementById("customerPhone").value;
+    const customerCity = document.getElementById("customerCity").value;
+    const customerDistrict = document.getElementById("customerDistrict").value;
+    const customerRegion = document.getElementById("customerRegion").value;
+    const customerPrice = document.getElementById("customerPrice").value;
 
-            // التأكد من تعبئة جميع الحقول
-            if (!customerName || !customerPhone || !customerCity || !customerDistrict || !customerRegion || !customerPrice) {
-                alert("يرجى ملء جميع الحقول.");
-                return;
-            }
+    // التأكد من تعبئة جميع الحقول
+    if (!customerName || !customerPhone || !customerCity || !customerDistrict || !customerRegion || !customerPrice) {
+        alert("يرجى ملء جميع الحقول.");
+        return;
+    }
 
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            if (cart.length === 0) {
-                alert("السلة فارغة!");
-                return;
-            }
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("السلة فارغة!");
+        return;
+    }
 
-            let message = `معلومات الزبون:\n`;
-            message += `الاسم: ${customerName}\n`;
-            message += `رقم الهاتف: ${customerPhone}\n`;
-            message += `المدينة: ${customerCity}\n`;
-            message += `المنطقة: ${customerDistrict}\n`;
-            message += `المحافظة: ${customerRegion}\n`;
-            message += `سعر البيع: ${customerPrice}\n\n`;
-            message += "تفاصيل سلة المنتجات:\n\n";
+    // الحصول على ID المستخدم من LocalStorage
+    const userId = localStorage.getItem("userId");
 
-            cart.forEach((product, index) => {
-                const quantity = document.getElementById(`quantity-${index}`).value;
-                message += `اسم المنتج: ${product.name}\n`;
-                message += `الكمية: ${quantity}\n`;
-                message += `السعر: ${product.minPrice} دينار\n\n`;
-            });
+    let message = `معلومات الزبون (ID: ${userId}):\n`;
+    message += `الاسم: ${customerName}\n`;
+    message += `رقم الهاتف: ${customerPhone}\n`;
+    message += `المدينة: ${customerCity}\n`;
+    message += `المنطقة: ${customerDistrict}\n`;
+    message += `المحافظة: ${customerRegion}\n`;
+    message += `سعر البيع: ${customerPrice}\n\n`;
+    message += "تفاصيل سلة المنتجات:\n\n";
 
-            const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak";  // استبدل بـ توكن البوت الخاص بك
-            const chatId = "1434047374";  // استبدل بـ معرف الدردشة الخاص بك
-            const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    cart.forEach((product, index) => {
+        const quantity = document.getElementById(`quantity-${index}`).value;
+        message += `اسم المنتج: ${product.name}\n`;
+        message += `الكمية: ${quantity}\n`;
+        message += `السعر: ${product.minPrice} دينار\n\n`;
+    });
 
-            fetch(telegramApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
-                    localStorage.removeItem("cart");  // حذف المنتجات من السلة
-                    displayCart();  // إعادة عرض السلة (تكون فارغة الآن)
-                    document.getElementById("customerInfo").style.display = "none"; // إخفاء نافذة معلومات الزبون
-                } else {
-                    alert("حدث خطأ أثناء إرسال المعلومات.");
-                }
-            })
-            .catch(error => {
-                alert("حدث خطأ في الاتصال مع بوت تيليجرام.");
-                console.error(error);
-            });
+    const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak";  // استبدل بـ توكن البوت الخاص بك
+    const chatId = "1434047374";  // استبدل بـ معرف الدردشة الخاص بك
+    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    fetch(telegramApiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
+            localStorage.removeItem("cart");  // حذف المنتجات من السلة
+            displayCart();  // إعادة عرض السلة (تكون فارغة الآن)
+            document.getElementById("customerInfo").style.display = "none"; // إخفاء نافذة معلومات الزبون
+        } else {
+            alert("حدث خطأ أثناء إرسال المعلومات.");
         }
-
+    })
+    .catch(error => {
+        alert("حدث خطأ في الاتصال مع بوت تيليجرام.");
+        console.error(error);
+    });
+}
         // عرض السلة عند تحميل الصفحة
         window.onload = displayCart;
     </script>
