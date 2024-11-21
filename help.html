@@ -9,6 +9,8 @@
         textarea { width: 100%; height: 150px; }
         .messages { margin-top: 20px; }
         .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        .user { background-color: #f1f1f1; }
+        .bot { background-color: #e0f7fa; }
     </style>
 </head>
 <body>
@@ -73,8 +75,11 @@
                 // في حال تم إرسال الرسالة بنجاح
                 if (data.ok) {
                     console.log('تم إرسال رسالتك بنجاح إلى Telegram!');
-                    // هنا يمكننا البدء في "سحب" الرد من البوت بعد لحظة.
-                    // هذه الخطوة سيتم توضيحها لاحقًا.
+                    // محاكاة رد البوت بعد 5 ثواني
+                    setTimeout(function() {
+                        const botReply = 'تم استلام رسالتك. شكراً لتواصلك!';
+                        showBotReply(botReply);
+                    }, 5000); // الرد بعد 5 ثواني
                 } else {
                     console.log('حدث خطأ أثناء إرسال الرسالة.');
                 }
@@ -84,17 +89,10 @@
             });
         }
 
-        // دالة لعرض الرد في صفحة الدعم الفني
+        // دالة لعرض رد البوت في صفحة الدعم الفني
         function showBotReply(reply) {
             displayMessage('رد البوت: ' + reply, 'bot');
         }
-
-        // هذه دالة افتراضية لمحاكاة الحصول على الرد بعد فترة من الزمن
-        // يمكن استبدالها بطريقة للحصول على الرد الفعلي عبر API أو WebSocket
-        setTimeout(function() {
-            const botReply = 'تم استلام رسالتك. شكراً لتواصلك!';
-            showBotReply(botReply);
-        }, 5000); // محاكاة رد البوت بعد 5 ثواني
     </script>
 </body>
 </html>
