@@ -152,30 +152,48 @@
 
         // Update user
         async function updateUser() {
-            const userId = document.getElementById('updateUserForm').dataset.userId;
+    const userId = document.getElementById('updateUserForm').dataset.userId;
 
-            const updatedData = {
-                username: document.getElementById('updateUsername').value,
-                password: document.getElementById('updatePassword').value,
-                name: document.getElementById('updateName').value,
-                balance: +document.getElementById('updateBalance').value,
-                successfulOrders: +document.getElementById('updateSuccessfulOrders').value,
-                pendingOrders: +document.getElementById('updatePendingOrders').value,
-            };
+    // تحقق أن ID المستخدم تم جلبه
+    if (!userId) {
+        alert('User ID is missing. Please fetch the user first.');
+        return;
+    }
 
-            try {
-                const response = await fetch(`${apiUrl}/${userId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedData),
-                });
-                const result = await response.json();
-                alert('User updated successfully!');
-                console.log(result);
-            } catch (error) {
-                console.error('Error updating user:', error);
-            }
+    // البيانات المحدثة
+    const updatedData = {
+        username: document.getElementById('updateUsername').value,
+        password: document.getElementById('updatePassword').value,
+        name: document.getElementById('updateName').value,
+        balance: +document.getElementById('updateBalance').value,
+        successfulOrders: +document.getElementById('updateSuccessfulOrders').value,
+        pendingOrders: +document.getElementById('updatePendingOrders').value,
+    };
+
+    try {
+        // أرسل طلب التحديث
+        const response = await fetch(`${apiUrl}/${userId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+            // إذا كان هناك خطأ من الخادم
+            const errorData = await response.json();
+            console.error('Error updating user:', errorData);
+            alert('Failed to update user.');
+            return;
         }
+
+        const result = await response.json();
+        alert('User updated successfully!');
+        console.log('Updated user:', result);
+    } catch (error) {
+        console.error('Error updating user:', error);
+        alert('An error occurred while updating the user.');
+    }
+}
     </script>
 </body>
 </html>
