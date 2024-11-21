@@ -25,6 +25,7 @@
         <!-- نموذج إرسال الرسالة -->
         <textarea id="message" placeholder="اكتب رسالتك هنا..." required></textarea><br>
         <button onclick="sendMessage()">إرسال</button>
+        <button onclick="window.location.href='page2.html'">الذهاب للردود</button>  <!-- الانتقال للصفحة الثانية -->
     </div>
 
     <script>
@@ -32,15 +33,15 @@
         function sendMessage() {
             const message = document.getElementById('message').value;
             if (message.trim() !== '') {
+                // تخزين الرسالة مع وقت الإرسال في Local Storage
+                let messages = JSON.parse(localStorage.getItem('messages')) || [];
+                const timestamp = Date.now(); // الوقت الحالي بالمللي ثانية
+                messages.push({ user: message, support: "", timestamp: timestamp });
+                localStorage.setItem('messages', JSON.stringify(messages));
+
                 // عرض الرسالة في صفحة الدعم الفني
                 displayMessage('رسالة المستخدم: ' + message, 'user');
                 document.getElementById('message').value = '';  // مسح مربع النص
-
-                // إرسال الرد تلقائيًا (هنا يتم الرد بشكل ثابت منك كمشرف)
-                setTimeout(function() {
-                    const response = 'رد الدعم الفني: تم استلام رسالتك، كيف يمكنني مساعدتك؟';
-                    displayMessage(response, 'support');
-                }, 1000);  // الرد بعد 1 ثانية (لتقليد الرد الفوري)
             }
         }
 
@@ -51,14 +52,23 @@
             messageContainer.classList.add(sender);
             messageContainer.textContent = message;
             document.getElementById('messages').appendChild(messageContainer);
-            scrollToBottom();  // تمرير الصفحة للأسفل لعرض الرسائل الجديدة
         }
 
-        // دالة لتمرير الصفحة للأسفل لعرض الرسائل الجديدة
-        function scrollToBottom() {
-            const messagesDiv = document.getElementById('messages');
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+        // عرض الرسائل عند تحميل الصفحة
+        window.onload = function() {
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.forEach(function(msg) {
+                displayMessage(msg.user, 'user');
+                if (msg.support) {
+                    displayMessage(msg.support, 'support');
+                }
+            });
+
+            // حذف الرسائل التي مر عليها أكثر من 15 دقيقة
+            const currentTime = Date.now();
+            messages = messages.filter(msg => currentTime - msg.timestamp <= 900000); // 15 دقيقة = 900000 مللي ثانية
+            localStorage.setItem('messages', JSON.stringify(messages));
+        };
     </script>
 
 </body>
