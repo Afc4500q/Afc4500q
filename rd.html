@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ردود الدعم الفني</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        .messages { margin-top: 20px; }
+        .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .user { background-color: #f1f1f1; }
+        .support { background-color: #e0f7fa; }
+        .chat-box { max-width: 600px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+    <div class="chat-box">
+        <h1>ردود الدعم الفني</h1>
+
+        <!-- عرض الرسائل -->
+        <div class="messages" id="messages"></div>
+
+        <!-- نموذج الرد -->
+        <textarea id="response" placeholder="اكتب ردك هنا..." required></textarea><br>
+        <button onclick="sendResponse()">إرسال الرد</button>
+        <button onclick="window.location.href='page1.html'">الذهاب إلى صفحة الدعم الفني</button>  <!-- العودة إلى الصفحة الأولى -->
+    </div>
+
+    <script>
+        // دالة لإرسال الرد على الرسالة
+        function sendResponse() {
+            const response = document.getElementById('response').value;
+            if (response.trim() !== '') {
+                let messages = JSON.parse(localStorage.getItem('messages')) || [];
+                // إضافة الرد على الرسالة الأخيرة
+                messages[messages.length - 1].support = response;
+                localStorage.setItem('messages', JSON.stringify(messages));
+
+                // عرض الرد في صفحة الردود
+                displayMessage('رد الدعم الفني: ' + response, 'support');
+                document.getElementById('response').value = '';  // مسح مربع النص
+            }
+        }
+
+        // دالة لعرض الرسالة في صفحة الردود
+        function displayMessage(message, sender) {
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message');
+            messageContainer.classList.add(sender);
+            messageContainer.textContent = message;
+            document.getElementById('messages').appendChild(messageContainer);
+        }
+
+        // عرض الرسائل عند تحميل الصفحة
+        window.onload = function() {
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.forEach(function(msg) {
+                displayMessage(msg.user, 'user');
+                if (msg.support) {
+                    displayMessage(msg.support, 'support');
+                }
+            });
+
+            // حذف الرسائل التي مر عليها أكثر من 15 دقيقة
+            const currentTime = Date.now();
+            messages = messages.filter(msg => currentTime - msg.timestamp <= 900000); // 15 دقيقة = 900000 مللي ثانية
+            localStorage.setItem('messages', JSON.stringify(messages));
+        };
+    </script>
+
+</body>
+</html>
