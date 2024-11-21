@@ -3,96 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعم فني</title>
+    <title>صفحة الدعم الفني</title>
     <style>
         body { font-family: Arial, sans-serif; direction: rtl; }
-        textarea { width: 100%; height: 150px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
         .messages { margin-top: 20px; }
-        .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
         .user { background-color: #f1f1f1; }
-        .bot { background-color: #e0f7fa; }
+        .support { background-color: #e0f7fa; }
+        .chat-box { max-width: 600px; margin: 0 auto; }
     </style>
 </head>
 <body>
-    <h1>صفحة الدعم الفني</h1>
-    
-    <!-- نموذج إرسال الرسالة -->
-    <form id="support-form">
-        <label for="message">اكتب رسالتك:</label><br>
-        <textarea id="message" name="message" required></textarea><br><br>
-        <button type="submit">إرسال الرسالة</button>
-    </form>
 
-    <!-- عرض الرسائل المرسلة -->
-    <div class="messages" id="messages"></div>
+    <div class="chat-box">
+        <h1>الدعم الفني</h1>
+
+        <!-- عرض الرسائل -->
+        <div class="messages" id="messages"></div>
+
+        <!-- نموذج إرسال الرسالة -->
+        <textarea id="message" placeholder="اكتب رسالتك هنا..." required></textarea><br>
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
 
     <script>
-        // بيانات البوت الخاصة بك
-        const botToken = '7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak';  // API Token للبوت
-        const chatId = '1434047374';  // chat_id الخاص بالمجموعة أو المستخدم
-
-        // معالجة إرسال الرسالة
-        document.getElementById('support-form').addEventListener('submit', function(e) {
-            e.preventDefault();  // منع إعادة تحميل الصفحة
-            
+        // دالة لإرسال الرسالة
+        function sendMessage() {
             const message = document.getElementById('message').value;
             if (message.trim() !== '') {
                 // عرض الرسالة في صفحة الدعم الفني
                 displayMessage('رسالة المستخدم: ' + message, 'user');
+                document.getElementById('message').value = '';  // مسح مربع النص
 
-                // إرسال الرسالة إلى البوت
-                sendMessageToTelegram(message);
+                // إرسال الرد تلقائيًا (هنا يتم الرد بشكل ثابت منك كمشرف)
+                setTimeout(function() {
+                    const response = 'رد الدعم الفني: تم استلام رسالتك، كيف يمكنني مساعدتك؟';
+                    displayMessage(response, 'support');
+                }, 1000);  // الرد بعد 1 ثانية (لتقليد الرد الفوري)
             }
-        });
+        }
 
         // دالة لعرض الرسالة في صفحة الدعم الفني
         function displayMessage(message, sender) {
             const messageContainer = document.createElement('div');
             messageContainer.classList.add('message');
-            messageContainer.textContent = message;
             messageContainer.classList.add(sender);
+            messageContainer.textContent = message;
             document.getElementById('messages').appendChild(messageContainer);
+            scrollToBottom();  // تمرير الصفحة للأسفل لعرض الرسائل الجديدة
         }
 
-        // دالة لإرسال الرسالة إلى بوت تليجرام
-        function sendMessageToTelegram(message) {
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-            const payload = {
-                chat_id: chatId,
-                text: `رسالة من المستخدم: \n${message}`
-            };
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => response.json())
-            .then(data => {
-                // في حال تم إرسال الرسالة بنجاح
-                if (data.ok) {
-                    console.log('تم إرسال رسالتك بنجاح إلى Telegram!');
-                    // محاكاة الرد من البوت بعد 5 ثواني
-                    setTimeout(function() {
-                        const botReply = 'تم استلام رسالتك. شكراً لتواصلك!';
-                        showBotReply(botReply);
-                    }, 5000); // الرد بعد 5 ثواني (يمكنك تغييرها حسب الوقت المطلوب)
-                } else {
-                    console.log('حدث خطأ أثناء إرسال الرسالة.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        // دالة لعرض رد البوت في صفحة الدعم الفني
-        function showBotReply(reply) {
-            displayMessage('رد البوت: ' + reply, 'bot');
+        // دالة لتمرير الصفحة للأسفل لعرض الرسائل الجديدة
+        function scrollToBottom() {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
     </script>
+
 </body>
 </html>
