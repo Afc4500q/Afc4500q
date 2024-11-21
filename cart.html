@@ -24,15 +24,6 @@
       font-size: 36px;
       margin: 0;
     }
-    .back-btn {
-      background-color: #00796b;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
     .cart-container {
       padding: 20px;
     }
@@ -56,9 +47,6 @@
       height: auto;
       margin-bottom: 10px;
     }
-    .product-card .quantity {
-      margin: 10px 0;
-    }
     .product-card button {
       background-color: #004d40;
       color: white;
@@ -76,18 +64,21 @@
     .send-to-telegram {
       margin-top: 20px;
       background-color: #00796b;
-      padding: 10px 15px;
       border: none;
       color: white;
+      padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
+    }
+    .send-to-telegram:disabled {
+      background-color: #c1c1c1;
+      cursor: not-allowed;
     }
     .customer-info {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 10px;
     }
     .customer-info input {
       padding: 10px;
@@ -98,9 +89,10 @@
 </head>
 <body>
 
-  <!-- Header with back button -->
+  <!-- Header -->
   <header>
-    <button class="back-btn" onclick="window.location.href='products.html'">الرجوع إلى المنتجات</button>
+    <h1>سلة المنتجات</h1>
+    <button onclick="window.location.href='products.html'">الرجوع إلى المنتجات</button>
   </header>
 
   <!-- Cart Section -->
@@ -109,36 +101,17 @@
   </div>
 
   <!-- زر إرسال إلى بوت تيليجرام -->
-  <button class="send-to-telegram" onclick="promptCustomerInfo()">إرسال إلى بوت تيليجرام</button>
+  <button class="send-to-telegram" id="sendToTelegramBtn" onclick="promptCustomerInfo()">إرسال إلى بوت تيليجرام</button>
 
   <script>
-    // إضافة المنتجات إلى السلة
-    function addToCart(product) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      // تحقق إذا كان المنتج موجود في السلة بالفعل
-      const existingProductIndex = cart.findIndex(p => p.id === product.id);
-
-      if (existingProductIndex !== -1) {
-        // إذا كان المنتج موجودًا، زيادة الكمية
-        cart[existingProductIndex].quantity++;
-      } else {
-        // إذا لم يكن المنتج موجودًا، إضافته مع تحديد الكمية
-        product.quantity = 1;
-        cart.push(product);
-      }
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    // عرض السلة
-    function renderCart() {
+    // عرض المنتجات في السلة
+    function displayCart() {
       const cartContainer = document.getElementById("cartContainer");
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       if (cart.length === 0) {
         cartContainer.innerHTML = "<p>السلة فارغة</p>";
+        document.getElementById("sendToTelegramBtn").disabled = true;  // تعطيل زر الإرسال إذا كانت السلة فارغة
         return;
       }
 
@@ -152,21 +125,23 @@
           <h3>${product.name}</h3>
           <p>سعر أدنى: ${product.minPrice} دينار</p>
           <p>سعر أعلى: ${product.maxPrice} دينار</p>
-          <p>الكمية: <input type="number" class="quantity" value="${product.quantity}" onchange="updateQuantity(${product.id}, this.value)" min="1"></p>
+          <label for="quantity-${product.id}">الكمية:</label>
+          <input type="number" id="quantity-${product.id}" value="${product.quantity}" min="1" onchange="updateQuantity(${product.id})" />
           <button onclick="removeFromCart(${product.id})">حذف من السلة</button>
         `;
         cartContainer.appendChild(productCard);
       });
     }
 
-    // تحديث الكمية
-    function updateQuantity(productId, quantity) {
+    // تحديث الكمية في السلة
+    function updateQuantity(productId) {
+      const quantityInput = document.getElementById(`quantity-${productId}`);
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const productIndex = cart.findIndex(p => p.id === productId);
-      if (productIndex !== -1) {
-        cart[productIndex].quantity = parseInt(quantity);
+      const productIndex = cart.findIndex(product => product.id === productId);
+
+      if (productIndex > -1) {
+        cart[productIndex].quantity = parseInt(quantityInput.value, 10);
         localStorage.setItem("cart", JSON.stringify(cart));
-        renderCart();
       }
     }
 
@@ -175,31 +150,30 @@
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart = cart.filter(product => product.id !== productId);
       localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
+      displayCart();
     }
 
     // عرض نافذة تطلب معلومات الزبون
     function promptCustomerInfo() {
       const customerInfoForm = `
         <div class="customer-info">
-          <label for="customerName">اسم الزبون:</label>
-          <input type="text" id="customerName" placeholder="أدخل اسم الزبون" required />
-
+          <label for="customerName">الاسم الثلاثي:</label>
+          <input type="text" id="customerName" placeholder="أدخل الاسم الثلاثي" required />
           <label for="customerPhone">رقم الهاتف:</label>
           <input type="text" id="customerPhone" placeholder="أدخل رقم الهاتف" required />
-
-          <label for="customerCity">المدينة:</label>
-          <input type="text" id="customerCity" placeholder="أدخل المدينة" required />
-
-          <label for="customerArea">المنطقة:</label>
-          <input type="text" id="customerArea" placeholder="أدخل المنطقة" required />
-
+          <label for="customerCity">اسم المدينة:</label>
+          <input type="text" id="customerCity" placeholder="أدخل اسم المدينة" required />
+          <label for="customerDistrict">اسم المنطقة:</label>
+          <input type="text" id="customerDistrict" placeholder="أدخل اسم المنطقة" required />
+          <label for="customerProvince">اسم المحافظة:</label>
+          <input type="text" id="customerProvince" placeholder="أدخل اسم المحافظة" required />
           <label for="customerPrice">سعر البيع:</label>
-          <input type="text" id="customerPrice" placeholder="أدخل سعر البيع" required />
+          <input type="number" id="customerPrice" placeholder="أدخل سعر البيع" required />
         </div>
         <button onclick="sendToTelegram()">إرسال</button>
       `;
       document.getElementById("cartContainer").innerHTML = customerInfoForm;
+      document.getElementById("sendToTelegramBtn").style.display = "none";  // إخفاء زر الإرسال بعد فتح نافذة المعلومات
     }
 
     // إرسال سلة المنتجات إلى بوت تيليجرام
@@ -207,10 +181,11 @@
       const customerName = document.getElementById("customerName").value;
       const customerPhone = document.getElementById("customerPhone").value;
       const customerCity = document.getElementById("customerCity").value;
-      const customerArea = document.getElementById("customerArea").value;
+      const customerDistrict = document.getElementById("customerDistrict").value;
+      const customerProvince = document.getElementById("customerProvince").value;
       const customerPrice = document.getElementById("customerPrice").value;
 
-      if (!customerName || !customerPhone || !customerCity || !customerArea || !customerPrice) {
+      if (!customerName || !customerPhone || !customerCity || !customerDistrict || !customerProvince || !customerPrice) {
         alert("يرجى ملء جميع الحقول.");
         return;
       }
@@ -221,32 +196,33 @@
         return;
       }
 
-      // استرجاع الـ ID من صفحة Dashboard
-      const userId = JSON.parse(localStorage.getItem("userData")).id || "غير معروف"; // استرجاع ID الحساب
+      const userId = JSON.parse(localStorage.getItem("userData")).id || "غير معروف";  // استرجاع ID الحساب
 
       let message = `معلومات الزبون:\n`;
-      message += `الاسم: ${customerName}\n`;
+      message += `الاسم الثلاثي: ${customerName}\n`;
       message += `رقم الهاتف: ${customerPhone}\n`;
       message += `المدينة: ${customerCity}\n`;
-      message += `المنطقة: ${customerArea}\n`;
+      message += `المنطقة: ${customerDistrict}\n`;
+      message += `المحافظة: ${customerProvince}\n`;
       message += `سعر البيع: ${customerPrice}\n`;
-      message += `ID الحساب: ${userId}\n\n`;  // إضافة الـ ID في الرسالة
+      message += `ID الحساب: ${userId}\n\n`;
       message += "تفاصيل سلة المنتجات:\n\n";
+
       cart.forEach(product => {
         message += `اسم المنتج: ${product.name}\n`;
         message += `السعر: ${product.minPrice} دينار\n`;
         message += `الكمية: ${product.quantity}\n`;
         message += `رابط الصورة: ${product.image}\n\n`;
       });
+      const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; // ضع هنا رمز البوت الخاص بك
+      const chatId = "1434047374"; // ضع هنا رقم دردشة تيليجرام
 
-      const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak";  // توكن البوت
-      const chatId = "1434047374";  // معرف الدردشة
       const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-            fetch(telegramApiUrl, {
-        method: "POST",
+      fetch(telegramApiUrl, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           chat_id: chatId,
@@ -256,22 +232,24 @@
       .then(response => response.json())
       .then(data => {
         if (data.ok) {
-          alert("تم إرسال المعلومات إلى البوت بنجاح!");
+          alert("تم إرسال معلومات الزبون والمنتجات بنجاح!");
+          localStorage.removeItem("cart");  // مسح السلة بعد إرسال البيانات
+          displayCart();  // إعادة عرض السلة لتحديثها
+          document.getElementById("sendToTelegramBtn").style.display = "inline-block";  // إعادة إظهار الزر بعد إرسال البيانات
         } else {
-          alert("حدث خطأ أثناء إرسال البيانات.");
+          alert("حدث خطأ أثناء إرسال البيانات إلى البوت.");
         }
       })
       .catch(error => {
-        console.error("Error:", error);
+        console.error('Error:', error);
         alert("حدث خطأ أثناء إرسال البيانات.");
       });
     }
 
-    // تحميل السلة عند تحميل الصفحة
-    document.addEventListener("DOMContentLoaded", function() {
-      renderCart();
-    });
-
+    // تفعيل عرض السلة عند تحميل الصفحة
+    window.onload = function() {
+      displayCart();
+    };
   </script>
 </body>
 </html>
