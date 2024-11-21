@@ -16,8 +16,8 @@
     }
 
     header {
-      background-color: #1A4973;
-      color: #FFD700;
+      background-color: #1A4973; /* الأزرق اللازوردي */
+      color: #FFD700; /* الذهبي */
       padding: 15px 20px;
       display: flex;
       justify-content: space-between;
@@ -32,7 +32,54 @@
       color: #FFD700;
     }
 
-    /* باقي التنسيقات... */
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav i {
+      font-size: 24px;
+      color: #FFD700;
+      cursor: pointer;
+    }
+
+    .product-details {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-details img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .product-details h2 {
+      color: #1A4973;
+      margin: 10px 0;
+    }
+
+    .product-details p {
+      color: #555;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .product-details button {
+      background-color: #1A4973;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .product-details button:hover {
+      background-color: #FFD700;
+      color: #1A4973;
+    }
   </style>
 </head>
 <body>
@@ -47,66 +94,77 @@
     </nav>
   </header>
 
-  <!-- Product Details Section -->
-  <div id="productDetails" style="padding: 20px;">
-    <h2 id="productName">اسم المنتج</h2>
-    <img id="productImage" src="" alt="" style="width: 100%; max-width: 400px; border-radius: 8px;">
-    <p id="productMinPrice">سعر أدنى:</p>
-    <p id="productMaxPrice">سعر أعلى:</p>
-    <button id="addToCartBtn" onclick="addToCartFromDetails()">إضافة إلى السلة</button>
+  <!-- تفاصيل المنتج -->
+  <div class="product-details" id="productDetails">
+    <!-- تفاصيل المنتج سيتم إضافتها هنا عبر JavaScript -->
   </div>
 
   <script>
-  // جلب تفاصيل المنتج من URL
-  function getProductDetails() {
+    // جلب معرّف المنتج من الرابط
     const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+    const productId = urlParams.get('id'); // جلب المعرف من الرابط
 
-    if (productId) {
-      // التأكد من أن المنتج موجود في الـ API
-      fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-        .then(response => response.json())
-        .then(product => {
+    if (!productId) {
+      document.getElementById('productDetails').innerHTML = "<p>عذرًا، لم يتم تحديد المنتج.</p>";
+    }
+
+    // جلب تفاصيل المنتج باستخدام الـ API
+    async function fetchProductDetails() {
+      try {
+        const response = await fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`);
+        if (response.ok) {
+          const product = await response.json();
           if (product && product.id) {
-            // إذا كانت البيانات موجودة، نقوم بعرضها
-            document.getElementById('productName').innerText = product.name || 'اسم المنتج غير متوفر';
-            document.getElementById('productImage').src = product.image || 'path/to/default-image.jpg'; // صورة افتراضية إذا كانت الصورة غير موجودة
-            document.getElementById('productMinPrice').innerText = `سعر أدنى: ${product.minprice || 'غير متوفر'}`;
-            document.getElementById('productMaxPrice').innerText = `سعر أعلى: ${product.maxprice || 'غير متوفر'}`;
-
-            // تأكد من أن الزر يعمل بشكل صحيح
-            document.getElementById('addToCartBtn').onclick = () => addToCartFromDetails(product);
+            displayProductDetails(product);
           } else {
-            console.error("المنتج غير موجود");
             document.getElementById('productDetails').innerHTML = "<p>عذرًا، المنتج غير موجود.</p>";
           }
-        })
-        .catch(error => {
-          console.error("حدث خطأ عند جلب تفاصيل المنتج:", error);
-          document.getElementById('productDetails').innerHTML = "<p>حدث خطأ في تحميل بيانات المنتج. الرجاء المحاولة لاحقًا.</p>";
-        });
-    } else {
-      console.error("المعرف غير موجود في الرابط");
-      document.getElementById('productDetails').innerHTML = "<p>المعرف غير صحيح. الرجاء العودة إلى الصفحة الرئيسية.</p>";
+        } else {
+          console.error("فشل في تحميل تفاصيل المنتج");
+          document.getElementById('productDetails').innerHTML = "<p>حدث خطأ في تحميل التفاصيل.</p>";
+        }
+      } catch (error) {
+        console.error("حدث خطأ عند جلب تفاصيل المنتج:", error);
+        document.getElementById('productDetails').innerHTML = "<p>حدث خطأ في الاتصال.</p>";
+      }
     }
-  }
 
-  // إضافة المنتج إلى السلة من صفحة التفاصيل
-  function addToCartFromDetails(product) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({
-      id: product.id,
-      name: product.name,
-      minPrice: product.minprice,
-      maxPrice: product.maxprice
-    });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    console.log(`تم إضافة المنتج ${product.name} إلى السلة`);
-  }
+    // عرض تفاصيل المنتج
+    function displayProductDetails(product) {
+      const productDetailsContainer = document.getElementById("productDetails");
 
-  // استدعاء دالة جلب التفاصيل عند تحميل الصفحة
-  getProductDetails();
-</script>
+      productDetailsContainer.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h2>${product.name}</h2>
+        <p>سعر أدنى: ${product.minprice}</p>
+        <p>سعر أعلى: ${product.maxprice}</p>
+        <p>الوصف: ${product.description || "لا يوجد وصف لهذا المنتج"}</p>
+        <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
+      `;
+    }
+
+    // إضافة المنتج إلى السلة
+    function addToCart(productId) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const productName = document.querySelector("h2").innerText;
+      const productMinPrice = document.querySelector("p:nth-child(2)").innerText.split(":")[1].trim();
+      const productMaxPrice = document.querySelector("p:nth-child(3)").innerText.split(":")[1].trim();
+
+      const product = {
+        id: productId,
+        name: productName,
+        minPrice: productMinPrice,
+        maxPrice: productMaxPrice
+      };
+
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log(`تم إضافة المنتج ${productId} إلى السلة`);
+    }
+
+    // استدعاء دالة جلب تفاصيل المنتج عند تحميل الصفحة
+    fetchProductDetails();
+  </script>
 
 </body>
 </html>
