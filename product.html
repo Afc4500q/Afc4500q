@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>تفاصيل المنتج</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+      background-color: #1A4973; /* الأزرق اللازوردي */
+      color: #FFD700; /* الذهبي */
+    }
+
+    header {
+      background-color: #1A4973;
+      color: #FFD700;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-family: 'Traditional Arabic', sans-serif;
+      font-size: 36px;
+      margin: 0;
+      color: #FFD700;
+    }
+
+    /* باقي التنسيقات... */
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>عشتار</h1>
+    <nav>
+      <i class="fas fa-user" title="الحساب" onclick="window.location.href='dashboard.html'"></i>
+      <i class="fas fa-shopping-cart" title="سلة المنتجات" onclick="window.location.href='cart.html'"></i>
+      <i class="fas fa-headset" title="الدعم الفني" onclick="window.location.href='help.html'"></i>
+    </nav>
+  </header>
+
+  <!-- Product Details Section -->
+  <div id="productDetails" style="padding: 20px;">
+    <h2 id="productName">اسم المنتج</h2>
+    <img id="productImage" src="" alt="" style="width: 100%; max-width: 400px; border-radius: 8px;">
+    <p id="productMinPrice">سعر أدنى:</p>
+    <p id="productMaxPrice">سعر أعلى:</p>
+    <button id="addToCartBtn" onclick="addToCartFromDetails()">إضافة إلى السلة</button>
+  </div>
+
+  <script>
+    // جلب تفاصيل المنتج من URL
+    function getProductDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+
+      if (productId) {
+        fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+          .then(response => response.json())
+          .then(product => {
+            document.getElementById('productName').innerText = product.name;
+            document.getElementById('productImage').src = product.image;
+            document.getElementById('productMinPrice').innerText = `سعر أدنى: ${product.minprice}`;
+            document.getElementById('productMaxPrice').innerText = `سعر أعلى: ${product.maxprice}`;
+            document.getElementById('addToCartBtn').onclick = () => addToCartFromDetails(product);
+          })
+          .catch(error => console.error("حدث خطأ عند جلب تفاصيل المنتج:", error));
+      }
+    }
+
+    // إضافة المنتج إلى السلة من صفحة التفاصيل
+    function addToCartFromDetails(product) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({
+        id: product.id,
+        name: product.name,
+        minPrice: product.minprice,
+        maxPrice: product.maxprice
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log(`تم إضافة المنتج ${product.name} إلى السلة`);
+    }
+
+    // استدعاء دالة جلب التفاصيل عند تحميل الصفحة
+    getProductDetails();
+  </script>
+
+</body>
+</html>
