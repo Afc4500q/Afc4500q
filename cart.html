@@ -75,7 +75,16 @@
     .send-to-telegram {
       margin-top: 20px;
       background-color: #00796b;
-      display: inline-block;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .send-to-telegram:hover {
+      background-color: #004d40;
     }
     .customer-info {
       display: flex;
@@ -91,10 +100,12 @@
 </head>
 <body>
 
-  <!-- Header with back icon -->
+  <!-- Header -->
   <header>
-    <button onclick="window.history.back()">← العودة إلى المنتجات</button>
     <h1>سلة المنتجات</h1>
+    <nav>
+      <button onclick="window.location.href='products.html'">الرجوع إلى المنتجات</button>
+    </nav>
   </header>
 
   <!-- Cart Section -->
@@ -126,7 +137,8 @@
           <h3>${product.name}</h3>
           <p>سعر أدنى: ${product.minPrice} دينار</p>
           <p>سعر أعلى: ${product.maxPrice} دينار</p>
-          <input type="number" value="${product.quantity || 1}" min="1" id="quantity${product.id}" />
+          <label>الكمية: </label>
+          <input type="number" value="${product.quantity}" id="quantity-${product.id}" min="1" />
           <button onclick="removeFromCart(${product.id})">حذف من السلة</button>
         `;
         cartContainer.appendChild(productCard);
@@ -146,39 +158,39 @@
       const customerInfoForm = `
         <div class="customer-info">
           <label for="customerName">الاسم الثلاثي:</label>
-          <input type="text" id="customerName" placeholder="أدخل اسم الزبون" required />
-
+          <input type="text" id="customerName" placeholder="أدخل الاسم الثلاثي" required />
+          
           <label for="customerPhone">رقم الهاتف:</label>
           <input type="text" id="customerPhone" placeholder="أدخل رقم الهاتف" required />
+          
+          <label for="customerCity">اسم المحافظة:</label>
+          <input type="text" id="customerCity" placeholder="أدخل اسم المحافظة" required />
 
-          <label for="customerGovernorate">اسم المحافظة:</label>
-          <input type="text" id="customerGovernorate" placeholder="أدخل اسم المحافظة" required />
-
-          <label for="customerCity">اسم المدينة:</label>
-          <input type="text" id="customerCity" placeholder="أدخل اسم المدينة" required />
+          <label for="customerArea">اسم المدينة:</label>
+          <input type="text" id="customerArea" placeholder="أدخل اسم المدينة" required />
 
           <label for="customerRegion">اسم المنطقة:</label>
           <input type="text" id="customerRegion" placeholder="أدخل اسم المنطقة" required />
 
-          <label for="customerPrice">سعر البيع:</label>
-          <input type="text" id="customerPrice" placeholder="أدخل سعر البيع" required />
+          <label for="salePrice">سعر البيع:</label>
+          <input type="number" id="salePrice" placeholder="أدخل سعر البيع" required />
         </div>
         <button onclick="sendToTelegram()">إرسال</button>
       `;
       document.getElementById("cartContainer").innerHTML = customerInfoForm;
-      document.getElementById("sendToTelegramBtn").style.display = "none"; // إخفاء الزر بعد النقر عليه
+      document.getElementById("sendToTelegramBtn").style.display = "none"; // إخفاء زر الإرسال
     }
 
     // إرسال سلة المنتجات إلى بوت تيليجرام
     function sendToTelegram() {
       const customerName = document.getElementById("customerName").value;
       const customerPhone = document.getElementById("customerPhone").value;
-      const customerGovernorate = document.getElementById("customerGovernorate").value;
       const customerCity = document.getElementById("customerCity").value;
+      const customerArea = document.getElementById("customerArea").value;
       const customerRegion = document.getElementById("customerRegion").value;
-      const customerPrice = document.getElementById("customerPrice").value;
+      const salePrice = document.getElementById("salePrice").value;
 
-      if (!customerName || !customerPhone || !customerGovernorate || !customerCity || !customerRegion || !customerPrice) {
+      if (!customerName || !customerPhone || !customerCity || !customerArea || !customerRegion || !salePrice) {
         alert("يرجى ملء جميع الحقول.");
         return;
       }
@@ -192,25 +204,24 @@
       const userId = JSON.parse(localStorage.getItem("userData")).id || "غير معروف"; // استرجاع ID الحساب
 
       let message = `معلومات الزبون:\n`;
-      message += `الاسم الثلاثي: ${customerName}\n`;
+      message += `الاسم: ${customerName}\n`;
       message += `رقم الهاتف: ${customerPhone}\n`;
-      message += `المحافظة: ${customerGovernorate}\n`;
-      message += `المدينة: ${customerCity}\n`;
+      message += `المحافظة: ${customerCity}\n`;
+      message += `المدينة: ${customerArea}\n`;
       message += `المنطقة: ${customerRegion}\n`;
-      message += `سعر البيع: ${customerPrice}\n`;
-      message += `ID الحساب: ${userId}\n\n`;
-
+      message += `سعر البيع: ${salePrice} دينار\n\n`;
+      message += `ID الحساب: ${userId}\n\n`;  // إضافة الـ ID في الرسالة
       message += "تفاصيل سلة المنتجات:\n\n";
       cart.forEach(product => {
-        const quantity = document.getElementById(`quantity${product.id}`).value;
+        const quantity = document.getElementById(`quantity-${product.id}`).value;
         message += `اسم المنتج: ${product.name}\n`;
         message += `السعر: ${product.minPrice} دينار\n`;
         message += `الكمية: ${quantity}\n`;
         message += `رابط الصورة: ${product.image}\n\n`;
       });
 
-      const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; // توكن البوت الخاص بك
-      const chatId = "1434047374"; // معرف الدردشة الخاص بك
+      const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak";  // توكن البوت
+      const chatId = "1434047374";  // معرف الدردشة
       const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
       fetch(telegramApiUrl, {
@@ -226,27 +237,21 @@
       .then(response => response.json())
       .then(data => {
         if (data.ok) {
-                    alert("تم إرسال البيانات بنجاح إلى بوت تيليجرام!");
-          // إعادة عرض السلة بعد إرسال البيانات
-          localStorage.removeItem("cart"); // مسح السلة بعد الإرسال
-          displayCart();
-          // إعادة إظهار زر إرسال إلى بوت تيليجرام بعد مسح السلة
-          document.getElementById("sendToTelegramBtn").style.display = "inline-block";
+          alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
+                    localStorage.removeItem("cart"); // مسح السلة بعد الإرسال
+          displayCart(); // تحديث عرض السلة
         } else {
-          alert("حدث خطأ أثناء إرسال البيانات إلى بوت تيليجرام.");
+          alert("حدث خطأ أثناء إرسال الرسالة.");
         }
       })
       .catch(error => {
-        alert("حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.");
+        alert("حدث خطأ في الاتصال بـ Telegram.");
         console.error("Error:", error);
       });
     }
 
-    // استدعاء الدالة لعرض سلة المنتجات عند تحميل الصفحة
-    window.onload = function() {
-      displayCart();
-    };
+    // استدعاء دالة عرض السلة عند تحميل الصفحة
+    displayCart();
   </script>
-
 </body>
 </html>
