@@ -116,7 +116,8 @@ header nav i:hover {
   </div>
 
   
-  <script>
+  
+     <script>
     // جلب المنتجات من الـ API
     async function fetchProducts() {
       try {
@@ -143,14 +144,13 @@ header nav i:hover {
 
         // إضافة محتوى المنتج
         productCard.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <h3 id="product-name-${product.id}">${product.name}</h3>
-          <p>سعر أدنى: ${product.minprice} </p>
-          <p>سعر أعلى: ${product.maxprice} </p>
-        
-        <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
-        
-           
+          <a href="product.html?id=${product.id}" class="product-link">
+            <img src="${product.image}" alt="${product.name}">
+            <h3 id="product-name-${product.id}">${product.name}</h3>
+            <p>سعر أدنى: ${product.minprice}</p>
+            <p>سعر أعلى: ${product.maxprice}</p>
+          </a>
+          <button onclick="addToCart('${product.id}')">إضافة إلى السلة</button>
         `;
         
         productsContainer.appendChild(productCard);
@@ -183,12 +183,9 @@ header nav i:hover {
       console.log(`تم إضافة المنتج ${productId} إلى السلة`);
     }
 
-    
-  
-
     // استدعاء دالة جلب المنتجات عند تحميل الصفحة
     fetchProducts();
-  </script>
+</script>
 
 </body>
 </html>
