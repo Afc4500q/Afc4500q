@@ -20,7 +20,6 @@
       align-items: center;
     }
     header h1 {
-      font-family: 'Traditional Arabic', sans-serif;
       font-size: 36px;
       margin: 0;
     }
@@ -75,16 +74,6 @@
     .send-to-telegram {
       margin-top: 20px;
       background-color: #00796b;
-      padding: 10px;
-      width: 100%;
-      font-size: 16px;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .send-to-telegram:hover {
-      background-color: #004d40;
     }
     .customer-info {
       display: flex;
@@ -129,7 +118,7 @@
 
       cartContainer.innerHTML = ""; // تفريغ المحتوى القديم
 
-      cart.forEach(product => {
+      cart.forEach((product, index) => {
         const productCard = document.createElement("div");
         productCard.classList.add("product-card");
         productCard.innerHTML = `
@@ -137,60 +126,60 @@
           <h3>${product.name}</h3>
           <p>سعر أدنى: ${product.minPrice} دينار</p>
           <p>سعر أعلى: ${product.maxPrice} دينار</p>
-          <label>الكمية: </label>
-          <input type="number" value="${product.quantity}" id="quantity-${product.id}" min="1" />
-          <button onclick="removeFromCart(${product.id})">حذف من السلة</button>
+          <label for="quantity-${product.id}">الكمية:</label>
+          <input type="number" id="quantity-${product.id}" value="${product.quantity}" min="1" />
+          <button onclick="removeFromCart(${index})">حذف من السلة</button>
         `;
         cartContainer.appendChild(productCard);
       });
     }
 
     // إزالة المنتج من السلة
-    function removeFromCart(productId) {
+    function removeFromCart(index) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart = cart.filter(product => product.id !== productId);
+      cart.splice(index, 1); // إزالة المنتج
       localStorage.setItem("cart", JSON.stringify(cart));
-      displayCart();
+      displayCart(); // تحديث السلة
     }
 
     // عرض نافذة تطلب معلومات الزبون
     function promptCustomerInfo() {
+      document.getElementById("sendToTelegramBtn").style.display = "none"; // إخفاء الزر
       const customerInfoForm = `
         <div class="customer-info">
           <label for="customerName">الاسم الثلاثي:</label>
           <input type="text" id="customerName" placeholder="أدخل الاسم الثلاثي" required />
-          
+
           <label for="customerPhone">رقم الهاتف:</label>
           <input type="text" id="customerPhone" placeholder="أدخل رقم الهاتف" required />
-          
-          <label for="customerCity">اسم المحافظة:</label>
-          <input type="text" id="customerCity" placeholder="أدخل اسم المحافظة" required />
 
-          <label for="customerArea">اسم المدينة:</label>
-          <input type="text" id="customerArea" placeholder="أدخل اسم المدينة" required />
+          <label for="customerProvince">المحافظة:</label>
+          <input type="text" id="customerProvince" placeholder="أدخل اسم المحافظة" required />
 
-          <label for="customerRegion">اسم المنطقة:</label>
-          <input type="text" id="customerRegion" placeholder="أدخل اسم المنطقة" required />
+          <label for="customerCity">المدينة:</label>
+          <input type="text" id="customerCity" placeholder="أدخل اسم المدينة" required />
 
-          <label for="salePrice">سعر البيع:</label>
-          <input type="number" id="salePrice" placeholder="أدخل سعر البيع" required />
+          <label for="customerArea">المنطقة:</label>
+          <input type="text" id="customerArea" placeholder="أدخل اسم المنطقة" required />
+
+          <label for="customerPrice">سعر البيع:</label>
+          <input type="text" id="customerPrice" placeholder="أدخل سعر البيع" required />
         </div>
         <button onclick="sendToTelegram()">إرسال</button>
       `;
       document.getElementById("cartContainer").innerHTML = customerInfoForm;
-      document.getElementById("sendToTelegramBtn").style.display = "none"; // إخفاء زر الإرسال
     }
 
     // إرسال سلة المنتجات إلى بوت تيليجرام
     function sendToTelegram() {
       const customerName = document.getElementById("customerName").value;
       const customerPhone = document.getElementById("customerPhone").value;
+      const customerProvince = document.getElementById("customerProvince").value;
       const customerCity = document.getElementById("customerCity").value;
       const customerArea = document.getElementById("customerArea").value;
-      const customerRegion = document.getElementById("customerRegion").value;
-      const salePrice = document.getElementById("salePrice").value;
+      const customerPrice = document.getElementById("customerPrice").value;
 
-      if (!customerName || !customerPhone || !customerCity || !customerArea || !customerRegion || !salePrice) {
+      if (!customerName || !customerPhone || !customerProvince || !customerCity || !customerArea || !customerPrice) {
         alert("يرجى ملء جميع الحقول.");
         return;
       }
@@ -206,17 +195,18 @@
       let message = `معلومات الزبون:\n`;
       message += `الاسم: ${customerName}\n`;
       message += `رقم الهاتف: ${customerPhone}\n`;
-      message += `المحافظة: ${customerCity}\n`;
-      message += `المدينة: ${customerArea}\n`;
-      message += `المنطقة: ${customerRegion}\n`;
-      message += `سعر البيع: ${salePrice} دينار\n\n`;
-      message += `ID الحساب: ${userId}\n\n`;  // إضافة الـ ID في الرسالة
+      message += `المحافظة: ${customerProvince}\n`;
+      message += `المدينة: ${customerCity}\n`;
+      message += `المنطقة: ${customerArea}\n`;
+      message += `سعر البيع: ${customerPrice}\n`;
+      message += `ID الحساب: ${userId}\n\n`; 
       message += "تفاصيل سلة المنتجات:\n\n";
+
       cart.forEach(product => {
         const quantity = document.getElementById(`quantity-${product.id}`).value;
         message += `اسم المنتج: ${product.name}\n`;
-        message += `السعر: ${product.minPrice} دينار\n`;
         message += `الكمية: ${quantity}\n`;
+        message += `السعر: ${product.minPrice} دينار\n`;
         message += `رابط الصورة: ${product.image}\n\n`;
       });
 
@@ -238,20 +228,24 @@
       .then(data => {
         if (data.ok) {
           alert("تم إرسال سلة المنتجات إلى بوت تيليجرام!");
-                    localStorage.removeItem("cart"); // مسح السلة بعد الإرسال
-          displayCart(); // تحديث عرض السلة
+          localStorage.removeItem("cart");  // حذف المنتجات من السلة
+                    // إعادة عرض السلة (تكون فارغة الآن)
+          displayCart();
         } else {
-          alert("حدث خطأ أثناء إرسال الرسالة.");
+          alert("حدث خطأ أثناء إرسال المعلومات.");
         }
       })
       .catch(error => {
-        alert("حدث خطأ في الاتصال بـ Telegram.");
-        console.error("Error:", error);
+        alert("حدث خطأ في الاتصال مع بوت تيليجرام.");
+        console.error(error);
       });
     }
 
-    // استدعاء دالة عرض السلة عند تحميل الصفحة
-    displayCart();
+    // تحميل السلة عند تحميل الصفحة
+    window.onload = function() {
+      displayCart();
+    };
   </script>
+
 </body>
 </html>
