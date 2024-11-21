@@ -10,26 +10,48 @@
       direction: rtl;
       text-align: right;
       margin: 0;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #1A4973; /* الأزرق اللازوردي */
+      color: #FFD700; /* الذهبي */
     }
     .product-details {
       max-width: 600px;
       margin: 50px auto;
       padding: 20px;
-      background: #fff;
+      background: #f9f9f9; /* أبيض */
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
     }
-    img {
+    .product-details img {
       width: 100%;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
-    h1 {
-      color: #1A4973;
+    .product-details h1 {
+      font-size: 28px;
+      color: #1A4973; /* الأزرق اللازوردي */
+      margin-bottom: 10px;
     }
-    p {
+    .product-details p {
+      font-size: 18px;
+      color: #333; /* رمادي */
       margin: 10px 0;
+    }
+    .product-details button {
+      background-color: #1A4973; /* الأزرق اللازوردي */
+      color: #FFD700; /* الذهبي */
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .product-details button:hover {
+      background-color: #FFD700; /* الذهبي */
+      color: #1A4973; /* الأزرق اللازوردي */
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -46,7 +68,7 @@
     if (!selectedProduct) {
       document.getElementById("productDetails").innerHTML = "<p>حدث خطأ في تحميل التفاصيل.</p>";
     } else {
-      const { name, image, minPrice, maxPrice, description } = selectedProduct;
+      const { id, name, image, minPrice, maxPrice, description } = selectedProduct;
 
       // عرض بيانات المنتج
       document.getElementById("productDetails").innerHTML = `
@@ -55,7 +77,32 @@
         <p><strong>سعر أدنى:</strong> ${minPrice}</p>
         <p><strong>سعر أعلى:</strong> ${maxPrice}</p>
         <p><strong>الوصف:</strong> ${description}</p>
+        <button onclick="addToCart('${id}', '${name}', '${minPrice}', '${maxPrice}')">إضافة إلى السلة</button>
       `;
+    }
+
+    // إضافة المنتج إلى السلة
+    function addToCart(id, name, minPrice, maxPrice) {
+      // جلب المنتجات المخزنة في السلة من localStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // إنشاء بيانات المنتج
+      const product = { id, name, minPrice, maxPrice };
+
+      // التحقق إذا كان المنتج موجودًا بالفعل
+      const isProductInCart = cart.some(item => item.id === id);
+      if (isProductInCart) {
+        alert("هذا المنتج موجود بالفعل في السلة.");
+        return;
+      }
+
+      // إضافة المنتج إلى السلة
+      cart.push(product);
+
+      // تخزين السلة مرة أخرى في localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert(`تم إضافة المنتج "${name}" إلى السلة بنجاح!`);
     }
   </script>
 </body>
