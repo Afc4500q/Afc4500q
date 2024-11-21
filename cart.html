@@ -21,7 +21,7 @@
 }
 
 .cart-item {
-    border: 1px solid #6c3e6f; /* لون الأزرق الأزودي */
+    border: 1px solid #2C6B8D; /* الأزرق الأرزويدي - مشابه لبوابة عشتار */
     padding: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -50,7 +50,7 @@
 .cart-item-info h4 {
     margin: 0;
     font-size: 20px;
-    color: #6c3e6f; /* الأزرق الأزودي */
+    color: #2C6B8D; /* الأزرق الأرزويدي */
 }
 
 .cart-item-info p {
@@ -61,16 +61,23 @@
 .cart-item-info .quantity {
     margin-top: 8px;
     font-size: 14px;
-    color: #007BFF; /* الأزرق الفاتح */
+    color: #2C6B8D; /* الأزرق الأرزويدي */
 }
 
 .cart-item-info .quantity input {
-    width: 60px;
+    width: 45px; /* تصغير عرض حقل الكمية */
     padding: 5px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
+    color: #2C6B8D; /* استخدام نفس اللون الأزرق */
+    transition: border-color 0.3s ease;
+}
+
+.cart-item-info .quantity input:focus {
+    border-color: #2C6B8D;
+    outline: none;
 }
 
 .delete-btn {
@@ -130,7 +137,7 @@
 }
 
 .customer-input input:focus {
-    border-color: #6c3e6f; /* الأزرق الأزودي */
+    border-color: #2C6B8D; /* الأزرق الأرزويدي */
     outline: none;
 }
 
