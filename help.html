@@ -7,6 +7,8 @@
     <style>
         body { font-family: Arial, sans-serif; direction: rtl; }
         textarea { width: 100%; height: 150px; }
+        .messages { margin-top: 20px; }
+        .message { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -19,9 +21,8 @@
         <button type="submit">إرسال الرسالة</button>
     </form>
 
-    <!-- عرض الردود -->
-    <h2>الردود:</h2>
-    <div id="response"></div>
+    <!-- عرض الرسائل المرسلة -->
+    <div class="messages" id="messages"></div>
 
     <script>
         // بيانات البوت الخاصة بك
@@ -34,10 +35,22 @@
             
             const message = document.getElementById('message').value;
             if (message.trim() !== '') {
+                // عرض الرسالة في صفحة الدعم الفني
+                displayMessage('رسالة المستخدم: ' + message, 'user');
+
                 // إرسال الرسالة إلى البوت
                 sendMessageToTelegram(message);
             }
         });
+
+        // دالة لعرض الرسالة في صفحة الدعم الفني
+        function displayMessage(message, sender) {
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message');
+            messageContainer.textContent = message;
+            messageContainer.classList.add(sender);
+            document.getElementById('messages').appendChild(messageContainer);
+        }
 
         // دالة لإرسال الرسالة إلى بوت تليجرام
         function sendMessageToTelegram(message) {
@@ -59,24 +72,29 @@
             .then(data => {
                 // في حال تم إرسال الرسالة بنجاح
                 if (data.ok) {
-                    displayResponse('تم إرسال رسالتك بنجاح!');
+                    console.log('تم إرسال رسالتك بنجاح إلى Telegram!');
+                    // هنا يمكننا البدء في "سحب" الرد من البوت بعد لحظة.
+                    // هذه الخطوة سيتم توضيحها لاحقًا.
                 } else {
-                    displayResponse('حدث خطأ أثناء إرسال الرسالة.');
+                    console.log('حدث خطأ أثناء إرسال الرسالة.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                displayResponse('حدث خطأ أثناء إرسال الرسالة.');
             });
         }
 
-        // عرض الرد في الصفحة
-        function displayResponse(message) {
-            const responseDiv = document.getElementById('response');
-            const messageElement = document.createElement('p');
-            messageElement.textContent = message;
-            responseDiv.appendChild(messageElement);
+        // دالة لعرض الرد في صفحة الدعم الفني
+        function showBotReply(reply) {
+            displayMessage('رد البوت: ' + reply, 'bot');
         }
+
+        // هذه دالة افتراضية لمحاكاة الحصول على الرد بعد فترة من الزمن
+        // يمكن استبدالها بطريقة للحصول على الرد الفعلي عبر API أو WebSocket
+        setTimeout(function() {
+            const botReply = 'تم استلام رسالتك. شكراً لتواصلك!';
+            showBotReply(botReply);
+        }, 5000); // محاكاة رد البوت بعد 5 ثواني
     </script>
 </body>
 </html>
