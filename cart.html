@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة السلة</title>
+    <title>سلة المشتريات</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             padding: 0;
         }
         .header {
-            background-color: #1a1a1a;
+            background-color: #2c3e50;
             color: #fff;
             padding: 15px;
             display: flex;
@@ -241,9 +241,9 @@
         // العودة إلى صفحة المنتجات
         function goBack() {
             window.location.href = "index.html"; // ضع هنا الرابط الذي يعود إلى صفحة المنتجات
-        }
+                }
 
-        // تشغيل العرض الأولي للسلة
+        // في حال لم تكن السلة تحتوي على منتجات، إخفاء نافذة "إرسال إلى البوت"
         window.onload = function() {
             renderCart();
         };
