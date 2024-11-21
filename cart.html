@@ -21,14 +21,19 @@
 }
 
 .cart-item {
-    border: 1px solid #6c3e6f; /* لون مستوحى من بوابة عشتار */
-    padding: 15px;
-    margin-bottom: 15px;
+    border: 1px solid #6c3e6f; /* لون الأزرق الأزودي */
+    padding: 20px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cart-item img {
@@ -39,28 +44,44 @@
 
 .cart-item-info {
     flex: 1;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
 .cart-item-info h4 {
     margin: 0;
     font-size: 20px;
-    color: #6c3e6f; /* لون مستوحى من بوابة عشتار */
+    color: #6c3e6f; /* الأزرق الأزودي */
 }
 
 .cart-item-info p {
-    margin: 5px 0;
+    margin: 8px 0;
     color: #555;
 }
 
+.cart-item-info .quantity {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #007BFF; /* الأزرق الفاتح */
+}
+
+.cart-item-info .quantity input {
+    width: 60px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .delete-btn {
-    background-color: #d9534f; /* لون أحمر دافئ */
+    background-color: #d9534f; /* أحمر دافئ */
     color: white;
-    padding: 8px 12px;
+    padding: 8px 15px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .delete-btn:hover {
@@ -68,7 +89,7 @@
 }
 
 .btn {
-    background-color: #6c3e6f; /* لون مستوحى من بوابة عشتار */
+    background-color: #d4af37; /* الذهبي */
     color: white;
     padding: 12px 25px;
     border: none;
@@ -80,13 +101,13 @@
 }
 
 .btn:hover {
-    background-color: #4b2b43;
+    background-color: #b88b2f; /* الذهبي الغامق */
 }
 
 #customerInfo {
     display: none;
     margin-top: 30px;
-    padding: 20px;
+    padding: 25px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -94,32 +115,34 @@
 }
 
 .customer-input {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .customer-input input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
     color: #333;
+    transition: border-color 0.3s ease;
 }
 
 .customer-input input:focus {
-    border-color: #6c3e6f;
+    border-color: #6c3e6f; /* الأزرق الأزودي */
     outline: none;
 }
 
 .back-btn {
     background-color: #6c757d;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 18px;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .back-btn:hover {
