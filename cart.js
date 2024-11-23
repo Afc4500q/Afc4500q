@@ -58,10 +58,14 @@ function promptCustomerInfo() {
     document.getElementById("customerInfo").style.display = "block";
 }
 
-function sendToTelegram() {
-    console.log("تم استدعاء الدالة");  // فحص ما إذا كانت الدالة تعمل
 
-    // جمع معلومات الزبون
+// استرجاع الـ userId من localStorage
+const userId = localStorage.getItem("userId");
+
+// استخدام الـ userId في دالة إرسال المعلومات إلى تيليجرام
+function sendToTelegram() {
+    console.log("تم استدعاء الدالة");
+
     const name = document.getElementById("customerName").value;
     const phone = document.getElementById("customerPhone").value;
     const city = document.getElementById("customerCity").value;
@@ -69,14 +73,15 @@ function sendToTelegram() {
     const region = document.getElementById("customerRegion").value;
     const price = document.getElementById("customerPrice").value;
 
+    // استرجاع الـ userId من localStorage
+    const userId = localStorage.getItem("userId");
+
     // جمع معلومات المنتج من الـ cart
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const productName = cart[0] ? cart[0].name : 'غير محدد';  // أخذ اسم المنتج من السلة
-    const productPrice = cart[0] ? cart[0].maxprice : 'غير محدد';  // أخذ سعر المنتج من السلة
-    const quantity = document.getElementById("quantity").value;  // جلب الكمية من المدخل
-    const userId = document.getElementById("userId") ? document.getElementById("userId").innerText : 'غير محدد';  // جلب ID المستخدم إذا كان موجود
+    const productName = cart[0] ? cart[0].name : 'غير محدد';  
+    const productPrice = cart[0] ? cart[0].maxprice : 'غير محدد';  
+    const quantity = document.getElementById("quantity").value;
 
-    // تكوين الرسالة التي سيتم إرسالها
     const message = `
         تم استلام معلومات الزبون:
         الاسم: ${name}
@@ -94,7 +99,6 @@ function sendToTelegram() {
         ID المستخدم: ${userId}
     `;
 
-    // الاتصال بـ Telegram API
     const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; 
     const chatId = "1434047374"; 
 
@@ -112,7 +116,7 @@ function sendToTelegram() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);  // طباعة الاستجابة من تيليجرام في الـ console
+        console.log(data);
         if (data.ok) {
             alert("تم إرسال المعلومات بنجاح!");
         } else {
