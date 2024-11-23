@@ -32,6 +32,40 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
+        .product-images {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-images img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .image-navigation button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
         .product-details {
             text-align: center;
             margin-top: 20px;
@@ -49,6 +83,33 @@
             font-weight: bold;
             color: #d6b46f;
             margin: 10px 0;
+        }
+
+        .price span {
+            font-size: 22px;
+            color: #333;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .status {
+            font-size: 18px;
+            color: #28a745;
+            margin-top: 10px;
         }
 
         button {
@@ -73,6 +134,8 @@
     <header>تفاصيل المنتج</header>
     
     <div class="container">
+        <a href="products/html">العودة</a>
+        
         <div id="product-detail" class="product-details">
             <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
         </div>
@@ -81,53 +144,78 @@
     </div>
 
     <script>
-        // استرداد بيانات المنتج عبر API
-        const productId = localStorage.getItem('selectedProductId'); // الحصول على ID المنتج من localStorage
+        const productId = localStorage.getItem('selectedProductId'); // جلب ID المنتج من localStorage
 
         if (productId) {
             fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
                 .then(response => response.json())
                 .then(product => {
-                    // عرض بيانات المنتج في الصفحة
                     const productDetail = document.getElementById('product-detail');
+                    const images = product.images.map((image, index) => {
+                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
+                    }).join('');
+                    
                     productDetail.innerHTML = `
+                        <div class="product-images">
+                            ${images}
+                            <div class="image-navigation">
+                                <button id="prevImage">&#9664;</button>
+                                <button id="nextImage">&#9654;</button>
+                            </div>
+                        </div>
                         <h2>${product.name}</h2>
-                        <div class="price">السعر: ${product.minprice} دينار عراقي</div>
-                        <p>${product.description}</p>
+                        <div class="price">
+                            <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
+                            <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
+                        </div>
+                        <div class="description">${product.description}</div>
+                        <div class="status">حالة المنتج: ${product.condition}</div>
+                        <div class="note">
+                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                        </div>
                     `;
 
-                    // حفظ المنتج الحالي في localStorage لاستخدامه لاحقًا
-                    localStorage.setItem('currentProduct', JSON.stringify(product));
+                    let currentImageIndex = 0;
+                    const productImages = document.querySelectorAll('.product-images img');
+
+                    // الانتقال إلى الصورة التالية
+                    document.getElementById('nextImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex + 1) % productImages.length;
+                        updateImageDisplay();
+                    };
+
+                    // الانتقال إلى الصورة السابقة
+                    document.getElementById('prevImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+                        updateImageDisplay();
+                    };
+
+                    // تحديث الصورة المعروضة
+                    function updateImageDisplay() {
+                        productImages.forEach((img, index) => {
+                            img.style.display = (index === currentImageIndex) ? 'block' : 'none';
+                        });
+                    }
+
+                    // إضافة المنتج إلى السلة
+                    function addToCart() {
+                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.minprice, // سعر المنتج الأدنى
+                            images: product.images
+                        }); // إضافة المنتج إلى السلة
+                        localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
+                        alert('تم إضافة المنتج إلى السلة');
+                    }
+
+                    // عرض أول صورة
+                    updateImageDisplay();
                 })
                 .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
         } else {
-            alert('لم يتم اختيار أي منتج!');
-        }
-
-        // وظيفة إضافة المنتج إلى السلة
-        function addToCart() {
-            // استرداد المنتج الحالي من localStorage
-            const product = JSON.parse(localStorage.getItem('currentProduct'));
-            if (!product) {
-                alert('المنتج غير متوفر!');
-                return;
-            }
-
-            // استرداد السلة أو إنشاؤها إذا لم تكن موجودة
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            // إضافة المنتج إلى السلة
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: product.minprice
-            });
-
-            // تحديث السلة في localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
-
-            // رسالة تأكيد
-            alert('تم إضافة المنتج إلى السلة بنجاح!');
+            alert('المنتج غير موجود!');
         }
     </script>
 </body>
