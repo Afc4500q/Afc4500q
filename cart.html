@@ -264,20 +264,20 @@ function promptCustomerInfo() {
     document.getElementById("customerInfo").style.display = "block";
 }
 
-// إرسال معلومات الزبون ومعلومات المنتج إلى تيليجرام
 function sendToTelegram() {
+    console.log("تم استدعاء الدالة");  // فحص ما إذا كانت الدالة تعمل
+
     const name = document.getElementById("customerName").value;
     const phone = document.getElementById("customerPhone").value;
     const city = document.getElementById("customerCity").value;
     const district = document.getElementById("customerDistrict").value;
     const region = document.getElementById("customerRegion").value;
     const price = document.getElementById("customerPrice").value;
-    const productName = document.getElementById("productName").innerText;  // اسم المنتج
-    const productPrice = document.getElementById("productPrice").innerText;  // سعر المنتج
-    const quantity = document.getElementById("productQuantity").value;  // الكمية
-    const userId = document.getElementById("userId").innerText;  // id المستخدم من صفحة الـ dashboard
+    const productName = document.getElementById("productName").innerText;
+    const productPrice = document.getElementById("productPrice").innerText;
+    const quantity = document.getElementById("productQuantity").value;
+    const userId = document.getElementById("userId").innerText;
 
-    // إعداد الرسالة لإرسالها إلى تيليجرام
     const message = `
         تم استلام معلومات الزبون:
         الاسم: ${name}
@@ -295,14 +295,11 @@ function sendToTelegram() {
         ID المستخدم: ${userId}
     `;
 
-    // إرسال البيانات إلى تيليجرام باستخدام API
-    const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; // استبدل بـ API Token للبوت
-    const chatId = "1434047374"; // استبدل بـ Chat ID أو قناة تيليجرام
+    const botToken = "YOUR_BOT_API_TOKEN"; 
+    const chatId = "YOUR_CHAT_ID"; 
 
-    // إنشاء رابط API لإرسال الرسالة
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-    // إرسال الطلب إلى تيليجرام
     fetch(url, {
         method: "POST",
         headers: {
@@ -315,6 +312,7 @@ function sendToTelegram() {
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data);  // طباعة الاستجابة من تيليجرام في الـ console
         if (data.ok) {
             alert("تم إرسال المعلومات بنجاح!");
         } else {
