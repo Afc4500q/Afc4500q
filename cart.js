@@ -68,11 +68,12 @@ function promptCustomerInfo() {
 // استرجاع الـ userId من localStorage
 const userId = localStorage.getItem("userId");
 
-// استخدام الـ userId في دالة إرسال المعلومات إلى تيليجرام
-function sendToTelegram() {
-    console.log("تم استدعاء الدالة");
+// تحديد الزر باستخدام الـ ID
+const buttonh = document.getElementById('cli');
 
-    const name = document.getElementById("customerName").value;
+// إضافة حدث 'click' إلى الزر
+buttonh.addEventListener('click', function() {
+  const name = document.getElementById("customerName").value;
     const phone = document.getElementById("customerPhone").value;
     const city = document.getElementById("customerCity").value;
     const district = document.getElementById("customerDistrict").value;
@@ -145,7 +146,8 @@ function clearCart() {
         console.error("Error:", error);
     });
 }
-    
+
+// استخدام الـ userId في دالة إرسال المعلومات إلى تيليجرام
     // دالة لزيادة الكمية
 function increaseQuantity() {
     let quantityInput = document.getElementById('quantity');
