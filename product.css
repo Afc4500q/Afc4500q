@@ -161,3 +161,6 @@ button#add-to-cart {
 button#add-to-cart:hover {
     background: #DAA520; /* ذهبي داكن */
 }
+.list-bay{
+    display: none;
+}
