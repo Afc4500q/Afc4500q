@@ -164,7 +164,7 @@
 </div>
 
 <script>
-/// استرجاع المنتجات من LocalStorage
+/// استرجاع المنتجات من LocalStorage وعرضها
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartContainer = document.getElementById("cartContainer");
@@ -179,12 +179,14 @@ function displayCart() {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
 
-        // عرض أول صورة فقط للمنتج
-        const image = product.images && product.images.length > 0 ? product.images[0] : ''; // التأكد من وجود صور
-        const minPrice = product.minPrice || 'غير محدد'; // التأكد من استخدام الأسماء الصحيحة
-        const maxPrice = product.maxPrice || 'غير محدد';
+        // تحقق من وجود الصور وتعيين أول صورة فقط
+        const image = product.images && product.images.length > 0 ? product.images[0] : '';
 
-        // إضافة تفاصيل المنتج
+        // التحقق من وجود الأسعار في الـ API
+        const minPrice = product.minprice ? product.minprice : 'غير محدد'; 
+        const maxPrice = product.maxprice ? product.maxprice : 'غير محدد';
+
+        // إضافة تفاصيل المنتج مع تعديل عرض الأسعار
         cartItem.innerHTML = `
             <div class="cart-item-images">
                 <img src="${image}" alt="${product.name}">
@@ -202,6 +204,14 @@ function displayCart() {
         `;
         cartContainer.appendChild(cartItem);
     });
+}
+
+// وظيفة حذف المنتج
+function deleteProduct(index) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1); // إزالة المنتج
+    localStorage.setItem("cart", JSON.stringify(cart)); // تحديث السلة
+    displayCart(); // إعادة عرض السلة
 }
 
 
