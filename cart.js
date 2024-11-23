@@ -46,8 +46,10 @@ function displayCart() {
             </div>
             <div class="cart-item-info">
                 <h4>${product.name}</h4>
-                <p>السعر الأدنى: ${minPrice} دينار</p>
-                <p>السعر الأعلى: ${maxPrice} دينار</p>
+                <p>السعر الأدنى: ${minPrice}</p>
+                <p>السعر الأعلى: ${maxPrice}</p>
+                <label for="pricebay" >بكم ستبيع</label>
+                <input tayp="number" id="pricebay">
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
                     <div class="quantity-box">
