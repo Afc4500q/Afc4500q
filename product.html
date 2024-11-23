@@ -198,17 +198,32 @@
                     }
 
                     // إضافة المنتج إلى السلة
-                    document.getElementById('add-to-cart').onclick = () => {
-                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                        cart.push({
-                            id: product.id,
-                            name: product.name,
-                            price: product.minprice, // سعر المنتج الأدنى
-                            images: product.images
-                        }); // إضافة المنتج إلى السلة
-                        localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
-                        alert('تم إضافة المنتج إلى السلة');
-                    };
+// إضافة المنتج إلى السلة
+document.getElementById('add-to-cart').onclick = () => {
+    // الحصول على السلة الحالية من localStorage أو إنشاء مصفوفة جديدة إذا كانت غير موجودة
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // التحقق من وجود المنتج بالفعل في السلة لتجنب التكرار
+    const isProductInCart = cart.some(item => item.id === product.id);
+    if (isProductInCart) {
+        alert('المنتج موجود بالفعل في السلة!');
+        return; // إذا كان المنتج موجودًا، لا نضيفه مرة أخرى
+    }
+
+    // إضافة المنتج إلى السلة
+    cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.minprice, // اختيار السعر الأدنى
+        images: product.images
+    });
+
+    // تخزين السلة في localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // عرض رسالة تأكيد
+    alert('تم إضافة المنتج إلى السلة بنجاح!');
+};
 
                     // عرض أول صورة
                     updateImageDisplay();
