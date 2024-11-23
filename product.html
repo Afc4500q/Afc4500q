@@ -1,155 +1,222 @@
-<!DOCTYPE html>
+
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تفاصيل المنتج</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      direction: rtl;
-      text-align: right;
-      margin: 0;
-      background-color: #1A4973; /* الأزرق اللازوردي */
-      color: #FFD700; /* الذهبي */
-    }
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-      background: #f9f9f9; /* أبيض */
-      border-radius: 15px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      position: relative;
-    }
-    .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: #1A4973; /* الأزرق اللازوردي */
-      color: #FFD700; /* الذهبي */
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 18px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .back-button:hover {
-      background: #FFD700; /* الذهبي */
-      color: #1A4973; /* الأزرق اللازوردي */
-      transform: scale(1.1);
-    }
-    .product-details img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      border: 3px solid #1A4973;
-    }
-    .product-details h1 {
-      font-size: 28px;
-      color: #1A4973; /* الأزرق اللازوردي */
-      margin-bottom: 15px;
-    }
-    .product-details p {
-      font-size: 18px;
-      color: #333; /* رمادي */
-      margin: 10px 0;
-    }
-    .price-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 15px 0;
-    }
-    .price-container p {
-      background: #1A4973; /* الأزرق اللازوردي */
-      color: #FFD700; /* الذهبي */
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-size: 18px;
-    }
-    .product-details button {
-      background-color: #1A4973; /* الأزرق اللازوردي */
-      color: #FFD700; /* الذهبي */
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-      margin-top: 20px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    .product-details button:hover {
-      background-color: #FFD700; /* الذهبي */
-      color: #1A4973; /* الأزرق اللازوردي */
-      transform: scale(1.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2f0; /* لون الخلفية الفاتح */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #d6b46f; /* اللون الذهبي لبوابة عشتار */
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-images {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-images img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .image-navigation button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .product-details {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .product-details h2 {
+            font-size: 28px;
+            color: #4a2c16; /* اللون الداكن */
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d6b46f; /* الذهب */
+            margin: 10px 0;
+        }
+
+        .price span {
+            font-size: 22px;
+            color: #333;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .status {
+            font-size: 18px;
+            color: #28a745;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4a2c16; /* اللون الداكن */
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 30px auto;
+        }
+
+        button:hover {
+            background-color: #e58e26; /* الذهب */
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <button class="back-button" onclick="window.location.href='products.html'">
-      <i class="fas fa-arrow-left"></i>
-    </button>
-    <div class="product-details" id="productDetails">
-      <!-- سيتم عرض تفاصيل المنتج هنا -->
-    </div>
-  </div>
-
-  <script>
-    // جلب بيانات المنتج من localStorage
-    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-
-    // التحقق من وجود المنتج
-    if (!selectedProduct) {
-      document.getElementById("productDetails").innerHTML = "<p>حدث خطأ في تحميل التفاصيل.</p>";
-    } else {
-      const { id, name, image, minPrice, maxPrice, description } = selectedProduct;
-
-      // عرض بيانات المنتج
-      document.getElementById("productDetails").innerHTML = `
-        <img src="${image}" alt="${name}">
-        <h1>${name}</h1>
-        <div class="price-container">
-          <p><strong>أدنى سعر:</strong> ${minPrice}</p>
-          <p><strong>أعلى سعر:</strong> ${maxPrice}</p>
+    <header>تفاصيل المنتج</header>
+    
+    <div class="container">
+        <h1>المنتج</h1>
+        
+        <div id="product-detail" class="product-details">
+            <!-- محتوى تفاصيل المنتج سيتم هنا -->
         </div>
-        <p><strong>الوصف:</strong> ${description}</p>
-        <button onclick="addToCart('${id}', '${name}', '${minPrice}', '${maxPrice}')">إضافة إلى السلة</button>
-      `;
-    }
+        
+        <button id="add-to-cart">إضافة إلى السلة</button>
+    </div>
 
-    // إضافة المنتج إلى السلة
-    function addToCart(id, name, minPrice, maxPrice) {
-      // جلب المنتجات المخزنة في السلة من localStorage
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    <script>
+        const productId = localStorage.getItem('selectedProductId'); // جلب ID المنتج من localStorage
 
-      // إنشاء بيانات المنتج
-      const product = { id, name, minPrice, maxPrice };
+        if (productId) {
+            fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    const productDetail = document.getElementById('product-detail');
+                    const images = product.images.map((image, index) => {
+                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
+                    }).join('');
+                    
+                    productDetail.innerHTML = `
+                        <div class="product-images">
+                            ${images}
+                            <div class="image-navigation">
+                                <button id="prevImage">&#9664;</button>
+                                <button id="nextImage">&#9654;</button>
+                            </div>
+                        </div>
+                        <h2>${product.name}</h2>
+                        <div class="price">
+                            <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
+                            <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
+                        </div>
+                        <div class="description">${product.description}</div>
+                        <div class="status">حالة المنتج: ${product.condition}</div>
+                        <div class="note">
+                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                        </div>
+                    `;
 
-      // التحقق إذا كان المنتج موجودًا بالفعل
-      const isProductInCart = cart.some(item => item.id === id);
-      if (isProductInCart) {
-        alert("هذا المنتج موجود بالفعل في السلة.");
-        return;
-      }
+                    let currentImageIndex = 0;
+                    const productImages = document.querySelectorAll('.product-images img');
 
-      // إضافة المنتج إلى السلة
-      cart.push(product);
+                    // الانتقال إلى الصورة التالية
+                    document.getElementById('nextImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex + 1) % productImages.length;
+                        updateImageDisplay();
+                    };
 
-      // تخزين السلة مرة أخرى في localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
+                    // الانتقال إلى الصورة السابقة
+                    document.getElementById('prevImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+                        updateImageDisplay();
+                    };
 
-      alert(`تم إضافة المنتج "${name}" إلى السلة بنجاح!`);
-    }
-  </script>
+                    // تحديث الصورة المعروضة
+                    function updateImageDisplay() {
+                        productImages.forEach((img, index) => {
+                            img.style.display = (index === currentImageIndex) ? 'block' : 'none';
+                        });
+                    }
+
+                    // إضافة المنتج إلى السلة
+                    document.getElementById('add-to-cart').onclick = () => {
+                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.minprice, // سعر المنتج الأدنى
+                            images: product.images
+                        }); // إضافة المنتج إلى السلة
+                        localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
+                        alert('تم إضافة المنتج إلى السلة');
+                    };
+
+                    // عرض أول صورة
+                    updateImageDisplay();
+                })
+                .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
+        } else {
+            alert('المنتج غير موجود!');
+        }
+    </script>
 </body>
 </html>
