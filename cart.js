@@ -38,8 +38,8 @@ function displayCart() {
     <div class="form-group">
         <label id="liblprice" for="name">سعر البيع</label>
         <input id=pricebay" type="text" id="number" name="name" required>
-   </div>
-
+    </div>
+        
 </div>
                 </div>
                 <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
@@ -101,6 +101,7 @@ function sendToTelegram() {
         اسم المنتج: ${productName}
         سعر المنتج: ${productPrice}
         الكمية: ${quantity}
+         سعر البيع: ${num}
 
         ID المستخدم: ${userId}
     `;
