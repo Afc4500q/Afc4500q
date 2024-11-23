@@ -198,33 +198,36 @@
                     }
 
                     // إضافة المنتج إلى السلة
-// إضافة المنتج إلى السلة
-document.getElementById('add-to-cart').onclick = () => {
-    // الحصول على السلة الحالية من localStorage أو إنشاء مصفوفة جديدة إذا كانت غير موجودة
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//document.addEventListener('DOMContentLoaded', () => {
+    const productId = localStorage.getItem('selectedProductId');
+    if (productId) {
+        fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                const productDetail = document.getElementById('product-detail');
+                productDetail.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <div class="price">
+                        <span>السعر الأدنى: ${product.minprice}</span>
+                    </div>
+                `;
 
-    // التحقق من وجود المنتج بالفعل في السلة لتجنب التكرار
-    const isProductInCart = cart.some(item => item.id === product.id);
-    if (isProductInCart) {
-        alert('المنتج موجود بالفعل في السلة!');
-        return; // إذا كان المنتج موجودًا، لا نضيفه مرة أخرى
+                document.getElementById('add-to-cart').onclick = () => {
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.minprice
+                    });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    alert('تم إضافة المنتج إلى السلة');
+                };
+            })
+            .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
+    } else {
+        alert('المنتج غير موجود!');
     }
-
-    // إضافة المنتج إلى السلة
-    cart.push({
-        id: product.id,
-        name: product.name,
-        price: product.minprice, // اختيار السعر الأدنى
-        images: product.images
-    });
-
-    // تخزين السلة في localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // عرض رسالة تأكيد
-    alert('تم إضافة المنتج إلى السلة بنجاح!');
-};
-
+});
                     // عرض أول صورة
                     updateImageDisplay();
                 })
