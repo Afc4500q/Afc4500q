@@ -3,219 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل المنتج</title>
+    <title>المنتجات</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f3f2f0; /* لون الخلفية الفاتح */
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
+            background-color: #f4f4f4;
         }
 
         header {
-            background-color: #d6b46f; /* اللون الذهبي لبوابة عشتار */
-            color: #fff;
-            padding: 15px 0;
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-images {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-images img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .image-navigation {
-            position: absolute;
-            top: 50%;
-            width: 100%;
+            background-color: #0a3d62;
+            color: white;
             display: flex;
             justify-content: space-between;
-            transform: translateY(-50%);
+            align-items: center;
+            padding: 10px 20px;
         }
 
-        .image-navigation button {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .product-details {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .product-details h2 {
-            font-size: 28px;
-            color: #4a2c16; /* اللون الداكن */
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .price {
+        header h1 {
+            font-family: 'Amiri', serif;
             font-size: 24px;
-            font-weight: bold;
-            color: #d6b46f; /* الذهب */
-            margin: 10px 0;
+            margin: 0;
         }
 
-        .price span {
-            font-size: 22px;
-            color: #333;
-            display: block;
+        header nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        header nav a i {
+            font-size: 18px;
+        }
+
+        #products-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .product {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product .info {
+            margin-top: 15px;
+        }
+
+        .product h2 {
+            font-size: 20px;
+            color: #0a3d62;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .product .price-section {
+            color: #e58e26;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+             font-size: 18px;
+            font-weight: bold;
+            
+        }
+
+        .product .price-section .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e58e26;
+        }
+
+        .product .price-section .old-price {
+            font-size: 18px;
+            color: #0a3d62;
+        }
+
+        .product .status {
+            font-size: 14px;
+            color: #28a745;
             margin-top: 5px;
         }
 
-        .description {
-            font-size: 16px;
-            color: #555;
-            margin: 20px 0;
-        }
-
-        .note {
-            font-size: 14px;
-            color: #888;
-            margin-top: 10px;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .status {
-            font-size: 18px;
-            color: #28a745;
-            margin-top: 10px;
-        }
-
-        button {
-            background-color: #4a2c16; /* اللون الداكن */
+        .product button {
+            background-color: #0a3d62;
             color: #fff;
-            padding: 12px 25px;
             border: none;
             border-radius: 5px;
-            font-size: 18px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: block;
-            margin: 30px auto;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #e58e26; /* الذهب */
+        .product button:hover {
+            background-color: #e58e26;
         }
     </style>
 </head>
 <body>
-    <header>تفاصيل المنتج</header>
-    
-    <div class="container">
-        <h1>المنتج</h1>
-        
-        <div id="product-detail" class="product-details">
-            <!-- محتوى تفاصيل المنتج سيتم هنا -->
-        </div>
-        
-        <button id="add-to-cart">إضافة إلى السلة</button>
-    </div>
+    <header>
+        <h1>عشتار</h1>
+        <nav>
+            <a href="#"><i class="icon">👤</i> </a>
+            <a href="#"><i class="icon">🛒</i> </a>
+            <a href="#"><i class="icon">📞</i> </a>
+        </nav>
+    </header>
+
+    <div id="products-list"></div>
 
     <script>
-        const productId = localStorage.getItem('selectedProductId'); // جلب ID المنتج من localStorage
+        fetch('https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products')
+            .then(response => response.json())
+            .then(products => {
+                const productsList = document.getElementById('products-list');
+                products.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('product');
 
-        if (productId) {
-            fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-                .then(response => response.json())
-                .then(product => {
-                    const productDetail = document.getElementById('product-detail');
-                    const images = product.images.map((image, index) => {
-                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
-                    }).join('');
-                    
-                    productDetail.innerHTML = `
-                        <div class="product-images">
-                            ${images}
-                            <div class="image-navigation">
-                                <button id="prevImage">&#9664;</button>
-                                <button id="nextImage">&#9654;</button>
+                    // عرض الصورة الأولى فقط لكل منتج
+                    const productImage = product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/150';
+
+                    productElement.innerHTML = `
+                        <img src="${productImage}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150';">
+                        <div class="info">
+                            <h2>${product.name}</h2>
+                            <p class="status">${product.condition}</p>
+                            <div class="price-section">
+                                <div class="price">${product.minprice}  </div>
+                                <div class="old-price">${product.maxprice}  </div>
                             </div>
-                        </div>
-                        <h2>${product.name}</h2>
-                        <div class="price">
-                            <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
-                            <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
-                        </div>
-                        <div class="description">${product.description}</div>
-                        <div class="status">حالة المنتج: ${product.condition}</div>
-                        <div class="note">
-                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                            <button onclick="viewProductDetails(${product.id})">عرض التفاصيل</button>
                         </div>
                     `;
+                    productsList.appendChild(productElement);
+                });
+            })
+            .catch(error => console.error('خطأ في جلب البيانات:', error));
 
-                    let currentImageIndex = 0;
-                    const productImages = document.querySelectorAll('.product-images img');
-
-                    // الانتقال إلى الصورة التالية
-                    document.getElementById('nextImage').onclick = () => {
-                        currentImageIndex = (currentImageIndex + 1) % productImages.length;
-                        updateImageDisplay();
-                    };
-
-                    // الانتقال إلى الصورة السابقة
-                    document.getElementById('prevImage').onclick = () => {
-                        currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
-                        updateImageDisplay();
-                    };
-
-                    // تحديث الصورة المعروضة
-                    function updateImageDisplay() {
-                        productImages.forEach((img, index) => {
-                            img.style.display = (index === currentImageIndex) ? 'block' : 'none';
-                        });
-                    }
-
-                    // إضافة المنتج إلى السلة
-                    document.getElementById('add-to-cart').onclick = () => {
-                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                        cart.push({
-                            id: product.id,
-                            name: product.name,
-                            price: product.minprice, // سعر المنتج الأدنى
-                            images: product.images
-                        }); // إضافة المنتج إلى السلة
-                        localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
-                        alert('تم إضافة المنتج إلى السلة');
-                    };
-
-                    // عرض أول صورة
-                    updateImageDisplay();
-                })
-                .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
-        } else {
-            alert('المنتج غير موجود!');
+        function viewProductDetails(productId) {
+            localStorage.setItem('selectedProductId', productId);
+            window.location.href = 'product.html';
         }
     </script>
 </body>
