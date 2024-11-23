@@ -181,8 +181,8 @@ function displayCart() {
 
         // عرض أول صورة فقط للمنتج
         const image = product.images && product.images.length > 0 ? product.images[0] : ''; // التأكد من وجود صور
-        const minPrice = product.minprice || 'غير محدد'; // التأكد من استخدام الأسماء الصحيحة
-        const maxPrice = product.maxprice || 'غير محدد';
+        const minPrice = product.minPrice || 'غير محدد'; // التأكد من استخدام الأسماء الصحيحة
+        const maxPrice = product.maxPrice || 'غير محدد';
 
         // إضافة تفاصيل المنتج
         cartItem.innerHTML = `
