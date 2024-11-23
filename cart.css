@@ -38,44 +38,49 @@ body {
 .cart-items {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* زيادة المسافة بين العناصر */
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border: 1px solid #ddd;
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: scale(1.02);
 }
 
 .cart-item img {
-    width: 60px; /* تقليل الحجم */
-    height: 60px;
+    width: 80px; /* زيادة الحجم قليلاً */
+    height: 80px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .cart-item-info {
-    flex: 1;
-    padding: 0 10px;
+    flex: 2;
+    padding: 0 15px; /* إضافة مسافة داخلية لزيادة التباعد */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .cart-item-info h4 {
-    font-size: 14px; /* تصغير الخط */
+    font-size: 16px; /* تكبير الخط قليلاً */
     color: #333;
     margin: 5px 0;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 .cart-item-info p {
-    font-size: 12px; /* تقليل حجم الوصف */
+    font-size: 14px; /* زيادة حجم الوصف */
     color: #555;
     margin-top: 5px;
 }
@@ -83,14 +88,14 @@ body {
 .kg {
     display: flex;
     align-items: center;
-    gap: 8px; /* تصغير المسافة */
+    gap: 10px; /* زيادة المسافة بين العناصر */
     flex: 1;
     justify-content: flex-end;
 }
 
 .quantity-box {
     display: flex;
-    gap: 5px; /* تقليل الفراغات */
+    gap: 8px; /* زيادة المسافة بين الأزرار */
     align-items: center;
 }
 
@@ -98,8 +103,8 @@ body {
     background-color: #2C6B8D;
     color: white;
     border: none;
-    padding: 4px 8px; /* تقليل الحشو */
-    font-size: 10px; /* تصغير النص */
+    padding: 6px 12px; /* زيادة الحشو */
+    font-size: 12px; /* تكبير النص */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -110,12 +115,11 @@ body {
 }
 
 #quantity {
-
-    width: 35px; /* تصغير العرض */
-    height: 25px; /* تصغير الارتفاع */
+    width: 45px; /* زيادة العرض */
+    height: 30px; /* زيادة الارتفاع */
     text-align: center;
-    font-size: 12px; /* تصغير الخط */
-    padding: 3px;
+    font-size: 14px; /* تكبير الخط */
+    padding: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
@@ -124,8 +128,8 @@ body {
 .delete-btn {
     background-color: #ff4d4d;
     color: white;
-    padding: 4px 8px; /* تقليل الحشو */
-    font-size: 10px; /* تصغير النص */
+    padding: 6px 12px; /* زيادة الحشو */
+    font-size: 12px; /* تكبير النص */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -146,7 +150,7 @@ body {
 }
 
 .customer-input {
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* زيادة المسافة بين المدخلات */
     width: 100%;
 }
 
@@ -157,8 +161,8 @@ body {
 
 .customer-input input {
     width: 100%;
-    padding: 8px;
-    font-size: 12px;
+    padding: 10px; /* زيادة الحشو */
+    font-size: 14px; /* تكبير الخط */
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
@@ -168,7 +172,7 @@ body {
 .btn {
     background-color: #008CBA;
     color: white;
-    padding: 10px 16px;
+    padding: 12px 18px; /* زيادة الحشو */
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
@@ -184,8 +188,8 @@ body {
 /* تحسين التنسيق داخل بوكس المنتج */
 .cart-item {
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px;
+    gap: 15px; /* زيادة الفراغات */
+    padding: 20px;
 }
 
 .cart-item-info {
@@ -196,18 +200,18 @@ body {
     flex: 1;
     justify-content: flex-end;
     display: flex;
-    gap: 10px;
+    gap: 15px; /* زيادة الفراغات */
 }
 
 form .form-group {
-    margin-top: 15px;
+    margin-top: 20px; /* زيادة المسافة بين المدخلات */
 }
 
 .customer-input {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #pricebay{
-    width: 35px;
-    height: 25px;
+    width: 40px; /* تكبير الحجم قليلاً */
+    height: 30px; /* تكبير الارتفاع */
 }
