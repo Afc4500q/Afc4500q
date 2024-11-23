@@ -120,6 +120,37 @@
         .btn:hover {
             background-color: #007b8a;
         }
+
+        .quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn {
+    background-color: #2C6B8D; /* اللون الأزرق */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background-color: #1f4d63;
+}
+
+#quantity {
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
     </style>
 </head>
 <body>
@@ -197,7 +228,11 @@ function displayCart() {
                 <p>السعر الأعلى: ${maxPrice} دينار</p>
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
-                    <input type="number" id="quantity-${index}" value="${product.quantity}" min="1" max="100">
+                    <div class="quantity-box">
+    <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+    <input type="number" id="quantity" value="1" min="1" readonly>
+    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+</div>
                 </div>
                 <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
             </div>
@@ -241,6 +276,22 @@ function deleteProduct(index) {
         // إرسال البيانات إلى تيليجرام هنا
         alert(`تم إرسال المعلومات: \n${name}, ${phone}, ${city}, ${district}, ${region}, ${price}`);
     }
+
+    // دالة لزيادة الكمية
+function increaseQuantity() {
+    let quantityInput = document.getElementById('quantity');
+    let currentQuantity = parseInt(quantityInput.value);
+    quantityInput.value = currentQuantity + 1;
+}
+
+// دالة لتقليل الكمية
+function decreaseQuantity() {
+    let quantityInput = document.getElementById('quantity');
+    let currentQuantity = parseInt(quantityInput.value);
+    if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+    }
+}
 
     // عرض السلة عند تحميل الصفحة
     displayCart();
