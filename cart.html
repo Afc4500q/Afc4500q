@@ -250,15 +250,6 @@ function deleteProduct(index) {
 }
 
 
-
-    // حذف المنتج من السلة
-    function deleteProduct(index) {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.splice(index, 1);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        displayCart();
-    }
-
 // إظهار معلومات الزبون
 function promptCustomerInfo() {
     document.getElementById("customerInfo").style.display = "block";
@@ -324,6 +315,8 @@ function sendToTelegram() {
         console.error("Error:", error);
     });
 }
+
+    
     // دالة لزيادة الكمية
 function increaseQuantity() {
     let quantityInput = document.getElementById('quantity');
