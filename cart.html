@@ -21,7 +21,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* لمنع التمرير */
+    overflow: hidden; /* منع التمرير */
 }
 
 .back-btn {
@@ -49,11 +49,11 @@
 }
 
 .cart-item img {
-    width: 100px;
-    height: 100px;
+    width: 80px; /* تقليل حجم الصورة */
+    height: 80px; /* تقليل حجم الصورة */
     object-fit: cover;
     border-radius: 8px;
-    margin-right: 20px;
+    margin-right: 15px;
 }
 
 .cart-item-info {
@@ -64,13 +64,13 @@
 }
 
 .cart-item-info h4 {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
     margin: 5px 0;
 }
 
 .cart-item-info p {
-    font-size: 14px;
+    font-size: 12px;
     color: #555;
 }
 
@@ -91,8 +91,8 @@
     background-color: #2C6B8D;
     color: white;
     border: none;
-    padding: 10px;
-    font-size: 18px;
+    padding: 6px 12px; /* تقليل الحجم */
+    font-size: 14px; /* تقليل الخط */
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s ease;
@@ -103,10 +103,10 @@
 }
 
 #quantity {
-    width: 50px;
+    width: 40px; /* تقليل العرض */
     text-align: center;
-    font-size: 18px;
-    padding: 10px;
+    font-size: 16px;
+    padding: 8px;
     border: 1px solid #ddd;
     border-radius: 8px;
 }
@@ -118,7 +118,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .delete-btn:hover {
@@ -136,6 +136,7 @@
 
 .customer-input {
     margin-bottom: 15px;
+    width: 100%;
 }
 
 .customer-input label {
@@ -145,8 +146,8 @@
 
 .customer-input input {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 8px; /* تقليل الحجم */
+    font-size: 14px; /* تقليل الخط */
     border: 1px solid #ddd;
     border-radius: 5px;
 }
@@ -182,16 +183,15 @@
 }
 
 .cart-item img {
-    width: 100px;
-    height: 100px;
+    width: 80px; /* تقليل الحجم */
+    height: 80px;
     object-fit: cover;
     border-radius: 8px;
-    margin-right: 15px;
 }
 
 .quantity-container {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
 }
 
@@ -200,12 +200,12 @@
 }
 
 #quantity {
-    width: 45px;
+    width: 40px; /* تقليل العرض */
     height: 35px;
 }
 
 .quantity-btn {
-    padding: 8px 15px;
+    padding: 5px 10px; /* تقليل الحجم */
 }
 
 form .form-group {
@@ -215,8 +215,8 @@ form .form-group {
 
 .customer-input {
     width: 100%;
-}    
-    </style>
+}
+</style>
 </head>
 <body>
 
