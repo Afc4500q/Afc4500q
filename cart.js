@@ -39,6 +39,7 @@ function displayCart() {
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
         const minPrice = product.minprice || 'غير محدد';
         const maxPrice = product.maxprice || 'غير محدد';
+        const pricebay = bb || 'غير محدد';
 
         cartItem.innerHTML = `
             <div class="cart-item-images">
@@ -48,8 +49,7 @@ function displayCart() {
                 <h4>${product.name}</h4>
                 <p>السعر الأدنى: ${minPrice}</p>
                 <p>السعر الأعلى: ${maxPrice}</p>
-                <label for="pricebay" >بكم ستبيع</label>
-                <input tayp="number" id="pricebay">
+                <p> سعر البيع: ${pricebay}</p>
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
                     <div class="quantity-box">
