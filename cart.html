@@ -164,7 +164,7 @@
 </div>
 
 <script>
-// استرجاع المنتجات من LocalStorage
+/// استرجاع المنتجات من LocalStorage
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartContainer = document.getElementById("cartContainer");
@@ -174,16 +174,17 @@ function displayCart() {
         return;
     }
 
-    cartContainer.innerHTML = "";
+    cartContainer.innerHTML = ""; // مسح السلة
     cart.forEach((product, index) => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
 
         // عرض أول صورة فقط للمنتج
-        const image = product.images ? product.images[0] : ''; // أول صورة فقط
-        const minPrice = product.minprice || 'غير محدد'; // استخدام الاسم الصحيح لـ minprice
-        const maxPrice = product.maxprice || 'غير محدد'; // استخدام الاسم الصحيح لـ maxprice
+        const image = product.images && product.images.length > 0 ? product.images[0] : ''; // التأكد من وجود صور
+        const minPrice = product.minprice || 'غير محدد'; // التأكد من استخدام الأسماء الصحيحة
+        const maxPrice = product.maxprice || 'غير محدد';
 
+        // إضافة تفاصيل المنتج
         cartItem.innerHTML = `
             <div class="cart-item-images">
                 <img src="${image}" alt="${product.name}">
@@ -201,7 +202,9 @@ function displayCart() {
         `;
         cartContainer.appendChild(cartItem);
     });
-}}
+}
+
+
 
     // حذف المنتج من السلة
     function deleteProduct(index) {
