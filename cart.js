@@ -1,6 +1,6 @@
-// استرجاع المنتجات من LocalStorage وعرضها
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log(cart); // إضافة هذه السطر لرؤية محتوى السلة
     const cartContainer = document.getElementById("cartContainer");
 
     if (cart.length === 0) {
@@ -15,7 +15,7 @@ function displayCart() {
 
         // تحقق من وجود الصور وتعيين أول صورة فقط
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
-        
+
         // التحقق من وجود الأسعار في الـ API
         const minPrice = product.minprice ? product.minprice : 'غير محدد'; 
         const maxPrice = product.maxprice ? product.maxprice : 'غير محدد';
@@ -32,9 +32,13 @@ function displayCart() {
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
                     <div class="quantity-box">
-                        <button class="quantity-btn" onclick="decreaseQuantity(${index})">-</button>
-                        <input type="number" id="quantity-${index}" value="${product.quantity || 1}" min="1" readonly>
-                        <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" id="quantity" value="1" min="1" readonly>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        <div class="form-group">
+                            <label id="liblprice" for="name">سعر البيع</label>
+                            <input id="pricebay" type="text" id="number" name="name" required>
+                        </div>
                     </div>
                 </div>
                 <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
@@ -43,7 +47,6 @@ function displayCart() {
         cartContainer.appendChild(cartItem);
     });
 }
-
 // تعديل دالة الزيادة والتقليص باستخدام الفهرس (index) الخاص بكل منتج
 function increaseQuantity(index) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
