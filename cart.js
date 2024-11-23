@@ -39,7 +39,7 @@ function displayCart() {
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
         const minPrice = product.minprice || 'غير محدد';
         const maxPrice = product.maxprice || 'غير محدد';
-        const pricebay = bb.value || 'غير محدد';
+        const pricebay = bb || 'غير محدد';
 
         cartItem.innerHTML = `
             <div class="cart-item-images">
