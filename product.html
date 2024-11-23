@@ -198,7 +198,7 @@
                     }
 
                     // إضافة المنتج إلى السلة
-                    function addToCart() {
+                    window.addToCart = function() {
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
                         cart.push({
                             id: product.id,
