@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلة المنتجات</title>
     <style>
+
 body {
     font-family: Arial, sans-serif;
     direction: rtl;
@@ -21,20 +22,20 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* منع التمرير الأفقي */
+    overflow: hidden;
 }
 
 .back-btn {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
     display: block;
-    width: 150px;
+    width: 140px;
     text-align: center;
 }
 
@@ -45,14 +46,14 @@ body {
 .cart-items {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -60,29 +61,29 @@ body {
 }
 
 .cart-item img {
-    width: 80px; /* تقليل الحجم بشكل محترف */
-    height: 80px;
+    width: 60px; /* تقليل الحجم */
+    height: 60px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .cart-item-info {
     flex: 1;
-    padding: 0 15px;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .cart-item-info h4 {
-    font-size: 16px;
+    font-size: 14px; /* تصغير الخط */
     color: #333;
     margin: 5px 0;
     line-height: 1.2;
 }
 
 .cart-item-info p {
-    font-size: 14px;
+    font-size: 12px; /* تقليل حجم الوصف */
     color: #555;
     margin-top: 5px;
 }
@@ -90,12 +91,14 @@ body {
 .quantity-container {
     display: flex;
     align-items: center;
-    gap: 10px; /* تقليل المسافة بين العناصر */
+    gap: 8px; /* تصغير المسافة */
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .quantity-box {
     display: flex;
-    gap: 8px;
+    gap: 5px; /* تقليل الفراغات */
     align-items: center;
 }
 
@@ -103,10 +106,10 @@ body {
     background-color: #2C6B8D;
     color: white;
     border: none;
-    padding: 6px 12px;
-    font-size: 12px; /* تقليل حجم النص */
+    padding: 4px 8px; /* تقليل الحشو */
+    font-size: 10px; /* تصغير النص */
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -115,23 +118,23 @@ body {
 }
 
 #quantity {
-    width: 45px; /* تقليل عرض حقل الكمية */
-    height: 30px; /* تقليل الارتفاع */
+    width: 35px; /* تصغير العرض */
+    height: 25px; /* تصغير الارتفاع */
     text-align: center;
-    font-size: 14px;
-    padding: 5px;
+    font-size: 12px; /* تصغير الخط */
+    padding: 3px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: #f9f9f9;
 }
 
 .delete-btn {
     background-color: #ff4d4d;
     color: white;
-    padding: 6px 10px;
-    font-size: 12px; /* تقليل حجم النص */
+    padding: 4px 8px; /* تقليل الحشو */
+    font-size: 10px; /* تصغير النص */
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -141,8 +144,8 @@ body {
 }
 
 #customerInfo {
-    margin-top: 30px;
-    padding: 25px;
+    margin-top: 20px;
+    padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -150,21 +153,21 @@ body {
 }
 
 .customer-input {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 100%;
 }
 
 .customer-input label {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
 }
 
 .customer-input input {
     width: 100%;
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    font-size: 12px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: #fff;
     box-sizing: border-box;
 }
@@ -172,9 +175,9 @@ body {
 .btn {
     background-color: #008CBA;
     color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
     border: none;
@@ -185,39 +188,22 @@ body {
     background-color: #007b8a;
 }
 
-/* ضبط التنسيق داخل سلة المنتجات */
+/* تحسين التنسيق داخل بوكس المنتج */
 .cart-item {
-    flex-direction: row;
-    padding: 20px;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
 }
 
 .cart-item-info {
     flex: 2;
-    margin-left: 20px;
 }
 
 .quantity-container {
     flex: 1;
     justify-content: flex-end;
     display: flex;
-    gap: 20px;
-}
-
-.cart-item img {
-    width: 100px;
-    height: 100px;
-}
-
-.quantity-btn,
-.delete-btn {
-    padding: 6px 12px; /* تقليل الحشو */
-}
-
-#quantity {
-    width: 45px;
-    font-size: 14px;
-    padding: 5px;
+    gap: 10px;
 }
 
 form .form-group {
