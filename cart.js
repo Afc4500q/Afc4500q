@@ -54,7 +54,7 @@ function displayCart() {
                     <label for="quantity-${index}">الكمية:</label>
                     <div class="quantity-box">
                         <button class="quantity-btn" onclick="decreaseQuantity(${index})">-</button>
-                        <input type="number" id="quantity-${index}" value="1" min="1" readonly>
+                        <input type="number" class="kg" id="quantity-${index}" value="1" min="1" readonly>
                         <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
                     </div>
                 </div>
