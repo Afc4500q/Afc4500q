@@ -119,6 +119,17 @@ function sendToTelegram() {
         console.log(data);
         if (data.ok) {
             alert("تم إرسال المعلومات بنجاح!");
+            // دالة لحذف جميع المنتجات من السلة
+function clearCart() {
+    // مسح السلة من localStorage
+    localStorage.removeItem("cart");
+
+    // تحديث واجهة المستخدم
+    displayCart(); // إعادة عرض السلة بعد مسحها
+    alert("تم مسح جميع المنتجات من السلة.");
+
+    document.getElementById("customerInfo").style.display = "none";
+}
         } else {
             alert("حدث خطأ أثناء إرسال البيانات.");
         }
