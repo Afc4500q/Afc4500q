@@ -140,7 +140,7 @@
             <!-- محتوى تفاصيل المنتج سيتم هنا -->
         </div>
         
-        <button id="add-to-cart">إضافة إلى السلة</button>
+     <button id="add-to-cart" onclick="addToCart()">إضافة إلى السلة</button>
     </div>
 
     <script>
@@ -198,36 +198,23 @@
                     }
 
                     // إضافة المنتج إلى السلة
-document.addEventListener('DOMContentLoaded', () => {
-    const productId = localStorage.getItem('selectedProductId');
-    if (productId) {
-        fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
-            .then(response => response.json())
-            .then(product => {
-                const productDetail = document.getElementById('product-detail');
-                productDetail.innerHTML = `
-                    <h2>${product.name}</h2>
-                    <div class="price">
-                        <span>السعر الأدنى: ${product.minprice}</span>
-                    </div>
-                `;
+function addToCart() {
+    // جلب السلة من localStorage أو إنشاء سلة جديدة
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-                document.getElementById('add-to-cart').onclick = () => {
-                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                    cart.push({
-                        id: product.id,
-                        name: product.name,
-                        price: product.minprice
-                    });
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    alert('تم إضافة المنتج إلى السلة');
-                };
-            })
-            .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
-    } else {
-        alert('المنتج غير موجود!');
-    }
-});
+    // إضافة المنتج إلى السلة
+    cart.push({
+        id: '123', // ID المنتج الحقيقي
+        name: 'اسم المنتج', // اسم المنتج الحقيقي
+        price: 5000 // السعر الحقيقي
+    });
+
+    // حفظ السلة في localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // تأكيد الإضافة
+    alert('تم إضافة المنتج إلى السلة');
+}
                     // عرض أول صورة
                     updateImageDisplay();
                 })
