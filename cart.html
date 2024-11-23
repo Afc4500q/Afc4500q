@@ -259,23 +259,62 @@ function deleteProduct(index) {
         displayCart();
     }
 
-    // إظهار معلومات الزبون
-    function promptCustomerInfo() {
-        document.getElementById("customerInfo").style.display = "block";
-    }
+// إظهار معلومات الزبون
+function promptCustomerInfo() {
+    document.getElementById("customerInfo").style.display = "block";
+}
 
-    // إرسال معلومات الزبون إلى تيليجرام
-    function sendToTelegram() {
-        const name = document.getElementById("customerName").value;
-        const phone = document.getElementById("customerPhone").value;
-        const city = document.getElementById("customerCity").value;
-        const district = document.getElementById("customerDistrict").value;
-        const region = document.getElementById("customerRegion").value;
-        const price = document.getElementById("customerPrice").value;
+// إرسال معلومات الزبون إلى تيليجرام
+function sendToTelegram() {
+    const name = document.getElementById("customerName").value;
+    const phone = document.getElementById("customerPhone").value;
+    const city = document.getElementById("customerCity").value;
+    const district = document.getElementById("customerDistrict").value;
+    const region = document.getElementById("customerRegion").value;
+    const price = document.getElementById("customerPrice").value;
 
-        // إرسال البيانات إلى تيليجرام هنا
-        alert(`تم إرسال المعلومات: \n${name}, ${phone}, ${city}, ${district}, ${region}, ${price}`);
-    }
+    // إعداد الرسالة لإرسالها إلى تيليجرام
+    const message = `
+        تم استلام معلومات الزبون:
+        الاسم: ${name}
+        الهاتف: ${phone}
+        المدينة: ${city}
+        المنطقة: ${district}
+        المنطقة الفرعية: ${region}
+        السعر: ${price}
+    `;
+
+    // إرسال البيانات إلى تيليجرام باستخدام API
+    const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; // استبدل بـ API Token للبوت
+    const chatId = "1434047374"; // استبدل بـ Chat ID أو قناة تيليجرام
+
+    // إنشاء رابط API لإرسال الرسالة
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    // إرسال الطلب إلى تيليجرام
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("تم إرسال المعلومات بنجاح!");
+        } else {
+            alert("حدث خطأ أثناء إرسال البيانات.");
+        }
+    })
+    .catch(error => {
+        alert("حدث خطأ أثناء الاتصال بتيليجرام.");
+        console.error("Error:", error);
+    });
+}
 
     // دالة لزيادة الكمية
 function increaseQuantity() {
