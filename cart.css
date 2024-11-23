@@ -206,3 +206,8 @@ form .form-group {
 .customer-input {
     margin-top: 15px;
 }
+
+#pricebay{
+    width: 15px;
+    height: 10px;
+}
