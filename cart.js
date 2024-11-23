@@ -1,6 +1,23 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // تأكد من عرض السلة عند تحميل الصفحة
+    displayCart();
+});
+
+function addToCart(product) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function deleteProduct(index) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1); // إزالة المنتج
+    localStorage.setItem("cart", JSON.stringify(cart));
+    displayCart(); // تحديث العرض بعد الحذف
+}
+
 function displayCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log(cart); // إضافة هذه السطر لرؤية محتوى السلة
     const cartContainer = document.getElementById("cartContainer");
 
     if (cart.length === 0) {
@@ -8,19 +25,15 @@ function displayCart() {
         return;
     }
 
-    cartContainer.innerHTML = ""; // مسح السلة
+    cartContainer.innerHTML = "";
     cart.forEach((product, index) => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
 
-        // تحقق من وجود الصور وتعيين أول صورة فقط
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
-
-        // التحقق من وجود الأسعار في الـ API
         const minPrice = product.minprice ? product.minprice : 'غير محدد'; 
         const maxPrice = product.maxprice ? product.maxprice : 'غير محدد';
 
-        // إضافة تفاصيل المنتج مع تعديل عرض الأسعار
         cartItem.innerHTML = `
             <div class="cart-item-images">
                 <img src="${image}" alt="${product.name}">
@@ -35,10 +48,6 @@ function displayCart() {
                         <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
                         <input type="number" id="quantity" value="1" min="1" readonly>
                         <button class="quantity-btn" onclick="increaseQuantity()">+</button>
-                        <div class="form-group">
-                            <label id="liblprice" for="name">سعر البيع</label>
-                            <input id="pricebay" type="text" id="number" name="name" required>
-                        </div>
                     </div>
                 </div>
                 <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
