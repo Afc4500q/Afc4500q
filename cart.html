@@ -164,41 +164,44 @@
 </div>
 
 <script>
-    // استرجاع المنتجات من LocalStorage
-    function displayCart() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const cartContainer = document.getElementById("cartContainer");
+// استرجاع المنتجات من LocalStorage
+function displayCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartContainer = document.getElementById("cartContainer");
 
-        if (cart.length === 0) {
-            cartContainer.innerHTML = "<p>لا توجد منتجات في السلة.</p>";
-            return;
-        }
-
-        cartContainer.innerHTML = "";
-        cart.forEach((product, index) => {
-            const cartItem = document.createElement("div");
-            cartItem.classList.add("cart-item");
-
-            // عرض أول صورة فقط للمنتج
-            const image = product.images[0]; // أول صورة فقط
-            cartItem.innerHTML = `
-                <div class="cart-item-images">
-                    <img src="${image}" alt="${product.name}">
-                </div>
-                <div class="cart-item-info">
-                    <h4>${product.name}</h4>
-                    <p>السعر الأدنى: ${product.minPrice} دينار</p>
-                    <p>السعر الأعلى: ${product.maxPrice} دينار</p>
-                    <div class="quantity-container">
-                        <label for="quantity-${index}">الكمية:</label>
-                        <input type="number" id="quantity-${index}" value="${product.quantity}" min="1" max="100">
-                    </div>
-                    <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
-                </div>
-            `;
-            cartContainer.appendChild(cartItem);
-        });
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>لا توجد منتجات في السلة.</p>";
+        return;
     }
+
+    cartContainer.innerHTML = "";
+    cart.forEach((product, index) => {
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+
+        // عرض أول صورة فقط للمنتج
+        const image = product.images ? product.images[0] : ''; // أول صورة فقط
+        const minPrice = product.minprice || 'غير محدد'; // استخدام الاسم الصحيح لـ minprice
+        const maxPrice = product.maxprice || 'غير محدد'; // استخدام الاسم الصحيح لـ maxprice
+
+        cartItem.innerHTML = `
+            <div class="cart-item-images">
+                <img src="${image}" alt="${product.name}">
+            </div>
+            <div class="cart-item-info">
+                <h4>${product.name}</h4>
+                <p>السعر الأدنى: ${minPrice} دينار</p>
+                <p>السعر الأعلى: ${maxPrice} دينار</p>
+                <div class="quantity-container">
+                    <label for="quantity-${index}">الكمية:</label>
+                    <input type="number" id="quantity-${index}" value="${product.quantity}" min="1" max="100">
+                </div>
+                <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
+            </div>
+        `;
+        cartContainer.appendChild(cartItem);
+    });
+}}
 
     // حذف المنتج من السلة
     function deleteProduct(index) {
