@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f1f1f1;
+            background-color: #f8f9fa;
             color: #333;
             direction: rtl;
             margin: 0;
@@ -15,13 +15,13 @@
         }
 
         .container {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             padding-top: 30px;
         }
 
         .cart-item {
-            border: 1px solid #2C6B8D; /* الأزرق الأرزويدي */
+            border: 1px solid #2C6B8D;
             padding: 20px;
             margin-bottom: 25px;
             display: flex;
@@ -50,13 +50,12 @@
         .cart-item-info {
             flex: 1;
             padding: 0 20px;
-            text-align: right;
         }
 
         .cart-item-info h4 {
             margin: 0;
             font-size: 22px;
-            color: #2C6B8D; /* الأزرق الأرزويدي */
+            color: #2C6B8D;
             font-weight: bold;
         }
 
@@ -69,11 +68,11 @@
         .cart-item-info .quantity {
             margin-top: 12px;
             font-size: 14px;
-            color: #2C6B8D; /* الأزرق الأرزويدي */
+            color: #2C6B8D;
         }
 
         .cart-item-info .quantity input {
-            width: 60px;
+            width: 55px;
             padding: 8px;
             font-size: 16px;
             border: 1px solid #ddd;
@@ -105,7 +104,7 @@
         }
 
         .btn {
-            background-color: #d4af37; /* الذهبي */
+            background-color: #d4af37;
             color: white;
             padding: 14px 30px;
             border: none;
@@ -117,7 +116,7 @@
         }
 
         .btn:hover {
-            background-color: #b88b2f; /* الذهبي الغامق */
+            background-color: #b88b2f;
             transform: translateY(-3px);
         }
 
@@ -155,7 +154,7 @@
         }
 
         .customer-input input:focus {
-            border-color: #2C6B8D; /* الأزرق الأرزويدي */
+            border-color: #2C6B8D;
             outline: none;
             box-shadow: 0 0 8px rgba(44, 107, 141, 0.5);
         }
@@ -185,7 +184,6 @@
 
             .cart-item-info {
                 padding: 15px;
-                text-align: center;
             }
 
             .cart-item img {
@@ -194,7 +192,7 @@
             }
 
             .cart-item-info .quantity input {
-                width: 50px;
+                width: 45px;
             }
 
             .btn, .delete-btn, .back-btn {
@@ -208,11 +206,11 @@
 <body>
     <div class="container">
         <button class="back-btn" onclick="window.history.back()">الرجوع إلى صفحة المنتجات</button>
-        
+
         <div id="cartContainer">
             <!-- سلة المنتجات ستظهر هنا -->
         </div>
-        
+
         <div id="customerInfo">
             <h3>معلومات الزبون</h3>
             <div class="customer-input">
@@ -241,7 +239,7 @@
             </div>
             <button class="btn" onclick="sendToTelegram()">إرسال إلى بوت تيليجرام</button>
         </div>
-        
+
         <button class="btn" onclick="promptCustomerInfo()">إرسال معلومات الزبون</button>
     </div>
 
@@ -265,16 +263,17 @@
                     <img src="${product.image}" alt="${product.name}">
                     <div class="cart-item-info">
                         <h4>${product.name}</h4>
-                        <p>السعر: ${product.minPrice} دينار</p>
+                        <p>السعر الأدنى: ${product.minPrice} دينار</p>
+                        <p>السعر الأعلى: ${product.maxPrice} دينار</p>
                         <p>الكمية: <input type="number" id="quantity-${index}" value="${product.quantity}" min="1"></p>
                         <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
                     </div>
                 `;
-
                 cartContainer.appendChild(cartItem);
             });
         }
 
+        // حذف المنتج من السلة
         function deleteProduct(index) {
             const cart = JSON.parse(localStorage.getItem("cart")) || [];
             cart.splice(index, 1);
@@ -282,39 +281,47 @@
             displayCart();
         }
 
+        // إظهار معلومات الزبون
         function promptCustomerInfo() {
             document.getElementById("customerInfo").style.display = "block";
         }
 
+        // إرسال معلومات الزبون إلى تيليجرام
         function sendToTelegram() {
-            const name = document.getElementById("customerName").value;
-            const phone = document.getElementById("customerPhone").value;
-            const city = document.getElementById("customerCity").value;
-            const district = document.getElementById("customerDistrict").value;
-            const region = document.getElementById("customerRegion").value;
-            const price = document.getElementById("customerPrice").value;
+            const customerName = document.getElementById("customerName").value;
+            const customerPhone = document.getElementById("customerPhone").value;
+            const customerCity = document.getElementById("customerCity").value;
+            const customerDistrict = document.getElementById("customerDistrict").value;
+            const customerRegion = document.getElementById("customerRegion").value;
+            const customerPrice = document.getElementById("customerPrice").value;
 
             const message = `
-            اسم الزبون: ${name}
-            رقم الهاتف: ${phone}
-            المدينة: ${city}
-            المنطقة: ${district}
-            المحافظة: ${region}
-            سعر البيع: ${price}
+                اسم الزبون: ${customerName}
+                رقم الهاتف: ${customerPhone}
+                المدينة: ${customerCity}
+                المنطقة: ${customerDistrict}
+                المحافظة: ${customerRegion}
+                السعر: ${customerPrice}
             `;
+            // استبدل الرابط هذا برابط بوت تيليجرام الخاص بك
+            const telegramUrl = `https://api.telegram.org/bot<YourBotToken>/sendMessage?chat_id=<YourChatID>&text=${encodeURIComponent(message)}`;
 
-            const telegramBotUrl = `https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage?chat_id=YOUR_CHAT_ID&text=${encodeURIComponent(message)}`;
-            fetch(telegramBotUrl)
+            fetch(telegramUrl)
                 .then(response => response.json())
                 .then(data => {
-                    alert("تم إرسال المعلومات إلى تيليجرام.");
-                    document.getElementById("customerInfo").style.display = "none";
+                    if (data.ok) {
+                        alert("تم إرسال المعلومات بنجاح!");
+                    } else {
+                        alert("حدث خطأ أثناء إرسال المعلومات.");
+                    }
                 })
-                .catch(error => alert("حدث خطأ أثناء الإرسال."));
+                .catch(error => {
+                    alert("حدث خطأ أثناء الاتصال بخدمة تيليجرام.");
+                });
         }
 
-        // استعراض سلة المنتجات عند تحميل الصفحة
-        displayCart();
+        // عرض السلة عند تحميل الصفحة
+        window.onload = displayCart;
     </script>
 </body>
 </html>
