@@ -264,7 +264,7 @@ function promptCustomerInfo() {
     document.getElementById("customerInfo").style.display = "block";
 }
 
-// إرسال معلومات الزبون إلى تيليجرام
+// إرسال معلومات الزبون ومعلومات المنتج إلى تيليجرام
 function sendToTelegram() {
     const name = document.getElementById("customerName").value;
     const phone = document.getElementById("customerPhone").value;
@@ -272,6 +272,10 @@ function sendToTelegram() {
     const district = document.getElementById("customerDistrict").value;
     const region = document.getElementById("customerRegion").value;
     const price = document.getElementById("customerPrice").value;
+    const productName = document.getElementById("productName").innerText;  // اسم المنتج
+    const productPrice = document.getElementById("productPrice").innerText;  // سعر المنتج
+    const quantity = document.getElementById("productQuantity").value;  // الكمية
+    const userId = document.getElementById("userId").innerText;  // id المستخدم من صفحة الـ dashboard
 
     // إعداد الرسالة لإرسالها إلى تيليجرام
     const message = `
@@ -281,7 +285,14 @@ function sendToTelegram() {
         المدينة: ${city}
         المنطقة: ${district}
         المنطقة الفرعية: ${region}
-        السعر: ${price}
+        السعر الإجمالي: ${price}
+
+        معلومات المنتج:
+        اسم المنتج: ${productName}
+        سعر المنتج: ${productPrice}
+        الكمية: ${quantity}
+
+        ID المستخدم: ${userId}
     `;
 
     // إرسال البيانات إلى تيليجرام باستخدام API
@@ -315,7 +326,6 @@ function sendToTelegram() {
         console.error("Error:", error);
     });
 }
-
     // دالة لزيادة الكمية
 function increaseQuantity() {
     let quantityInput = document.getElementById('quantity');
