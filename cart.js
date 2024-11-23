@@ -85,7 +85,7 @@ function sendToTelegram() {
     // جمع معلومات المنتج من الـ cart
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const productName = cart[0] ? cart[0].name : 'غير محدد';  
-    const productPrice = cart[0] ? cart[0].maxprice : 'غير محدد';  
+  const num = document.getElementById("number").value;
     const quantity = document.getElementById("quantity").value;
 
     const message = `
@@ -130,13 +130,11 @@ function clearCart() {
     // مسح السلة من localStorage
     localStorage.removeItem("cart");
 
-    // تحديث واجهة المستخدم
-    displayCart(); // إعادة عرض السلة بعد مسحها
-    alert("تم مسح جميع المنتجات من السلة.");
-
     document.getElementById("customerInfo").style.display = "none";
     document.getElementById("formprice").style.display = "block";
 }
+            displayCart(); // إعادة عرض السلة بعد مسحها
+    alert("تم مسح جميع المنتجات من السلة.");
         } else {
             alert("حدث خطأ أثناء إرسال البيانات.");
         }
