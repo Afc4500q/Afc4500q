@@ -80,7 +80,7 @@ body {
     margin-top: 5px;
 }
 
-#quantity-container {
+.kg {
     display: flex;
     align-items: center;
     gap: 8px; /* تصغير المسافة */
@@ -111,8 +111,8 @@ body {
 
 #quantity {
 
-    width: 15px; /* تصغير العرض */
-    height: 10px; /* تصغير الارتفاع */
+    width: 35px; /* تصغير العرض */
+    height: 25px; /* تصغير الارتفاع */
     text-align: center;
     font-size: 12px; /* تصغير الخط */
     padding: 3px;
@@ -208,6 +208,6 @@ form .form-group {
 }
 
 #pricebay{
-    width: 15px;
-    height: 10px;
+    width: 35px;
+    height: 25px;
 }
