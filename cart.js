@@ -56,6 +56,7 @@ function deleteProduct(index) {
 // إظهار معلومات الزبون
 function promptCustomerInfo() {
     document.getElementById("customerInfo").style.display = "block";
+    document.getElementById("formprice").style.display = "none";
 }
 
 
@@ -129,6 +130,7 @@ function clearCart() {
     alert("تم مسح جميع المنتجات من السلة.");
 
     document.getElementById("customerInfo").style.display = "none";
+    document.getElementById("formprice").style.display = "block";
 }
         } else {
             alert("حدث خطأ أثناء إرسال البيانات.");
