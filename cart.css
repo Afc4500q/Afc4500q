@@ -110,8 +110,9 @@ body {
 }
 
 #quantity {
-    width: 35px; /* تصغير العرض */
-    height: 25px; /* تصغير الارتفاع */
+
+    width: 15px; /* تصغير العرض */
+    height: 10px; /* تصغير الارتفاع */
     text-align: center;
     font-size: 12px; /* تصغير الخط */
     padding: 3px;
