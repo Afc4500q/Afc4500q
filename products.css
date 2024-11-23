@@ -91,11 +91,9 @@ header nav a i {
 }
 
 .product .price-section .old-price {
-    .product .price-section .old-price {
     font-size: 18px; /* نفس حجم الخط */
     font-weight: bold; /* نفس الوزن */
-    color: #e58e26; /* نفس اللون */
-}
+    color: #0077b6; /* نفس اللون */
 }
 
 .product .status {
