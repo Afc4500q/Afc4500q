@@ -19,8 +19,13 @@
             <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
         </div>
         
-        <button id="add-to-cart" onclick="addToCart()">إضافة إلى السلة</button>
-    </div>
+        <button id="add-to-cart" onclick="openn()">إضافة إلى السلة</button>
+       <div class="list-bay" >
+        <label for="pricebay">بكم سوف تبيع المنتج</label>
+        <input tayp="number" id="pricebay">
+        <button id="sump" onclick="addToCart()">موافق</button>
+       </div>
+       </div>
 
     <script>
         const productId = localStorage.getItem('selectedProductId'); // جلب ID المنتج من localStorage
@@ -76,6 +81,10 @@
                         });
                     }
 
+                    window.openn = function(){
+                     document.querySelector(".list-bay").style.display = "block";
+                    }
+                     const bb = document.querySelector("#pricebay");
                     // إضافة المنتج إلى السلة
                     window.addToCart = function() {
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -84,7 +93,9 @@
                             name: product.name,
                             minprice: product.minprice,
                             maxprice: product.maxprice,
-                            images: product.images
+                            images: product.images,
+                            pricebay: bb
+                            
                         }); // إضافة المنتج إلى السلة
                         localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
                         alert('تم إضافة المنتج إلى السلة');
