@@ -61,17 +61,22 @@ function promptCustomerInfo() {
 function sendToTelegram() {
     console.log("تم استدعاء الدالة");  // فحص ما إذا كانت الدالة تعمل
 
+    // جمع معلومات الزبون
     const name = document.getElementById("customerName").value;
     const phone = document.getElementById("customerPhone").value;
     const city = document.getElementById("customerCity").value;
     const district = document.getElementById("customerDistrict").value;
     const region = document.getElementById("customerRegion").value;
     const price = document.getElementById("customerPrice").value;
-    const productName = document.getElementById("productName").innerText;
-    const productPrice = document.getElementById("productPrice").innerText;
-    const quantity = document.getElementById("productQuantity").value;
-    const userId = document.getElementById("userId").innerText;
 
+    // جمع معلومات المنتج من الـ cart
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const productName = cart[0] ? cart[0].name : 'غير محدد';  // أخذ اسم المنتج من السلة
+    const productPrice = cart[0] ? cart[0].maxprice : 'غير محدد';  // أخذ سعر المنتج من السلة
+    const quantity = document.getElementById("quantity").value;  // جلب الكمية من المدخل
+    const userId = document.getElementById("userId") ? document.getElementById("userId").innerText : 'غير محدد';  // جلب ID المستخدم إذا كان موجود
+
+    // تكوين الرسالة التي سيتم إرسالها
     const message = `
         تم استلام معلومات الزبون:
         الاسم: ${name}
@@ -89,6 +94,7 @@ function sendToTelegram() {
         ID المستخدم: ${userId}
     `;
 
+    // الاتصال بـ Telegram API
     const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; 
     const chatId = "1434047374"; 
 
@@ -118,7 +124,6 @@ function sendToTelegram() {
         console.error("Error:", error);
     });
 }
-
     
     // دالة لزيادة الكمية
 function increaseQuantity() {
