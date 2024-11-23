@@ -1,173 +1,184 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <title>منتجات عشتار</title>
-  <style>
-    body {
-  font-family: Arial, sans-serif;
-  direction: rtl;
-  text-align: right;
-  margin: 0;
-  background-color: #1A4973; /* الأزرق اللازوردي */
-  color: #FFD700; /* الذهبي */
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنتجات</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-header {
-  background-color: #1A4973; /* الأزرق اللازوردي */
-  color: #FFD700; /* الذهبي */
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف */
-}
+        header {
+            background-color: #0a3d62;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
 
-header h1 {
-  font-family: 'Traditional Arabic', sans-serif;
-  font-size: 36px;
-  margin: 0;
-  color: #FFD700; /* الذهبي */
-}
+        header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 24px;
+            margin: 0;
+        }
 
-header nav {
-  display: flex;
-  gap: 20px; /* مسافة بين الأيقونات */
-}
+        header nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
 
-header nav i {
-  font-size: 24px;
-  color: #FFD700; /* الذهبي */
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-header nav i:hover {
-  color: #FFFFFF; /* أبيض عند التمرير */
-  transform: scale(1.2); /* تكبير الأيقونة قليلاً */
-}
-.products-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+        header nav a i {
+            font-size: 18px;
+        }
 
-.product-card {
-  border: 1px solid #FFD700; /* إطار ذهبي */
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  background-color: #f9f9f9; /* أبيض */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        #products-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 10px;
+        }
 
-.product-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
+        .product {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            text-align: center;
+        }
 
-.product-card h3 {
-  font-size: 20px;
-  margin: 10px 0;
-  color: #1A4973; /* الأزرق اللازوردي */
-}
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-.product-card p {
-  font-size: 16px;
-  color: #555; /* رمادي */
-}
+        .product img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-bottom: 1px solid #ddd;
+        }
 
-.product-card button {
-  background-color: #1A4973; /* أخضر غامق */
-  color: white;
-  border: none;
-  padding: 10px;
-  margin-top: 10px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
+        .product .info {
+            margin-top: 15px;
+        }
 
-.product-card button:hover {
-  background-color: #FFD700; /* الذهبي */
-  color: #1A4973; /* الأزرق اللازوردي */
-}
-  </style>
+        .product h2 {
+            font-size: 20px;
+            color: #0a3d62;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .product .price-section {
+            color: #e58e26;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+             font-size: 18px;
+            font-weight: bold;
+            
+        }
+
+        .product .price-section .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e58e26;
+        }
+
+        .product .price-section .old-price {
+            font-size: 18px;
+            color: #0a3d62;
+        }
+
+        .product .status {
+            font-size: 14px;
+            color: #28a745;
+            margin-top: 5px;
+        }
+
+        .product button {
+            background-color: #0a3d62;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product button:hover {
+            background-color: #e58e26;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>عشتار</h1>
+        <nav>
+            <a href="#"><i class="icon">👤</i> </a>
+            <a href="#"><i class="icon">🛒</i> </a>
+            <a href="#"><i class="icon">📞</i> </a>
+        </nav>
+    </header>
 
-  <!-- Header -->
-  <header>
-  <h1>عشتار</h1>
-  <nav>
-    <i class="fas fa-user" title="الحساب" onclick="window.location.href='dashboard.html'"></i>
-    <i class="fas fa-shopping-cart" title="سلة المنتجات" onclick="window.location.href='cart.html'"></i>
-    <i class="fas fa-headset" title="الدعم الفني" onclick="window.location.href='help.html'"></i>
-  </nav>
-</header>
-  <!-- Products Section -->
-  <div class="products-container" id="productsContainer">
-    <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
-  </div>
+    <div id="products-list"></div>
 
-  
-  
-     <script>
-    // جلب المنتجات من الـ API
-    async function fetchProducts() {
-      try {
-        const response = await fetch("https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products");
-        if (response.ok) {
-          const products = await response.json();
-          displayProducts(products);
-        } else {
-          console.error("فشل في تحميل المنتجات");
+    <script>
+        fetch('https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products')
+            .then(response => response.json())
+            .then(products => {
+                const productsList = document.getElementById('products-list');
+                products.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('product');
+
+                    // عرض الصورة الأولى فقط لكل منتج
+                    const productImage = product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/150';
+
+                    productElement.innerHTML = `
+                        <img src="${productImage}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150';">
+                        <div class="info">
+                            <h2>${product.name}</h2>
+                            <p class="status">${product.condition}</p>
+                            <div class="price-section">
+                                <div class="price">${product.minprice}  </div>
+                                <div class="old-price">${product.maxprice}  </div>
+                            </div>
+                            <button onclick="viewProductDetails(${product.id})">عرض التفاصيل</button>
+                        </div>
+                    `;
+                    productsList.appendChild(productElement);
+                });
+            })
+            .catch(error => console.error('خطأ في جلب البيانات:', error));
+
+        function viewProductDetails(productId) {
+            localStorage.setItem('selectedProductId', productId);
+            window.location.href = 'product.html';
         }
-      } catch (error) {
-        console.error("حدث خطأ عند جلب البيانات:", error);
-      }
-    }
-
-    // عرض المنتجات في الصفحة
-    // عرض المنتجات في الصفحة
-function displayProducts(products) {
-  const productsContainer = document.getElementById("productsContainer");
-  productsContainer.innerHTML = ""; // تفريغ الحاوية قبل إضافة المنتجات الجديدة
-
-  products.forEach(product => {
-    const productCard = document.createElement("div");
-    productCard.classList.add("product-card");
-
-    // إضافة محتوى المنتج
-    productCard.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3 id="product-name-${product.id}">${product.name}</h3>
-      <p>سعر أدنى: ${product.minprice}</p>
-      <p>سعر أعلى: ${product.maxprice}</p>
-      <button onclick="viewProductDetails('${product.id}', '${product.name}', '${product.image}', '${product.minprice}', '${product.maxprice}', \`${product.description}\`)">عرض التفاصيل</button>
-    `;
-    
-    productsContainer.appendChild(productCard);
-  });
-}
-
-function viewProductDetails(id, name, image, minPrice, maxPrice, description) {
-  const product = { id, name, image, minPrice, maxPrice, description };
-
-  // تخزين بيانات المنتج في localStorage
-  localStorage.setItem("selectedProduct", JSON.stringify(product));
-
-  // الانتقال إلى صفحة المنتج الواحد
-  window.location.href = "product.html";
-}
-    // استدعاء دالة جلب المنتجات عند تحميل الصفحة
-    fetchProducts();
-</script>
-
+    </script>
 </body>
 </html>
