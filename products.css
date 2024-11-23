@@ -26,12 +26,13 @@ header nav {
 }
 
 header nav a {
-    color: #fff;
+    display: flex;
+    flex-direction: column; /* لجعل النص أسفل الأيقونة */
+    align-items: center;
+    gap: 5px; /* مسافة بين الأيقونة والنص */
+    color: white;
     text-decoration: none;
     font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
 header nav a i {
