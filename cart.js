@@ -37,8 +37,9 @@ function displayCart() {
     <button class="quantity-btn" onclick="increaseQuantity()">+</button>
     <div class="form-group">
         <label id="liblprice" for="name">الاسم الكامل:</label>
-        <input id=pricebay" type="text" id="Number" name="name" required>
-    </div<
+        <input id=pricebay" type="text" id="number" name="name" required>
+   </div>
+
 </div>
                 </div>
                 <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
