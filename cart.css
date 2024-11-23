@@ -1,0 +1,152 @@
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    gap: 10px; /* مسافة بسيطة بين العناصر */
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* مسافة بين عناصر الكمية */
+}
+
+.quantity-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background-color: #0056b3;
+}
+
+.quantity-input {
+    width: 35px; /* تقليل العرض */
+    height: 25px; /* تصغير الارتفاع */
+    font-size: 12px; /* تقليل حجم النص */
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 10px; /* حجم مناسب */
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-left: auto; /* يبعد الزر عن الحقول */
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.fullname-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* مسافة بين الليبل والحقل */
+}
+
+.fullname-label {
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.fullname-input {
+    width: 150px; /* تقليل العرض قليلاً */
+    padding: 5px;
+    font-size: 12px; /* حجم أصغر */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .quantity-container {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .fullname-container {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .delete-btn {
+        align-self: flex-end;
+    }
+}
+
+.customer-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* مسافة بين الحقول */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+.customer-info-form label {
+    font-size: 14px; /* حجم مناسب للنص */
+    color: #333;
+    margin-bottom: 5px; /* مسافة بين الليبل والحقل */
+}
+
+.customer-info-form input,
+.customer-info-form textarea {
+    width: 100%; /* الحقول تأخذ عرض البوكس */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* لضمان عدم تجاوز الحقول */
+}
+
+.customer-info-form textarea {
+    resize: none; /* منع تعديل حجم النص */
+    height: 80px; /* ارتفاع مناسب */
+}
+
+.customer-info-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* زر موجه لليسار */
+}
+
+.customer-info-form button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .customer-info-form {
+        gap: 15px; /* تكبير المسافات قليلاً للشاشات الصغيرة */
+    }
+}
