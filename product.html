@@ -203,7 +203,8 @@
                         cart.push({
                             id: product.id,
                             name: product.name,
-                            price: product.minprice, // سعر المنتج الأدنى
+                            minprice: product.minprice,
+                            maxprice: product.maxprice,
                             images: product.images
                         }); // إضافة المنتج إلى السلة
                         localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
