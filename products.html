@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <title>المنتجات</title>
     <style>
         body {
@@ -137,11 +138,21 @@
 <body>
     <header>
         <h1>عشتار</h1>
-        <nav>
-            <a href="dashboard.html"><i class="icon">👤</i> </a>
-            <a href="cart.html"><i class="icon">🛒</i> </a>
-            <a href="#"><i class="icon">📞</i> </a>
-        </nav>
+   <nav class="nav">
+        <a href="#account" class="icon">
+            <i class="fas fa-user"></i>
+            <span>الحساب</span>
+        </a>
+        <a href="#support" class="icon">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="#cart" class="icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span>السلة</span>
+        </a>
+    </nav>
+
     </header>
 
     <div id="products-list"></div>
