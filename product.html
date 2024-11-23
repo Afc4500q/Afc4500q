@@ -199,22 +199,30 @@
 
                     // إضافة المنتج إلى السلة
 function addToCart() {
-    // جلب السلة من localStorage أو إنشاء سلة جديدة
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // استرداد المنتج الحالي من localStorage
+            const product = JSON.parse(localStorage.getItem('currentProduct'));
+            if (!product) {
+                alert('المنتج غير متوفر!');
+                return;
+            }
 
-    // إضافة المنتج إلى السلة
-    cart.push({
-        id: '123', // ID المنتج الحقيقي
-        name: 'اسم المنتج', // اسم المنتج الحقيقي
-        price: 5000 // السعر الحقيقي
-    });
+            // استرداد السلة أو إنشاؤها إذا لم تكن موجودة
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // حفظ السلة في localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+            // إضافة المنتج إلى السلة
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.minprice
+            });
 
-    // تأكيد الإضافة
-    alert('تم إضافة المنتج إلى السلة');
-}
+            // تحديث السلة في localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // رسالة تأكيد
+            alert('تم إضافة المنتج إلى السلة بنجاح!');
+        }
+    
                     // عرض أول صورة
                     updateImageDisplay();
                 })
