@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلة المنتجات</title>
     <style>
-
 body {
     font-family: Arial, sans-serif;
     direction: rtl;
@@ -58,10 +57,12 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid #ddd;
+    flex-wrap: wrap; /* السماح بتقسيم العناصر على عدة أسطر */
+    gap: 10px;
 }
 
 .cart-item img {
-    width: 60px; /* تقليل الحجم */
+    width: 60px; /* تصغير الحجم */
     height: 60px;
     object-fit: cover;
     border-radius: 8px;
@@ -83,7 +84,7 @@ body {
 }
 
 .cart-item-info p {
-    font-size: 12px; /* تقليل حجم الوصف */
+    font-size: 12px; /* تصغير حجم الوصف */
     color: #555;
     margin-top: 5px;
 }
@@ -91,9 +92,9 @@ body {
 .quantity-container {
     display: flex;
     align-items: center;
-    gap: 8px; /* تصغير المسافة */
+    gap: 10px; /* زيادة المسافة بين الكمية وزر الحذف */
     flex: 1;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .quantity-box {
@@ -149,23 +150,25 @@ body {
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    display: none;
 }
 
 .customer-input {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .customer-input label {
     font-size: 14px;
     color: #333;
+    margin-bottom: 5px; /* تحسين المسافة بين النص والحقل */
 }
 
 .customer-input input {
     width: 100%;
     padding: 8px;
-    font-size: 12px;
+    font-size: 12px; /* تصغير الخط */
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
@@ -203,7 +206,7 @@ body {
     flex: 1;
     justify-content: flex-end;
     display: flex;
-    gap: 10px;
+    gap: 15px; /* تحسين المسافة بين الكمية والحذف */
 }
 
 form .form-group {
@@ -212,6 +215,9 @@ form .form-group {
 
 .customer-input {
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 </style>
 </head>
