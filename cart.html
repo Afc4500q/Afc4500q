@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلة المنتجات</title>
-    <style>body {
+    <style>
+        body {
     font-family: Arial, sans-serif;
     direction: rtl;
     background-color: #f5f5f5;
@@ -20,6 +21,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* لمنع التمرير */
 }
 
 .back-btn {
@@ -39,15 +41,16 @@
 
 .cart-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .cart-item img {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 8px;
     margin-right: 20px;
@@ -163,20 +166,33 @@
     background-color: #007b8a;
 }
 
-/* تعديل شكل سلة المنتجات */
-.cart-item-info {
-    flex: 1;
-    margin-right: 10px;
+/* تعديل الشكل داخل سلة المنتجات */
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
 }
 
-.cart-item-images {
-    margin-right: 20px;
+.cart-item-info {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
 }
 
 .quantity-container {
     display: flex;
+    gap: 15px;
     align-items: center;
-    gap: 20px;
 }
 
 .delete-btn {
@@ -184,17 +200,22 @@
 }
 
 #quantity {
-    width: 50px;
+    width: 45px;
     height: 35px;
 }
 
 .quantity-btn {
-    padding: 10px 15px;
+    padding: 8px 15px;
 }
 
 form .form-group {
-    margin-top: 15px;
+    margin-top: 10px;
+    width: 100%;
 }
+
+.customer-input {
+    width: 100%;
+}    
     </style>
 </head>
 <body>
