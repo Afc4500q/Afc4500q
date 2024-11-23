@@ -87,7 +87,7 @@
                      
                     // إضافة المنتج إلى السلة
                     window.addToCart = function() {
-                        const bb = document.querySelector("#pricebay").value;
+                        const pricebsy = document.querySelector("#pricebay").value;
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
                         cart.push({
                             id: product.id,
@@ -95,7 +95,7 @@
                             minprice: product.minprice,
                             maxprice: product.maxprice,
                             images: product.images,
-                            pricebsy: bb,
+                            pricebsy: pricebsy,
                             
                         }); // إضافة المنتج إلى السلة
                         localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
