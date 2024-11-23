@@ -1,152 +1,207 @@
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.back-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: block;
+    width: 140px;
+    text-align: center;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .cart-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
     background-color: #f9f9f9;
-    gap: 10px; /* مسافة بسيطة بين العناصر */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+}
+
+.cart-item img {
+    width: 60px; /* تقليل الحجم */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item-info {
+    flex: 1;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-item-info h4 {
+    font-size: 14px; /* تصغير الخط */
+    color: #333;
+    margin: 5px 0;
+    line-height: 1.2;
+}
+
+.cart-item-info p {
+    font-size: 12px; /* تقليل حجم الوصف */
+    color: #555;
+    margin-top: 5px;
 }
 
 .quantity-container {
     display: flex;
     align-items: center;
-    gap: 5px; /* مسافة بين عناصر الكمية */
+    gap: 8px; /* تصغير المسافة */
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.quantity-box {
+    display: flex;
+    gap: 5px; /* تقليل الفراغات */
+    align-items: center;
 }
 
 .quantity-btn {
-    background-color: #007bff;
+    background-color: #2C6B8D;
     color: white;
     border: none;
-    padding: 4px 8px;
-    font-size: 12px;
+    padding: 4px 8px; /* تقليل الحشو */
+    font-size: 10px; /* تصغير النص */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .quantity-btn:hover {
-    background-color: #0056b3;
+    background-color: #1f4d63;
 }
 
-.quantity-input {
-    width: 35px; /* تقليل العرض */
+#quantity {
+    width: 35px; /* تصغير العرض */
     height: 25px; /* تصغير الارتفاع */
-    font-size: 12px; /* تقليل حجم النص */
     text-align: center;
+    font-size: 12px; /* تصغير الخط */
+    padding: 3px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .delete-btn {
     background-color: #ff4d4d;
     color: white;
+    padding: 4px 8px; /* تقليل الحشو */
+    font-size: 10px; /* تصغير النص */
     border: none;
-    padding: 6px 10px; /* حجم مناسب */
-    font-size: 12px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: auto; /* يبعد الزر عن الحقول */
 }
 
 .delete-btn:hover {
-    background-color: #cc0000;
+    background-color: #e04343;
 }
 
-.fullname-container {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* مسافة بين الليبل والحقل */
-}
-
-.fullname-label {
-    font-size: 14px;
-    color: #333;
-    white-space: nowrap;
-}
-
-.fullname-input {
-    width: 150px; /* تقليل العرض قليلاً */
-    padding: 5px;
-    font-size: 12px; /* حجم أصغر */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-@media (max-width: 768px) {
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .quantity-container {
-        justify-content: flex-start;
-        width: 100%;
-    }
-
-    .fullname-container {
-        justify-content: flex-start;
-        width: 100%;
-    }
-
-    .delete-btn {
-        align-self: flex-end;
-    }
-}
-
-.customer-info-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* مسافة بين الحقول */
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+#customerInfo {
     margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: none;
 }
 
-.customer-info-form label {
-    font-size: 14px; /* حجم مناسب للنص */
-    color: #333;
-    margin-bottom: 5px; /* مسافة بين الليبل والحقل */
+.customer-input {
+    margin-bottom: 10px;
+    width: 100%;
 }
 
-.customer-info-form input,
-.customer-info-form textarea {
-    width: 100%; /* الحقول تأخذ عرض البوكس */
-    padding: 8px;
+.customer-input label {
     font-size: 14px;
+    color: #333;
+}
+
+.customer-input input {
+    width: 100%;
+    padding: 8px;
+    font-size: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box; /* لضمان عدم تجاوز الحقول */
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
-.customer-info-form textarea {
-    resize: none; /* منع تعديل حجم النص */
-    height: 80px; /* ارتفاع مناسب */
-}
-
-.customer-info-form button {
-    background-color: #007bff;
+.btn {
+    background-color: #008CBA;
     color: white;
-    border: none;
-    padding: 10px 15px;
+    padding: 10px 16px;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: flex-start; /* زر موجه لليسار */
+    margin-top: 20px;
+    border: none;
+    width: 100%;
 }
 
-.customer-info-form button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #007b8a;
 }
 
-@media (max-width: 768px) {
-    .customer-info-form {
-        gap: 15px; /* تكبير المسافات قليلاً للشاشات الصغيرة */
-    }
+/* تحسين التنسيق داخل بوكس المنتج */
+.cart-item {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+}
+
+.cart-item-info {
+    flex: 2;
+}
+
+.quantity-container {
+    flex: 1;
+    justify-content: flex-end;
+    display: flex;
+    gap: 10px;
+}
+
+form .form-group {
+    margin-top: 15px;
+}
+
+.customer-input {
+    margin-top: 15px;
 }
