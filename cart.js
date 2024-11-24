@@ -1,5 +1,5 @@
-const bh = document.querySelector(".customerInfo");
-const gg = document.querySelector("#fromprice");
+//const bh = document.querySelector(".customerInfo");
+//const gg = document.querySelector("#fromprice");
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
     // استرجاع السلة من localStorage، إذا لم توجد أنشأنا سلة فارغة
@@ -119,6 +119,9 @@ function increaseQuantity(index) {
     // يمكن تحديث الكمية في localStorage هنا إذا لزم الأمر
 }
 
+
+
+
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
     // استرجاع id المستخدم
@@ -215,14 +218,14 @@ gg.style.display = "block";
 }
 
 
-function openl{
-bh.style.display = "block";
-gg.style.display = "none";
+//function openl{
+//bh.style.display = "block";
+//gg.style.display = "none";
 
-}
+//}
 
 // ربط الزر بدالة الإرسال
-document.getElementById("cli").addEventListener("click", sendDataToTelegram);
+//document.getElementById("cli").addEventListener("click", sendDataToTelegram);
 
 // استدعاء دالة لعرض السلة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
