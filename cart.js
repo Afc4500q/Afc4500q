@@ -1,3 +1,5 @@
+const bh = document.querySelector(".customerInfo");
+const gg = document.querySelector("#fromprice");
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
     // استرجاع السلة من localStorage، إذا لم توجد أنشأنا سلة فارغة
@@ -191,7 +193,16 @@ function sendDataToTelegram() {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                alert("تم إرسال البيانات إلى البوت بنجاح!");
+                // دالة لحذف جميع المنتجات من السلة
+function clearCart() {
+    // إزالة السلة بالكامل من localStorage
+    localStorage.removeItem("cart");
+
+    // تحديث العرض بعد الحذف
+    displayCart();
+gg.style.display = "block";
+}
+                
             } else {
                 console.error("Telegram API Error:", data);
                 alert("فشل في إرسال البيانات إلى البوت.");
@@ -203,12 +214,10 @@ function sendDataToTelegram() {
         });
 }
 
-const bh = document.querySelector("");
-
 
 function openl{
 bh.style.display = "block";
-ggstyle.display = "none";
+gg.style.display = "none";
 
 }
 
