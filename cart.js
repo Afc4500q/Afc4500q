@@ -203,6 +203,15 @@ function sendDataToTelegram() {
         });
 }
 
+const bh = document.querySelector("");
+
+
+function openl{
+bh.style.display = "block";
+ggstyle.display = "none";
+
+}
+
 // ربط الزر بدالة الإرسال
 document.getElementById("cli").addEventListener("click", sendDataToTelegram);
 
