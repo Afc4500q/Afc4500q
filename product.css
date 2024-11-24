@@ -23,7 +23,7 @@ body {
     display: flex;
     justify-content: center; /* توسيط العناصر أفقيًا */
     align-items: center;    /* توسيط */
-    background-color: #f0f8ff;
+    background-color: blue;
 }
 
 header {
