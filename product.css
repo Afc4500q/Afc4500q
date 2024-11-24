@@ -19,7 +19,7 @@ body {
     position: absolute;
     left:  30%;
     right: 30%;
-    botton: 50%;
+    top: 88%;
     display: flex;
     justify-content: center; /* توسيط العناصر أفقيًا */
     align-items: center;    /* توسيط */
