@@ -176,7 +176,6 @@ function sendDataToTelegram() {
         message += `🔹 *المنتج ${index + 1}:*\n`;
         message += `  🏷️ *الاسم:* ${product.name}\n`;
         message += `  💰 * ارباح العميل:* ${sss || 'غير محدد'}\n`;
-        message += `  💵 *سعر البيع:* ${product.pricebsy || 'غير محدد'}\n`;  // إضافة سعر البيع
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
 
