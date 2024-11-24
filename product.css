@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: #F9F9F9;
     color: #333;
+    position: relative;
     direction: rtl;  لتنسيق النصوص بالعربية 
 }
 
@@ -16,6 +17,8 @@ body {
    z-index: 3;
     tixt-aline: center;
     aline-itmse: center;
+    position: absolute;
+    
 }
 
 header {
