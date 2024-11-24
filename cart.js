@@ -1,3 +1,11 @@
+// قتح فورم معلومات الزبون
+const bh = document.querySelector(".customerInfo");
+const gg = document.querySelector("#fromprice");
+function openl{
+bh.style.display = "block";
+gg.style.display = "none";
+
+}
 
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
@@ -212,14 +220,6 @@ gg.style.display = "block";
         });
 }
 
-// قتح فورم معلومات الزبون
-const bh = document.querySelector(".customerInfo");
-const gg = document.querySelector("#fromprice");
-function openl{
-bh.style.display = "block";
-gg.style.display = "none";
-
-}
 
 // ربط الزر بدالة الإرسال
 //document.getElementById("cli").addEventListener("click", sendDataToTelegram);
