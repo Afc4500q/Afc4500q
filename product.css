@@ -10,18 +10,18 @@ body {
 }
 
 .list-bay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* نسبي بالنسبة لمكانه في الصفحة */
+    margin-top: 20px; /* مسافة من الأعلى لتحديد مكانه أسفل النص */
     background-color: #0047ab; /* الأزرق الجميل */
     color: white; /* النص باللون الأبيض */
     border-radius: 15px; /* حواف مستديرة */
     padding: 20px 30px; /* تباعد داخلي */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل بسيط لإبراز البوكس */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل لإبراز البوكس */
     text-align: center; /* محاذاة النص إلى الوسط */
     width: 80%;
     max-width: 300px; /* تحديد عرض أقصى */
+    margin-left: auto;
+    margin-right: auto; /* توسيط العنصر أفقيًا */
 }
 
 .list-bay label {
