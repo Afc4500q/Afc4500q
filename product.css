@@ -11,7 +11,7 @@ body {
 
 .list-bay {
     position: relative; /* الموقع النسبي */
-    margin-bottom: 20px; /* مسافة من أسفل لضمان وجود مساحة قبل زر "إضافة إلى السلة" */
+    margin-bottom: 5px; /* مسافة صغيرة جدًا من أسفل */
     background-color: #0047ab; /* الأزرق الجميل */
     color: white; /* النص باللون الأبيض */
     border-radius: 15px; /* حواف مستديرة */
@@ -60,7 +60,7 @@ body {
 /* زر إضافة إلى السلة */
 .add-to-cart {
     display: block; /* عرض الزر كعنصر بلوك */
-    margin: 10px auto 0; /* مسافة علوية بعد العنصر */
+    margin: 10px auto 0; /* مسافة صغيرة علوية بعد العنصر */
     padding: 10px 20px;
     background-color: #fcb900;
     color: #0047ab;
