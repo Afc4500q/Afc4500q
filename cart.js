@@ -39,9 +39,8 @@ function displayCart() {
 
         // استخدام الصور والأسعار التي تم تخزينها
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
-        const minPrice = product.minprice || 'غير محدد';
-        const maxPrice = product.maxprice || 'غير محدد';
         const pricebay = product.pricebsy || 'غير محدد';
+        const sss = pricebay/100 * 13;
 
         cartItem.innerHTML = `
             <div class="cart-item-images">
@@ -49,9 +48,8 @@ function displayCart() {
             </div>
             <div class="cart-item-info">
                 <h4>${product.name}</h4>
-                <p>السعر الأدنى: ${minPrice}</p>
-                <p>السعر الأعلى: ${maxPrice}</p>
                 <p> سعر البيع: ${pricebay}</p>
+                <p>ربحك:${sss}</p>
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
                     <div class="quantity-box">
