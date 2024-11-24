@@ -9,21 +9,52 @@ body {
     direction: rtl;  لتنسيق النصوص بالعربية 
 }
 
-.list-bay{
-    whith: 100px;
-    height: 100px;
-    color: #eee;
-   z-index: 3;
-    tixt-aline: center;
-    aline-itmse: center;
+.list-bay {
     position: absolute;
-    left:  30%;
-    right: 30%;
-    top: 88%;
-    display: flex;
-    justify-content: center; /* توسيط العناصر أفقيًا */
-    align-items: center;    /* توسيط */
-    background-color: blue;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0047ab; /* الأزرق الجميل */
+    color: white; /* النص باللون الأبيض */
+    border-radius: 15px; /* حواف مستديرة */
+    padding: 20px 30px; /* تباعد داخلي */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل بسيط لإبراز البوكس */
+    text-align: center; /* محاذاة النص إلى الوسط */
+    width: 80%;
+    max-width: 300px; /* تحديد عرض أقصى */
+}
+
+.list-bay label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.list-bay input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.list-bay button {
+    background-color: #ffcc00; /* لون زر جذاب */
+    color: #0047ab; /* لون النص للزر */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease; /* تأثير عند تمرير الفأرة */
+}
+
+.list-bay button:hover {
+    background-color: #ffd633; /* تغيير اللون عند التمرير */
 }
 
 header {
