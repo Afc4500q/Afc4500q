@@ -125,7 +125,7 @@ function increaseQuantity(index) {
 }
 
 
-
+/*
 
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
@@ -218,8 +218,7 @@ gg.style.display = "block";
             alert("حدث خطأ أثناء إرسال البيانات.");
         });
 }
-
-
+*/
 // ربط الزر بدالة الإرسال
 //document.getElementById("cli").addEventListener("click", sendDataToTelegram);
 
