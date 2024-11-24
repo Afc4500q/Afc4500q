@@ -143,8 +143,7 @@ function sendDataToTelegram() {
         city: document.getElementById('customerCity').value.trim(),
         district: document.getElementById('customerDistrict').value.trim(),
         region: document.getElementById('customerRegion').value.trim(),
-        price: document.getElementById('customerPrice').value.trim()
-    };
+        
 
     // التحقق من تعبئة كافة الحقول
     if (!customerInfo.name || !customerInfo.phone || !customerInfo.city || !customerInfo.district || !customerInfo.region || !customerInfo.price) {
@@ -160,7 +159,7 @@ function sendDataToTelegram() {
     message += `🏙️ *المدينة:* ${customerInfo.city}\n`;
     message += `🌍 *المنطقة:* ${customerInfo.district}\n`;
     message += `🏢 *المحافظة:* ${customerInfo.region}\n`;
-    message += `💵 *سعر البيع:* ${customerInfo.price}\n\n`;
+    
 
     // إضافة المنتجات في السلة إلى الرسالة
     cart.forEach((product, index) => {
@@ -169,8 +168,7 @@ function sendDataToTelegram() {
 
         message += `🔹 *المنتج ${index + 1}:*\n`;
         message += `  🏷️ *الاسم:* ${product.name}\n`;
-        message += `  💰 *السعر الأدنى:* ${product.minprice || 'غير محدد'}\n`;
-        message += `  💰 *السعر الأعلى:* ${product.maxprice || 'غير محدد'}\n`;
+        message += `  💰 * ارباح العميل:* ${sss || 'غير محدد'}\n`;
         message += `  💵 *سعر البيع:* ${product.pricebsy || 'غير محدد'}\n`;  // إضافة سعر البيع
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
@@ -216,9 +214,9 @@ gg.style.display = "block";
 }
 
 
-//function openl{
-//bh.style.display = "block";
-//gg.style.display = "none";
+function openl{
+bh.style.display = "block";
+gg.style.display = "none";
 
 //}
 
