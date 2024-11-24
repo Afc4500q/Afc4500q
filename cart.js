@@ -82,6 +82,17 @@ function deleteProduct(index) {
     displayCart();
 }
 
+// استرجاع id المستخدم من localStorage وحفظه في متغير
+let userId = localStorage.getItem('userId');
+
+if (userId) {
+    console.log('User ID:', userId); // عرض id في وحدة التحكم
+    // يمكنك الآن استخدام المتغير userId في باقي الكود
+} else {
+    console.log('No User ID found in localStorage.');
+}
+
+
 // دالة لتقليص الكمية
 function decreaseQuantity(index) {
     const quantityInput = document.getElementById(`quantity-${index}`);
