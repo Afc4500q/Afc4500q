@@ -117,6 +117,95 @@ function increaseQuantity(index) {
     // يمكن تحديث الكمية في localStorage هنا إذا لزم الأمر
 }
 
+// دالة لإرسال البيانات إلى البوت عبر Telegram
+function sendDataToTelegram() {
+    // استرجاع id المستخدم
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+        alert('لا يمكن العثور على ID المستخدم!');
+        return;
+    }
+
+    // استرجاع بيانات السلة
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('السلة فارغة! لا توجد بيانات لإرسالها.');
+        return;
+    }
+
+    // جمع معلومات الزبون من الفورم
+    const customerInfo = {
+        name: document.getElementById('customerName').value.trim(),
+        phone: document.getElementById('customerPhone').value.trim(),
+        city: document.getElementById('customerCity').value.trim(),
+        district: document.getElementById('customerDistrict').value.trim(),
+        region: document.getElementById('customerRegion').value.trim(),
+        price: document.getElementById('customerPrice').value.trim()
+    };
+
+    // التحقق من تعبئة كافة الحقول
+    if (!customerInfo.name || !customerInfo.phone || !customerInfo.city || !customerInfo.district || !customerInfo.region || !customerInfo.price) {
+        alert("يرجى تعبئة جميع الحقول!");
+        return;
+    }
+
+    // إنشاء نص الرسالة
+    let message = `🛒 *تفاصيل الطلب الجديد:*\n\n`;
+    message += `👤 *معرف المستخدم:* ${userId}\n`;
+    message += `📞 *اسم العميل:* ${customerInfo.name}\n`;
+    message += `📱 *رقم الهاتف:* ${customerInfo.phone}\n`;
+    message += `🏙️ *المدينة:* ${customerInfo.city}\n`;
+    message += `🌍 *المنطقة:* ${customerInfo.district}\n`;
+    message += `🏢 *المحافظة:* ${customerInfo.region}\n`;
+    message += `💵 *سعر البيع:* ${customerInfo.price}\n\n`;
+
+    // إضافة المنتجات في السلة إلى الرسالة
+    cart.forEach((product, index) => {
+        const quantityInput = document.getElementById(`quantity-${index}`);
+        const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+
+        message += `🔹 *المنتج ${index + 1}:*\n`;
+        message += `  🏷️ *الاسم:* ${product.name}\n`;
+        message += `  💰 *السعر الأدنى:* ${product.minprice || 'غير محدد'}\n`;
+        message += `  💰 *السعر الأعلى:* ${product.maxprice || 'غير محدد'}\n`;
+        message += `  💵 *سعر البيع:* ${product.pricebsy || 'غير محدد'}\n`;  // إضافة سعر البيع
+        message += `  🛒 *الكمية:* ${quantity}\n\n`;
+    });
+
+    // إعداد طلب الإرسال عبر Telegram API
+    const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; // التوكن الخاص بك
+    const chatId = "1434047374"; // الـ chat_id الخاص بك
+    const telegramAPI = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    fetch(telegramAPI, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "Markdown" // لدعم التنسيق
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert("تم إرسال البيانات إلى البوت بنجاح!");
+            } else {
+                console.error("Telegram API Error:", data);
+                alert("فشل في إرسال البيانات إلى البوت.");
+            }
+        })
+        .catch(error => {
+            console.error("Error sending data to Telegram:", error);
+            alert("حدث خطأ أثناء إرسال البيانات.");
+        });
+}
+
+// ربط الزر بدالة الإرسال
+document.getElementById("cli").addEventListener("click", sendDataToTelegram);
+
 // استدعاء دالة لعرض السلة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
     displayCart();
