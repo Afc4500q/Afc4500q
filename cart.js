@@ -219,7 +219,7 @@ function openl{
 bh.style.display = "block";
 gg.style.display = "none";
 
-//}
+}
 
 // ربط الزر بدالة الإرسال
 //document.getElementById("cli").addEventListener("click", sendDataToTelegram);
