@@ -1,5 +1,4 @@
-//const bh = document.querySelector(".customerInfo");
-//const gg = document.querySelector("#fromprice");
+
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
     // استرجاع السلة من localStorage، إذا لم توجد أنشأنا سلة فارغة
@@ -213,7 +212,9 @@ gg.style.display = "block";
         });
 }
 
-
+// قتح فورم معلومات الزبون
+const bh = document.querySelector(".customerInfo");
+const gg = document.querySelector("#fromprice");
 function openl{
 bh.style.display = "block";
 gg.style.display = "none";
