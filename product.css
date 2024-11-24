@@ -11,7 +11,7 @@ body {
 
 .list-bay {
     position: absolute; /* الوضع المطلق */
-    bottom: 70px; /* تحديد المسافة من الأسفل */
+    bottom: 50px; /* تحديد المسافة من الأسفل */
     left: 50%; /* جعله في منتصف الحاوية أفقيًا */
     transform: translateX(-50%); /* توسيط باستخدام التحويل */
     background-color: #0047ab; /* الأزرق الجميل */
