@@ -1,11 +1,11 @@
 // قتح فورم معلومات الزبون
-const bh = document.querySelector(".customerInfo");
-const gg = document.querySelector("#fromprice");
-function openl{
-bh.style.display = "block";
-gg.style.display = "none";
+//const bh = document.querySelector(".customerInfo");
+//const gg = document.querySelector("#fromprice");
+//function openl{
+//bh.style.display = "block";
+//gg.style.display = "none";
 
-}
+//}
 
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
