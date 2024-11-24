@@ -12,7 +12,6 @@ body {
 .list-bay{
     whith: 100px;
     height: 100px;
-    background-color:blue;
     color: #eee;
    z-index: 3;
     tixt-aline: center;
@@ -20,8 +19,11 @@ body {
     position: absolute;
     left:  30%;
     right: 30%;
-    top: 70%;
-    
+    botton: 20%;
+    display: flex;
+    justify-content: center; /* توسيط العناصر أفقيًا */
+    align-items: center;    /* توسيط */
+    background-color: #f0f8ff;
 }
 
 header {
