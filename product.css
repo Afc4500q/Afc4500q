@@ -10,8 +10,10 @@ body {
 }
 
 .list-bay {
-    position: relative; /* الموقع النسبي */
-    margin-bottom: 5px; /* مسافة صغيرة جدًا من أسفل */
+    position: absolute; /* الوضع المطلق */
+    bottom: 70px; /* تحديد المسافة من الأسفل */
+    left: 50%; /* جعله في منتصف الحاوية أفقيًا */
+    transform: translateX(-50%); /* توسيط باستخدام التحويل */
     background-color: #0047ab; /* الأزرق الجميل */
     color: white; /* النص باللون الأبيض */
     border-radius: 15px; /* حواف مستديرة */
@@ -20,8 +22,6 @@ body {
     text-align: center; /* محاذاة النص إلى الوسط */
     width: 80%;
     max-width: 300px; /* تحديد عرض أقصى */
-    margin-left: auto;
-    margin-right: auto; /* توسيط العنصر أفقيًا */
 }
 
 .list-bay label {
@@ -55,24 +55,6 @@ body {
 
 .list-bay button:hover {
     background-color: #ffd633; /* تغيير اللون عند التمرير */
-}
-
-/* زر إضافة إلى السلة */
-.add-to-cart {
-    display: block; /* عرض الزر كعنصر بلوك */
-    margin: 10px auto 0; /* مسافة صغيرة علوية بعد العنصر */
-    padding: 10px 20px;
-    background-color: #fcb900;
-    color: #0047ab;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.add-to-cart:hover {
-    background-color: #ffcc00;
 }
 header {
     background-color: #007FFF; /* الأزرق اللازوردي */
