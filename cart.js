@@ -78,6 +78,9 @@ function increaseQuantity(index) {
     quantityInput.value = quantity;
 }
 
+
+document.getElementById("formprice").addEventListener("click", sendDataToTelegram);
+
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
 
