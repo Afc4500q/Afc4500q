@@ -1,4 +1,4 @@
-document.getElementById("openButton").addEventListener("click", openl);
+document.getElementById("formprice").addEventListener("click", openl);
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function openl() {
           document.querySelector(".customerInfo").style.display = "block";
