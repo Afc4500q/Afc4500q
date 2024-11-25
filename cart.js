@@ -1,11 +1,10 @@
+
 document.getElementById("formprice").addEventListener("click", oop);
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function oop() {
-          document.querySelector("#customerInfo").style.display = "block";
-          document.querySelector("#fromprice").style.display = "none";
-
+    document.querySelector("#customerInfo").style.display = "block";
+    document.querySelector("#fromprice").style.display = "none";
 }
-
 
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
@@ -58,6 +57,13 @@ function displayCart() {
     });
 }
 
+// دالة لحذف منتج من السلة
+function deleteProduct(index) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    displayCart();
+}
 
 // دالة لتقليص الكمية
 function decreaseQuantity(index) {
@@ -78,7 +84,6 @@ function increaseQuantity(index) {
     quantityInput.value = quantity;
 }
 
-
 document.getElementById("cli").addEventListener("click", sendDataToTelegram);
 
 // دالة لإرسال البيانات إلى البوت عبر Telegram
@@ -86,14 +91,17 @@ function sendDataToTelegram() {
 
     let userId = localStorage.getItem('userId');
 
-if (userId) {
-    console.log('User ID:', userId); // عرض id في وحدة التحكم
-} else {
-    console.log('No User ID found in localStorage.');
-    // تعيين معرف المستخدم إذا لم يكن موجودًا
-    localStorage.setItem('userId', 'yourUserId');
-}
-          
+    if (userId) {
+        console.log('User ID:', userId); // عرض id في وحدة التحكم
+    } else {
+        console.log('No User ID found in localStorage.');
+        // تعيين معرف المستخدم إذا لم يكن موجودًا
+        localStorage.setItem('userId', 'yourUserId');
+        userId = 'yourUserId'; // تعيين قيمة مؤقتة
+    }
+
+    console.log("UserId: ", userId); // التحقق من userId
+
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     if (cart.length === 0) {
         alert('السلة فارغة! لا توجد بيانات لإرسالها.');
@@ -101,7 +109,7 @@ if (userId) {
     }
 
     const customerInfo = {
-name: document.getElementById('customerName').value.trim(),
+        name: document.getElementById('customerName').value.trim(),
         phone: document.getElementById('customerPhone').value.trim(),
         city: document.getElementById('customerCity').value.trim(),
         district: document.getElementById('customerDistrict').value.trim(),
@@ -112,6 +120,8 @@ name: document.getElementById('customerName').value.trim(),
         alert("يرجى تعبئة جميع الحقول!");
         return;
     }
+
+    console.log("Customer Info: ", customerInfo); // التحقق من customerInfo
 
     let message = `🛒 *تفاصيل الطلب الجديد:*\n\n`;
     message += `👤 *معرف المستخدم:* ${userId}\n`;
@@ -130,6 +140,8 @@ name: document.getElementById('customerName').value.trim(),
         message += `  💰 * ارباح العميل:* ${sss || 'غير محدد'}\n`;
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
+
+    console.log("Message: ", message); // التحقق من message
 
     const botToken = "7571233461:AAH8lJsUeuKV_L57A42C6pE5i7FFi1_LIak"; 
     const chatId = "1434047374";
@@ -161,9 +173,6 @@ name: document.getElementById('customerName').value.trim(),
             alert("حدث خطأ أثناء إرسال البيانات.");
         });
 }
-
-// ربط الزر بدالة الإرسال
-
 
 // استدعاء دالة لعرض السلة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
