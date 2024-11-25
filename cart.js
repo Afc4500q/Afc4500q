@@ -1,4 +1,4 @@
-//document.getElementById("formprice").addEventListener("click", openl);
+document.getElementById("formprice").addEventListener("click", oop);
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function oop() {
           document.querySelector(".customerInfo").style.display = "block";
