@@ -84,7 +84,9 @@ function increaseQuantity(index) {
     quantityInput.value = quantity;
 }
 
-document.getElementById("cli").addEventListener("click", sendDataToTelegram);
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("cli").addEventListener("click", sendDataToTelegram);
+});
 
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
