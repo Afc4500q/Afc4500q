@@ -6,15 +6,6 @@ function oop() {
 
 }
 
-let userId = localStorage.getItem('userId');
-
-if (userId) {
-    console.log('User ID:', userId); // عرض id في وحدة التحكم
-} else {
-    console.log('No User ID found in localStorage.');
-    // تعيين معرف المستخدم إذا لم يكن موجودًا
-    localStorage.setItem('userId', 'yourUserId');
-}
 
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
@@ -67,32 +58,6 @@ function displayCart() {
     });
 }
 
-// دالة لحذف منتج من السلة
-function deleteProduct(index) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    displayCart();
-}
-
-// دالة لتقليص الكمية
-function decreaseQuantity(index) {
-    const quantityInput = document.getElementById(`quantity-${index}`);
-    let quantity = parseInt(quantityInput.value);
-
-    if (quantity > 1) {
-        quantity--;
-        quantityInput.value = quantity;
-    }
-}
-
-// دالة لزيادة الكمية
-function increaseQuantity(index) {
-    const quantityInput = document.getElementById(`quantity-${index}`);
-    let quantity = parseInt(quantityInput.value);
-    quantity++;
-    quantityInput.value = quantity;
-}
 
 // دالة لتقليص الكمية
 function decreaseQuantity(index) {
@@ -116,6 +81,16 @@ function increaseQuantity(index) {
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
 
+    let userId = localStorage.getItem('userId');
+
+if (userId) {
+    console.log('User ID:', userId); // عرض id في وحدة التحكم
+} else {
+    console.log('No User ID found in localStorage.');
+    // تعيين معرف المستخدم إذا لم يكن موجودًا
+    localStorage.setItem('userId', 'yourUserId');
+}
+          
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     if (cart.length === 0) {
         alert('السلة فارغة! لا توجد بيانات لإرسالها.');
