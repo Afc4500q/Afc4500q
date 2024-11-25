@@ -6,6 +6,16 @@ function oop() {
 
 }
 
+let userId = localStorage.getItem('userId');
+
+if (userId) {
+    console.log('User ID:', userId); // عرض id في وحدة التحكم
+} else {
+    console.log('No User ID found in localStorage.');
+    // تعيين معرف المستخدم إذا لم يكن موجودًا
+    localStorage.setItem('userId', 'yourUserId');
+}
+
 // دالة لإضافة منتج إلى السلة
 function addToCart(product) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -105,11 +115,6 @@ function increaseQuantity(index) {
 
 // دالة لإرسال البيانات إلى البوت عبر Telegram
 function sendDataToTelegram() {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-        alert('لا يمكن العثور على ID المستخدم!');
-        return;
-    }
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     if (cart.length === 0) {
