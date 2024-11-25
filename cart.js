@@ -160,7 +160,7 @@ name: document.getElementById('customerName').value.trim(),
 }
 
 // ربط الزر بدالة الإرسال
-document.getElementById("cli").addEventListener("click", sendDataToTelegram);
+
 
 // استدعاء دالة لعرض السلة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
