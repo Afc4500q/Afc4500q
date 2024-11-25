@@ -1,10 +1,9 @@
 
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function openl() {
-    const bh = document.querySelector(".customerInfo");
-    const gg = document.querySelector("#fromprice");
-    bh.style.display = "block";
-    gg.style.display = "none";
+          document.querySelector(".customerInfo").style.display = "block";
+          document.querySelector("#fromprice").style.display = "none";
+
 }
 
 // دالة لإضافة منتج إلى السلة
