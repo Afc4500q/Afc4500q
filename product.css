@@ -6,7 +6,8 @@ body {
     background-color: #F9F9F9;
     color: #333;
     position: relative;
-    direction: rtl;  لتنسيق النصوص بالعربية 
+    direction: rtl;  
+    position: relative;
 }
 
 .list-bay {
@@ -229,6 +230,7 @@ button#add-to-cart:hover {
     border-radius: 12px; /* زوايا مستديرة */
     transition: background-color 0.3s ease; /* تأثير الانتقال */
     right: 5px;
+    position: absolute;
 }
 
 /* تأثير التحويم */
