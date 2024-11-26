@@ -131,9 +131,9 @@ function sendDataToTelegram() {
     message += `👤 *معرف المستخدم:* ${userId}\n`;
     message += `📞 *اسم العميل:* ${customerInfo.name}\n`;
     message += `📱 *رقم الهاتف:* ${customerInfo.phone}\n`;
-    message += `🏙️ *المدينة:* ${customerInfo.city}\n`;
-    message += `🌍 *المنطقة:* ${customerInfo.district}\n`;
-    message += `🏢 *المحافظة:* ${customerInfo.region}\n`;
+    message += `🏙️ *المحافظة:* ${customerInfo.city}\n`;
+    message += `🌍 *المدينة:* ${customerInfo.district}\n`;
+    message += `🏢 *الحي:* ${customerInfo.region}\n`;
 
     cart.forEach((product, index) => {
         const quantityInput = document.getElementById(`quantity-${index}`);
