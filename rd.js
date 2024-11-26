@@ -32,15 +32,17 @@ function displayCart() {
 
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
         const pricebay = product.pricebsy || 'غير محدد';
-        //const sss = pricebay / 100 * 13;
+        
 
         cartItem.innerHTML = `
+
             <div class="cart-item-images">
                 <img src="${image}" alt="${product.name}">
             </div>
             <div class="cart-item-info">
                 <h4>${product.name}</h4>
                 <p>سعر البيع: ${pricebay}</p>
+                 <p>ربحك: ${pricebay/100 * 13}</p>
             
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
