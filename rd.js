@@ -59,6 +59,8 @@ function displayCart() {
     });
 }
 
+ 
+
 // دالة لحذف منتج من السلة
 function deleteProduct(index) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -141,6 +143,8 @@ function sendDataToTelegram() {
 
         message += `🔹 *المنتج ${index + 1}:*\n`;
         message += `  🏷️ *الاسم:* ${product.name}\n`;
+        message += `  🏷️ *سعر البيع:* ${product.pricebsy}\n`;
+        message += `  🏷️ *حصة المندوب:* ${product.pricebsy/100 * 13}\n`;
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
 
