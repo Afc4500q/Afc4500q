@@ -10,6 +10,7 @@
     <header>تفاصيل المنتج</header>
     <div class="container">
         <a href="products.html">العودة</a>
+        <button id="save-image" onclick="saveImage()">حفظ الصورة</button>
         <div id="product-detail" class="product-details">
             <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
         </div>
@@ -19,7 +20,7 @@
             <input type="number" id="pricebay">
             <button id="sump" onclick="addToCart()">موافق</button>
         </div>
-        <button id="save-image" onclick="saveImage()">حفظ الصورة</button>
+        
     </div>
     <script>
         const productId = localStorage.getItem('selectedProductId');
