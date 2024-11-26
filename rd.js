@@ -141,7 +141,7 @@ function sendDataToTelegram() {
 
         message += `🔹 *المنتج ${index + 1}:*\n`;
         message += `  🏷️ *الاسم:* ${product.name}\n`;
-        message += `  🛒 *سعر البيع:* ${pricebay}\n\n`;
+        message += `  🛒 *سعر البيع:* ${pricebay}\n`;
     
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
