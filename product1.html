@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="product.css">  
+    <title>تفاصيل المنتج</title>
+    <style>
+    </style>
+</head>
+<body>
+    <header>تفاصيل المنتج</header>
+    <div class="container">
+        <a href="products.html">العودة</a>
+        <div id="product-detail" class="product-details">
+            <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
+        </div>
+        <button id="add-to-cart" onclick="openn()">إضافة إلى السلة</button>
+        <div class="list-bay">
+            <label for="pricebay">بكم سوف تبيع المنتج</label>
+            <input type="number" id="pricebay">
+            <button id="sump" onclick="addToCart()">موافق</button>
+        </div>
+        <button id="save-image" onclick="saveImage()">حفظ الصورة</button>
+    </div>
+    <script>
+        const productId = localStorage.getItem('selectedProductId');
+        const listbay = document.querySelector(".list-bay");
+        const sump = document.getElementById("sump");
+
+        if (productId) {
+            fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    const productDetail = document.getElementById('product-detail');
+                    const images = product.images.map((image, index) => {
+                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
+                    }).join('');
+                    
+                    productDetail.innerHTML = `
+                        <div class="product-images">
+                            ${images}
+                            <div class="image-navigation">
+                                <button id="prevImage">&#9664;</button>
+                                <button id="nextImage">&#9654;</button>
+                            </div>
+                        </div>
+                        <h2>${product.name}</h2>
+                        <div class="price">
+                            <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
+                            <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
+                        </div>
+                        <div class="description">${product.description}</div>
+                        <div class="status">حالة المنتج: ${product.condition}</div>
+                        <div class="note">
+                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                        </div>
+                    `;
+
+                    let currentImageIndex = 0;
+                    const productImages = document.querySelectorAll('.product-images img');
+
+                    document.getElementById('nextImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex + 1) % productImages.length;
+                        updateImageDisplay();
+                    };
+
+                    document.getElementById('prevImage').onclick = () => {
+                        currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+                        updateImageDisplay();
+                    };
+
+                    function updateImageDisplay() {
+                        productImages.forEach((img, index) => {
+                            img.style.display = (index === currentImageIndex) ? 'block' : 'none';
+                        });
+                    }
+
+                    window.openn = function(){
+                     document.querySelector(".list-bay").style.display = "block";
+                    }
+                    
+                    window.addToCart = function() {
+                        const pricebsy = document.querySelector("#pricebay").value;
+                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            minprice: product.minprice,
+                            maxprice: product.maxprice,
+                            images: product.images,
+                            pricebsy: pricebsy,
+                        });
+                        
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        listbay.style.display = "none";
+                        alert('تم ');
+                    }
+
+                    document.getElementById('save-image').onclick = () => {
+                        const currentImage = productImages[currentImageIndex].src;
+                        saveImage(currentImage); // استدعاء الدالة لحفظ الصورة
+                    }
+
+                    updateImageDisplay();
+                })
+                .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
+        } else {
+            alert('المنتج غير موجود!');
+        }
+
+        function saveImage(imageUrl) {
+            // قم بتنفيذ الإجراءات المطلوبة لحفظ الصورة هنا
+            alert(`سيتم حفظ الصورة: ${imageUrl}`);
+            // على سبيل المثال: يمكنك استخدام مكتبة لتحميل الصورة وحفظها على جهاز المستخدم
+        }
+    </script>
+</body>
+</html>
