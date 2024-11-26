@@ -1,5 +1,5 @@
-
 document.getElementById("formprice").addEventListener("click", oop);
+
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function oop() {
     document.querySelector("#customerInfo").style.display = "block";
@@ -32,7 +32,6 @@ function displayCart() {
 
         const image = product.images && product.images.length > 0 ? product.images[0] : '';
         const pricebay = product.pricebsy || 'غير محدد';
-        
 
         cartItem.innerHTML = `
             <div class="cart-item-images">
@@ -50,7 +49,7 @@ function displayCart() {
                         <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
                     </div>
                 </div>
-                <button class="delete-btn" onclick="deleteProduct(${index})">حذف المنتج</button>
+                <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
             </div>
         `;
         cartContainer.appendChild(cartItem);
@@ -92,15 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function sendDataToTelegram() {
     let userId = localStorage.getItem('userId');
 
-    // تحقق من وجود معرف المستخدم
+    // تحقق من وجود معرف المستخدم الفعلي
     if (!userId || userId === 'yourUserId') {
-        userId = prompt('يرجى إدخال معرف المستخدم الفعلي:', ''); // يطلب من المستخدم إدخال معرف المستخدم الفعلي
-        if (userId) {
-            localStorage.setItem('userId', userId);
-        } else {
-            alert('يرجى إدخال معرف المستخدم!');
-            return;
-        }
+        alert('لم يتم العثور على معرف المستخدم! يرجى التأكد من تسجيل الدخول.');
+        return;
     }
 
     console.log("UserId: ", userId); // التحقق من userId
