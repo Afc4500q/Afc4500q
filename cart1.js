@@ -50,7 +50,7 @@ function displayCart() {
                         <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
                     </div>
                 </div>
-                <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
+                <button class="delete-btn" onclick="deleteProduct(${index})">حذف المنتج</button>
             </div>
         `;
         cartContainer.appendChild(cartItem);
