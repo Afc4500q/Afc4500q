@@ -6,45 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأسئلة الشائعة</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: right;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .faq-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border: 2px solid #007FFF;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .question {
-            cursor: pointer;
-            font-weight: bold;
-            margin: 10px 0;
-            color: #007FFF;
-            background-color: #FFD700;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .answer {
-            display: none;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-left: 3px solid #FFD700;
-            border-radius: 5px;
-        }
-        .answer a {
-            color: #007FFF;
-            text-decoration: none;
-        }
+
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.question {
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #007FFF;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.question:hover {
+    background-color: #e0e0e0;
+}
+
+.answer {
+    display: none;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 3px solid #FFD700;
+    border-radius: 5px;
+}
+
+.answer a {
+    color: #007FFF;
+    text-decoration: none;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007FFF;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+        
     </style>
 </head>
 <body>
