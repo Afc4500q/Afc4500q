@@ -110,7 +110,8 @@ function sendDataToTelegram() {
         phone: document.getElementById('customerPhone').value.trim(),
         city: document.getElementById('customerCity').value.trim(),
         district: document.getElementById('customerDistrict').value.trim(),
-        region: document.getElementById('customerRegion').value.trim()
+        region: document.getElementById('customerRegion').value.trim(),
+        yourid: document.getElementById('customeryour').value.trim()
     };
 
     if (!customerInfo.name || !customerInfo.phone || !customerInfo.city || !customerInfo.district || !customerInfo.region) {
@@ -127,6 +128,7 @@ function sendDataToTelegram() {
     message += `🏙️ *المحافظة:* ${customerInfo.city}\n`;
     message += `🌍 *المدينة:* ${customerInfo.district}\n`;
     message += `🏢 *الحي:* ${customerInfo.region}\n`;
+    message += `🏢 *id:* ${customerInfo.yourid}\n`;
 
     cart.forEach((product, index) => {
         const quantityInput = document.getElementById(`quantity-${index}`);
