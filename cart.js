@@ -3,6 +3,7 @@ document.getElementById("formprice").addEventListener("click", oop);
 // دالة لإظهار فورم معلومات الزبون وإخفاء السعر
 function oop() {
     document.querySelector("#customerInfo").style.display = "block";
+    document.querySelector("#formprice").style.display = "none";
     
 }
 
@@ -168,7 +169,8 @@ function sendDataToTelegram() {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                alert("تم إرسال البيانات بنجاح.");
+                document.querySelector("#customerInfo").style.display = "none";
+                alert("تم ارسال معلومات الشحنة بنجاح");
                 clearCart();
             } else {
                 console.error("Telegram API Error:", data);
