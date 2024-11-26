@@ -229,7 +229,7 @@ button#add-to-cart:hover {
     cursor: pointer; /* تغيير المؤشر إلى يد عند التمرير */
     border-radius: 12px; /* زوايا مستديرة */
     transition: background-color 0.3s ease; /* تأثير الانتقال */
-    right: 5px;
+    right: 10px;
     position: absolute;
 }
 
