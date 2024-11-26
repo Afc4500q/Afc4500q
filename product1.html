@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="product.css">  
     <title>تفاصيل المنتج</title>
-    <style>
-    </style>
 </head>
 <body>
     <header>تفاصيل المنتج</header>
@@ -110,9 +108,13 @@
         }
 
         function saveImage(imageUrl) {
-            // قم بتنفيذ الإجراءات المطلوبة لحفظ الصورة هنا
-            alert(`سيتم حفظ الصورة: ${imageUrl}`);
-            // على سبيل المثال: يمكنك استخدام مكتبة لتحميل الصورة وحفظها على جهاز المستخدم
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'downloaded-image.jpg'; // يمكنك تعديل اسم الملف إذا كنت تريد
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert('تم حفظ الصورة');
         }
     </script>
 </body>
