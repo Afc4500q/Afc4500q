@@ -17,14 +17,14 @@ header {
 header h1 {
     font-size: 28px;
     margin: 0;
-    color: #e59819;
+    color: #eee;
 }
 
 header nav {
     display: flex;
     gap: 15px;
     align-items: center;
-    color: #e59819;
+    color: #eee;
 }
 
 header nav a {
@@ -32,7 +32,7 @@ header nav a {
     flex-direction: column; /* لجعل النص أسفل الأيقونة */
     align-items: center;
     gap: 5px; /* مسافة بين الأيقونة والنص */
-     color: #e59819;;
+     color: #eee;
     text-decoration: none;
     font-size: 16px;
     
@@ -40,7 +40,7 @@ header nav a {
 
 header nav a i {
     font-size: 20px;
-    color: #e59819;
+    color: #eee;
 }
 
 #products-list {
