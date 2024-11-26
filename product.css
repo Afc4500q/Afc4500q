@@ -219,7 +219,7 @@ button#add-to-cart:hover {
     background-color: #4CAF50; /* اللون الأساسي */
     border: none; /* إزالة الحدود */
     color: white; /* لون النص */
-    padding: 15px 32px; /* الهوامش الداخلية */
+    padding: 10px 25px; /* الهوامش الداخلية */
     text-align: center; /* محاذاة النص إلى المنتصف */
     text-decoration: none; /* إزالة التسطير */
     display: inline-block; /* عرض خطي */
@@ -228,6 +228,7 @@ button#add-to-cart:hover {
     cursor: pointer; /* تغيير المؤشر إلى يد عند التمرير */
     border-radius: 12px; /* زوايا مستديرة */
     transition: background-color 0.3s ease; /* تأثير الانتقال */
+    right: 5px;
 }
 
 /* تأثير التحويم */
