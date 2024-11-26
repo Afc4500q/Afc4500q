@@ -43,7 +43,7 @@ function displayCart() {
             <div class="cart-item-info">
                 <h4>${product.name}</h4>
                 <p>سعر البيع: ${pricebay}</p>
-                 <p>ربحك: ${pricebay/100 * 13}</p>
+                 <p>ربحك: ${pricebay/100 * 17}</p>
             
                 <div class="quantity-container">
                     <label for="quantity-${index}">الكمية:</label>
@@ -145,7 +145,7 @@ function sendDataToTelegram() {
         message += `🔹 *المنتج ${index + 1}:*\n`;
         message += `  🏷️ *الاسم:* ${product.name}\n`;
         message += `  🏷️ *سعر البيع:* ${product.pricebsy}\n`;
-        message += `  🏷️ *حصة المندوب:* ${product.pricebsy/100 * 13}\n`;
+        message += `  🏷️ *حصة المندوب:* ${product.pricebsy/100 * 17}\n`;
         message += `  🛒 *الكمية:* ${quantity}\n\n`;
     });
 
@@ -193,4 +193,5 @@ function clearCart() {
     localStorage.removeItem("cart");
     displayCart();
     document.querySelector("#fromprice").style.display = "block";
+    document.querySelector("#customerInfo").style.display = "none";
 }
