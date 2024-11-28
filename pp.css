@@ -92,6 +92,7 @@ button:hover {
     font-size: 18px;
     margin: 10px 0;
     color: #333;
+    font-weight: bold;
 }
 
 .description, .status, .note {
@@ -99,6 +100,10 @@ button:hover {
     font-size: 16px;
     margin: 10px 0;
     color: #555;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
 .list-bay {
@@ -152,5 +157,4 @@ button:hover {
     margin: 20px 0;
     background-color: #e9ecef; /* خلفية مخصصة للتفاصيل */
     padding: 20px;
-    border-radius: 8px;
-}
+    border-radius:
