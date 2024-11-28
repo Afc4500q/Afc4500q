@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Cairo', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
@@ -24,39 +24,42 @@ header {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: 90%;
     max-width: 800px;
     text-align: center;
 }
 
-a {
+.back-link {
     text-decoration: none;
     color: #007BFF;
     margin-bottom: 20px;
     display: inline-block;
+    font-size: 16px;
 }
 
-a:hover {
+.back-link:hover {
     text-decoration: underline;
 }
 
-button {
-    background-color: #007BFF;
+.btn {
+    background-color: #28a745;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 10px 5px;
     transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #218838;
 }
 
 #product-detail {
     margin: 20px 0;
+    text-align: left;
 }
 
 .product-images {
@@ -88,27 +91,46 @@ button:hover {
     cursor: pointer;
 }
 
-.price {
-    font-size: 18px;
+.price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
     margin: 10px 0;
+}
+
+.price-label {
+    font-size: 18px;
     color: #333;
     font-weight: bold;
 }
 
-.description, .status, .note {
-    text-align: left;
-    font-size: 16px;
+.price-value {
+    font-size: 18px;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.note, .description, .status {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     margin: 10px 0;
     color: #555;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+}
+
+.description-text {
+    font-size: 16px;
+    color: #666;
 }
 
 .list-bay {
     display: none;
     margin: 20px 0;
+    text-align: left;
 }
 
 input[type="number"] {
@@ -128,33 +150,3 @@ select {
     border-radius: 5px;
     box-sizing: border-box;
 }
-
-header {
-    background-color: #28a745; /* لون مخصص للعنوان */
-}
-
-.container {
-    border: 2px solid #28a745; /* لون مخصص للإطار */
-}
-
-button {
-    background-color: #28a745; /* لون مخصص للأزرار */
-}
-
-button:hover {
-    background-color: #218838; /* لون مخصص للتأثير */
-}
-
-#save-image {
-    background-color: #ffc107; /* لون مخصص للزر */
-}
-
-#save-image:hover {
-    background-color: #e0a800; /* لون مخصص للتأثير */
-}
-
-#product-detail {
-    margin: 20px 0;
-    background-color: #e9ecef; /* خلفية مخصصة للتفاصيل */
-    padding: 20px;
-    border-radius:
