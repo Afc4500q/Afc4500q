@@ -37,8 +37,7 @@
                     }).join('');
 
                     const color = product.color.map((co, index) => {
-                        return `<select   id="select" class="product-color">
-                        <option value="${co}">${co}</option></select>`;
+                        return `<option value="${co}">${co}</option>`;
                     }).join('');
                     
                     productDetail.innerHTML = `
@@ -57,7 +56,8 @@
                             السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
                         </div> 
                         </div>
-                        <div class="description">${color}</div>
+                        <div class="description"><select>
+                        ${color}</select></div>
                         <div class="description">${product.description}</div>
                         <div class="status">حالة المنتج: ${product.condition}</div>
                         
