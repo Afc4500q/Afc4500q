@@ -1,236 +1,202 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-/* إعدادات عامة */
+/* تنسيق الصفحة بالكامل */
 body {
-    font-family: 'Tajawal', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #f4f4f4;
     direction: rtl;
     text-align: center;
-    line-height: 1.8;
 }
 
+/* العنوان */
 header {
-    background-color: #007BFF;
+    background-color: #007bff;
     color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    font-size: 1.5rem;
 }
 
-/* حاوية المحتوى */
+/* الحاوية الرئيسية */
 .container {
-    max-width: 900px;
-    margin: 30px auto;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
+/* الروابط */
 .back-link {
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    color: #007bff;
     text-decoration: none;
-    font-weight: bold;
-    color: #007BFF;
-    transition: color 0.3s;
+    font-size: 1rem;
 }
 
 .back-link:hover {
-    color: #0056b3;
+    text-decoration: underline;
 }
 
-/* تفاصيل المنتج */
-.product-details h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: bold;
-}
-
+/* صور المنتج */
 .product-images {
     position: relative;
     margin-bottom: 20px;
 }
 
 .product-images img {
-    width: 100%;
+    max-width: 100%;
     max-height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: none;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.product-images img:first-child {
     display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.image-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
+/* أزرار تقليب الصور */
 .image-navigation button {
-    background-color: #007BFF;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 50%;
     cursor: pointer;
+    font-size: 1.2rem;
     transition: background-color 0.3s;
 }
 
 .image-navigation button:hover {
-    background-color: #0056b3;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
+#prevImage {
+    left: 10px;
+}
+
+#nextImage {
+    right: 10px;
+}
+
+/* زر حفظ الصورة */
+#save-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+#save-image:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* تفاصيل المنتج */
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* السعر */
 .price-container {
-    margin: 15px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.price-label {
-    font-weight: bold;
+    margin: 10px 0;
+    font-size: 1rem;
     color: #555;
 }
 
-.price-value {
-    font-size: 1.2rem;
-    color: #007BFF;
-    font-weight: bold;
-}
-
-/* الوصف والملاحظات */
 .note {
     font-size: 0.9rem;
-    color: #666;
-    margin: 15px 0;
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-radius: 8px;
+    color: #888;
+    margin: 10px 0;
 }
 
-.description {
-    margin: 20px 0;
-}
-
+/* فورم الألوان */
 .description select {
-    padding: 10px;
-    width: 50%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    width: 100%;
+    padding: 8px;
     font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    background: #f9f9f9;
 }
 
-/* النصوص الأخرى */
+.description select:focus {
+    border-color: #007bff;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* النصوص */
 .description-text {
     font-size: 1rem;
-    color: #444;
-    margin: 20px 0;
-    line-height: 1.8;
-    text-align: justify;
+    margin-top: 15px;
+    line-height: 1.5;
+    color: #666;
 }
 
+/* الحالة */
 .status {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #007BFF;
     margin-top: 15px;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
 }
 
 /* الأزرار */
 .btn {
-    background-color: #007BFF;
+    display: inline-block;
+    background-color: #007bff;
     color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
     border: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
     transition: background-color 0.3s;
-    margin-top: 15px;
 }
 
 .btn:hover {
     background-color: #0056b3;
 }
 
-/* قائمة السعر */
+/* نموذج إدخال السعر */
 .list-bay {
-    background-color: #f1f1f1;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-    display: none;
+    margin: 20px 0;
 }
 
 .list-bay label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
     display: block;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .list-bay input {
-    width: 80%;
+    width: calc(100% - 20px);
     padding: 10px;
-    margin-bottom: 15px;
-        border: 1px solid #ddd;
-    border-radius: 5px;
     font-size: 1rem;
-    text-align: center;
-    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
-.list-bay button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.list-bay button:hover {
-    background-color: #218838;
-}
-
-/* استجابة التصميم */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    .product-images img {
-        max-height: 300px;
-    }
-
-    .description select {
-        width: 80%;
-    }
-
-    .btn {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-    }
-
-    .list-bay input {
-        width: 90%;
-    }
+.list-bay input:focus {
+    border-color: #007bff;
+    outline: none;
 }
