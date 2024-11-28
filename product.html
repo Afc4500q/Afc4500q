@@ -13,7 +13,6 @@
         <div id="product-detail" class="product-details">
             <!-- سيتم إضافة تفاصيل المنتج هنا ديناميكياً -->
         </div>
-        <button id="save-image" class="btn">حفظ الصورة</button>
         <button id="add-to-cart" class="btn" onclick="openn()">إضافة إلى السلة</button>
         <div class="list-bay" style="display: none;">
             <label for="pricebay">بكم سوف تبيع المنتج</label>
@@ -33,7 +32,10 @@
                     
                     // عرض الصور
                     const images = product.images.map((image, index) => `
-                        <img src="${image}" alt="صورة المنتج" id="image-${index}" class="product-image">
+                        <div class="product-image-container">
+                            <img src="${image}" alt="صورة المنتج" id="image-${index}" class="product-image">
+                            <button class="save-image" onclick="saveImage('${image}')">⬇️</button>
+                        </div>
                     `).join('');
                     
                     // عرض الخيارات
@@ -116,12 +118,7 @@
                     };
 
                     // حفظ الصورة
-                    document.getElementById('save-image').onclick = () => {
-                        const currentImage = productImages[currentImageIndex].src;
-                        saveImage(currentImage);
-                    };
-
-                    const saveImage = (imageUrl) => {
+                    window.saveImage = function(imageUrl) {
                         const link = document.createElement('a');
                         link.href = imageUrl;
                         link.download = 'downloaded-image.jpg';
