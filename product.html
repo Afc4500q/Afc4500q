@@ -35,6 +35,11 @@
                     const images = product.images.map((image, index) => {
                         return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
                     }).join('');
+
+                    const color = product.color.map((co, index) => {
+                        return `<select   id="select" class="product-color">
+                        <option value="${co}">${co}</option></select>`;
+                    }).join('');
                     
                     productDetail.innerHTML = `
                         <div class="product-images">
@@ -52,7 +57,7 @@
                             السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
                         </div> 
                         </div>
-                        <div class="description">${product.color}</div>
+                        <div class="description">${color}</div>
                         <div class="description">${product.description}</div>
                         <div class="status">حالة المنتج: ${product.condition}</div>
                         
