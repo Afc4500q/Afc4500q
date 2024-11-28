@@ -91,12 +91,14 @@ button:hover {
 .price {
     font-size: 18px;
     margin: 10px 0;
+    color: #333;
 }
 
 .description, .status, .note {
     text-align: left;
     font-size: 16px;
     margin: 10px 0;
+    color: #555;
 }
 
 .list-bay {
@@ -120,4 +122,35 @@ select {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+header {
+    background-color: #28a745; /* لون مخصص للعنوان */
+}
+
+.container {
+    border: 2px solid #28a745; /* لون مخصص للإطار */
+}
+
+button {
+    background-color: #28a745; /* لون مخصص للأزرار */
+}
+
+button:hover {
+    background-color: #218838; /* لون مخصص للتأثير */
+}
+
+#save-image {
+    background-color: #ffc107; /* لون مخصص للزر */
+}
+
+#save-image:hover {
+    background-color: #e0a800; /* لون مخصص للتأثير */
+}
+
+#product-detail {
+    margin: 20px 0;
+    background-color: #e9ecef; /* خلفية مخصصة للتفاصيل */
+    padding: 20px;
+    border-radius: 8px;
 }
