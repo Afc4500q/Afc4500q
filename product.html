@@ -5,33 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="product.css">  
     <title>تفاصيل المنتج</title>
-    <style>
-        
-    </style>
 </head>
 <body>
     <header>تفاصيل المنتج</header>
-    
     <div class="container">
         <a href="products.html">العودة</a>
-        
+        <button id="save-image" onclick="saveImage()">حفظ الصورة</button>
         <div id="product-detail" class="product-details">
             <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
         </div>
-        
         <button id="add-to-cart" onclick="openn()">إضافة إلى السلة</button>
-       <div class="list-bay" >
-        <label for="pricebay">بكم سوف تبيع المنتج</label>
-        <input tayp="number" id="pricebay">
-        <button id="sump" onclick="addToCart()">موافق</button>
-       </div>
-       </div>
-
+        <div class="list-bay">
+            <label for="pricebay">بكم سوف تبيع المنتج</label>
+            <input type="number" id="pricebay">
+            <button id="sump" onclick="addToCart()">موافق</button>
+        </div>
+        
+    </div>
     <script>
-        const productId = localStorage.getItem('selectedProductId'); // جلب ID المنتج من localStorage
+        const productId = localStorage.getItem('selectedProductId');
         const listbay = document.querySelector(".list-bay");
         const sump = document.getElementById("sump");
-        
+
         if (productId) {
             fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
                 .then(response => response.json())
@@ -53,30 +48,29 @@
                         <div class="price">
                             <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
                             <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
+                       <div class="note">
+                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                        </div> 
                         </div>
+                        div class="description">${product.color}</div>
                         <div class="description">${product.description}</div>
                         <div class="status">حالة المنتج: ${product.condition}</div>
-                        <div class="note">
-                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
-                        </div>
+                        
                     `;
 
                     let currentImageIndex = 0;
                     const productImages = document.querySelectorAll('.product-images img');
 
-                    // الانتقال إلى الصورة التالية
                     document.getElementById('nextImage').onclick = () => {
                         currentImageIndex = (currentImageIndex + 1) % productImages.length;
                         updateImageDisplay();
                     };
 
-                    // الانتقال إلى الصورة السابقة
                     document.getElementById('prevImage').onclick = () => {
                         currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
                         updateImageDisplay();
                     };
 
-                    // تحديث الصورة المعروضة
                     function updateImageDisplay() {
                         productImages.forEach((img, index) => {
                             img.style.display = (index === currentImageIndex) ? 'block' : 'none';
@@ -86,8 +80,7 @@
                     window.openn = function(){
                      document.querySelector(".list-bay").style.display = "block";
                     }
-                     
-                    // إضافة المنتج إلى السلة
+                    
                     window.addToCart = function() {
                         const pricebsy = document.querySelector("#pricebay").value;
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -98,22 +91,33 @@
                             maxprice: product.maxprice,
                             images: product.images,
                             pricebsy: pricebsy,
-                            
-                        }); // إضافة المنتج إلى السلة
+                        });
                         
-                        localStorage.setItem('cart', JSON.stringify(cart)); // تخزين السلة في localStorage
+                        localStorage.setItem('cart', JSON.stringify(cart));
                         listbay.style.display = "none";
-                        
-                        
                         alert('تم ');
                     }
 
-                    // عرض أول صورة
+                    document.getElementById('save-image').onclick = () => {
+                        const currentImage = productImages[currentImageIndex].src;
+                        saveImage(currentImage); // استدعاء الدالة لحفظ الصورة
+                    }
+
                     updateImageDisplay();
                 })
                 .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
         } else {
             alert('المنتج غير موجود!');
+        }
+
+        function saveImage(imageUrl) {
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'downloaded-image.jpg'; // يمكنك تعديل اسم الملف إذا كنت تريد
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert('تم حفظ الصورة');
         }
     </script>
 </body>
