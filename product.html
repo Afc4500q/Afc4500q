@@ -11,34 +11,36 @@
     <div class="container">
         <a href="products.html" class="back-link">العودة</a>
         <div id="product-detail" class="product-details">
-            <!-- محتوى تفاصيل المنتج سيتم إضافته هنا ديناميكياً -->
+            <!-- سيتم إضافة تفاصيل المنتج هنا ديناميكياً -->
         </div>
-        <button id="save-image" class="btn" onclick="saveImage()">حفظ الصورة</button>
+        <button id="save-image" class="btn">حفظ الصورة</button>
         <button id="add-to-cart" class="btn" onclick="openn()">إضافة إلى السلة</button>
-        <div class="list-bay">
+        <div class="list-bay" style="display: none;">
             <label for="pricebay">بكم سوف تبيع المنتج</label>
-            <input type="number" id="pricebay">
+            <input type="number" id="pricebay" placeholder="أدخل السعر">
             <button id="sump" class="btn" onclick="addToCart()">موافق</button>
         </div>
     </div>
     <script>
         const productId = localStorage.getItem('selectedProductId');
-        const listbay = document.querySelector(".list-bay");
-        const sump = document.getElementById("sump");
+        const listBay = document.querySelector(".list-bay");
 
         if (productId) {
             fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
                 .then(response => response.json())
                 .then(product => {
                     const productDetail = document.getElementById('product-detail');
-                    const images = product.images.map((image, index) => {
-                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
-                    }).join('');
-
-                    const color = product.color.map((co, index) => {
-                        return `<option value="${co}">${co}</option>`;
-                    }).join('');
                     
+                    // عرض الصور
+                    const images = product.images.map((image, index) => `
+                        <img src="${image}" alt="صورة المنتج" id="image-${index}" class="product-image">
+                    `).join('');
+                    
+                    // عرض الخيارات
+                    const colors = product.color.map(color => `
+                        <option value="${color}">${color}</option>
+                    `).join('');
+
                     productDetail.innerHTML = `
                         <div class="product-images">
                             ${images}
@@ -60,14 +62,20 @@
                             السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
                         </div>
                         <div class="description">
-                            <select>${color}</select>
+                            <select>${colors}</select>
                         </div>
                         <div class="description-text">${product.description}</div>
                         <div class="status">حالة المنتج: ${product.condition}</div>
                     `;
 
+                    // التحكم بالصور
                     let currentImageIndex = 0;
                     const productImages = document.querySelectorAll('.product-images img');
+                    const updateImageDisplay = () => {
+                        productImages.forEach((img, index) => {
+                            img.style.display = index === currentImageIndex ? 'block' : 'none';
+                        });
+                    };
 
                     document.getElementById('nextImage').onclick = () => {
                         currentImageIndex = (currentImageIndex + 1) % productImages.length;
@@ -79,18 +87,19 @@
                         updateImageDisplay();
                     };
 
-                    function updateImageDisplay() {
-                        productImages.forEach((img, index) => {
-                            img.style.display = (index === currentImageIndex) ? 'block' : 'none';
-                        });
-                    }
-
+                    // عرض القائمة عند الضغط على "إضافة إلى السلة"
                     window.openn = function() {
-                        document.querySelector(".list-bay").style.display = "block";
+                        listBay.style.display = "block";
                     };
-                    
+
+                    // إضافة المنتج إلى السلة
                     window.addToCart = function() {
-                        const pricebsy = document.querySelector("#pricebay").value;
+                        const price = document.getElementById('pricebay').value;
+                        if (!price) {
+                            alert('يرجى إدخال السعر!');
+                            return;
+                        }
+
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
                         cart.push({
                             id: product.id,
@@ -98,17 +107,28 @@
                             minprice: product.minprice,
                             maxprice: product.maxprice,
                             images: product.images,
-                            pricebsy: pricebsy
+                            price: price
                         });
-                        
+
                         localStorage.setItem('cart', JSON.stringify(cart));
-                        listbay.style.display = "none";
-                        alert('تم ');
+                        listBay.style.display = "none";
+                        alert('تمت إضافة المنتج إلى السلة.');
                     };
 
+                    // حفظ الصورة
                     document.getElementById('save-image').onclick = () => {
                         const currentImage = productImages[currentImageIndex].src;
-                        saveImage(currentImage); // استدعاء الدالة لحفظ الصورة
+                        saveImage(currentImage);
+                    };
+
+                    const saveImage = (imageUrl) => {
+                        const link = document.createElement('a');
+                        link.href = imageUrl;
+                        link.download = 'downloaded-image.jpg';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        alert('تم حفظ الصورة.');
                     };
 
                     updateImageDisplay();
@@ -116,16 +136,6 @@
                 .catch(error => console.error('خطأ في جلب بيانات المنتج:', error));
         } else {
             alert('المنتج غير موجود!');
-        }
-
-        function saveImage(imageUrl) {
-            const link = document.createElement('a');
-            link.href = imageUrl;
-            link.download = 'downloaded-image.jpg'; // يمكنك تعديل اسم الملف إذا كنت تريد
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            alert('تم حفظ الصورة');
         }
     </script>
 </body>
