@@ -203,17 +203,23 @@ h2 {
 }
 
 .description {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* مسافة بين كل زوج من العناصر */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* عمودين بنفس الحجم */
+  gap: 20px; /* مسافة بين الأعمدة */
   font-family: Arial, sans-serif;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* ليبل فوق عنصره */
+  align-items: flex-start; /* محاذاة العناصر لليسار داخل المجموعة */
 }
 
 .custom-label {
   font-size: 16px;
   color: #333;
   font-weight: bold;
-  margin-bottom: 5px; /* مسافة أسفل الليبل */
+  margin-bottom: 5px; /* مسافة بين الليبل وعنصره */
 }
 
 #sel, .status {
