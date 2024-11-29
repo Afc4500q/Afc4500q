@@ -34,7 +34,7 @@
                     const images = product.images.map((image, index) => `
                         <div class="product-image-container">
                             <img src="${image}" alt="صورة المنتج" id="image-${index}" class="product-image">
-                            <button class="save-image" onclick="saveImage('${image}')">⬇️</button>
+
                         </div>
                     `).join('');
                     
@@ -49,6 +49,7 @@
                             <div class="image-navigation">
                                 <button id="prevImage">&#9664;</button>
                                 <button id="nextImage">&#9654;</button>
+                                <button class="save-image" onclick="saveImage('${image}')">حفظ الصورة</button>
                             </div>
                         </div>
                         <h2>${product.name}</h2>
