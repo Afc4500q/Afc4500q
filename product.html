@@ -64,11 +64,15 @@
                         <div class="note">
                             السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
                         </div>
+                        
                         <div class="description">
+                             <label for="input" class="custom-label">أدخل النص هنا:</label>
                             <select id="sel">${colors}</select>
+                            <label for="input" class="custom-label">أدخل النص هنا:</label>
+                            <div class="status">حالة المنتج: ${product.condition}</div>
                         </div>
                         <div class="description-text">${product.description}</div>
-                        <div class="status">حالة المنتج: ${product.condition}</div>
+                        
                     `;
 
                     // التحكم بالصور
