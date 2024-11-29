@@ -16,8 +16,14 @@
         </div>
         <button id="add-to-cart" onclick="openn()">إضافة إلى السلة</button>
         <div class="list-bay">
-            <label for="pricebay">بكم سوف تبيع المنتج</label>
+            <label for="#pricebay">بكم سوف تبيع المنتج</label>
             <input type="number" id="pricebay">
+            <label for="#sel">اختر اللون</label>
+            <select id="sel"><script>
+                const color = product.color.map((ci, index) => {
+                        return `<option   id="option">${ci}</option>`;
+                    }).join('');
+            </script></select>
             <button id="sump" onclick="addToCart()">موافق</button>
         </div>
         
