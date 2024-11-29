@@ -21,8 +21,8 @@ body {
     padding: 20px 30px; /* تباعد داخلي */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل لإبراز البوكس */
     text-align: center; /* محاذاة النص إلى الوسط */
-    width: 80%;
-    height: 150px;
+    width: 100%;
+    height: 80vh;
     z-index: 1;
     max-width: 300px; /* تحديد عرض أقصى */
 }
