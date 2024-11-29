@@ -16,15 +16,7 @@
         </div>
         <button id="add-to-cart" onclick="openn()">إضافة إلى السلة</button>
         <div class="list-bay">
-            <label for="#pricebay">بكم سوف تبيع المنتج</label>
-            <input type="number" id="pricebay">
-            <label for="#sel">اختر اللون</label>
-            <select id="sel"><script>
-                const color = product.color.map((ci, index) => {
-                        return `<option   id="option">${ci}</option>`;
-                    }).join('');
-            </script></select>
-            <button id="sump" onclick="addToCart()">موافق</button>
+       
         </div>
         
     </div>
@@ -40,6 +32,10 @@
                     const productDetail = document.getElementById('product-detail');
                     const images = product.images.map((image, index) => {
                         return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
+                    }).join('');
+
+                       const color = product.color.map((ci, index) => {
+                        return `<option   id="option">${ci}</option>`;
                     }).join('');
                     
                     productDetail.innerHTML = `
@@ -61,6 +57,14 @@
                             السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
                         </div>
                     `;
+
+                    listbay.innerHTML = `
+                                          <label for="" class="lab">بكم سوف تبيع المنتج</label>
+                                          <input typy="number" id="">
+                                         <label for="" class="lab">اختر اللون</label>
+                                         <select id="sel">${color}</select>
+                                         <button id="sump" onclick="addToCart()">موافق</button>
+                                        `
 
                     let currentImageIndex = 0;
                     const productImages = document.querySelectorAll('.product-images img');
