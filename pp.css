@@ -9,6 +9,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 header {
@@ -73,6 +74,7 @@ header {
     border-radius: 50%;
     padding: 5px;
     cursor: pointer;
+    z-index: 1;
 }
 
 .image-navigation {
@@ -137,6 +139,8 @@ h2 {
 
 .list-bay {
     margin-top: 20px;
+    position: absolute;
+    bottom: 50px;
 }
 
 .list-bay label {
