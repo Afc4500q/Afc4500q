@@ -208,6 +208,7 @@ h2 {
   justify-content: space-between; /* توزيع الأعمدة بالتساوي */
   gap: 20px; /* مسافة بين العمودين */
   font-family: Arial, sans-serif;
+  margin-bottom: 10px;
 }
 
 .form-group {
