@@ -181,3 +181,33 @@ h2 {
 .btn:hover {
     background-color: #0056b3;
 }
+
+#sel {
+  width: 250px;
+  padding: 10px 15px;
+  font-size: 18px;
+  color: #333;
+  background: #fff;
+  border: 2px solid #00c4ff;
+  border-radius: 8px;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#sel:hover {
+  border-color: #0078ff;
+  box-shadow: 0 6px 12px rgba(0, 120, 255, 0.2);
+}
+
+#sel:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+}
+
+#color {
+  color: #0078ff;
+  font-weight: bold;
+}
