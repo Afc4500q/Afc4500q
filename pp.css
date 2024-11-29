@@ -203,16 +203,17 @@ h2 {
 }
 
 .description {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* عمودين بنفس الحجم */
-  gap: 20px; /* مسافة بين الأعمدة */
+  display: flex; /* استخدام Flexbox لترتيب الأعمدة */
+  justify-content: space-between; /* توزيع الأعمدة بالتساوي */
+  gap: 20px; /* مسافة بين العمودين */
   font-family: Arial, sans-serif;
 }
 
 .form-group {
   display: flex;
-  flex-direction: column; /* ليبل فوق عنصره */
-  align-items: flex-start; /* محاذاة العناصر لليسار داخل المجموعة */
+  flex-direction: column; /* ترتيب ليبل وعنصره عموديًا */
+  align-items: flex-start; /* محاذاة العناصر إلى اليسار */
+  flex: 1; /* السماح لكل عمود بأخذ مساحة متساوية */
 }
 
 .custom-label {
@@ -227,6 +228,7 @@ h2 {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 100%; /* جعل العنصر يملأ عرض العمود */
 }
 
 .status {
