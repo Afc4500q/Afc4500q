@@ -101,8 +101,9 @@
 
                     // عرض القائمة عند الضغط على "إضافة إلى السلة"
                     window.openn = function() {
-                        listBay.style.display = "block";
-                    };
+                        listBay.style.display = "flex;
+                        listBay.style.flexDirection = "column";
+ 
 
                     // إضافة المنتج إلى السلة
                     window.addToCart = function() {
