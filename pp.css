@@ -211,3 +211,18 @@ h2 {
   color: #0078ff;
   font-weight: bold;
 }
+
+.custom-label {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #0078ff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-label:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
