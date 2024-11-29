@@ -106,7 +106,7 @@
 
                     // إضافة المنتج إلى السلة
                     window.addToCart = function() {
-                        const price = document.getElementById('pricebay').value;
+                        const pricebay = document.getElementById('pricebay').value;
                         if (!price) {
                             alert('يرجى إدخال السعر!');
                             return;
@@ -119,7 +119,8 @@
                             minprice: product.minprice,
                             maxprice: product.maxprice,
                             images: product.images,
-                            price: price
+                            price: pricebay,
+                            color: product.color
                         });
 
                         localStorage.setItem('cart', JSON.stringify(cart));
