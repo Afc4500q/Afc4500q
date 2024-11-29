@@ -9,7 +9,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    position: relative;
+    
 }
 
 header {
@@ -139,12 +139,11 @@ h2 {
 
 .list-bay {
     margin-top: 20px;
-    position: absolute;
     bottom: 50px;
     left: 40%;
     whith: 20%;
     background-color: #FFF8DC;
-    z-index : 1;
+    
     
 }
 
