@@ -12,7 +12,7 @@ body {
 
 .list-bay {
     position: absolute; /* الوضع المطلق */
-    top: 50% ; /* تحديد المسافة من الأسفل */
+    top: 100% ; /* تحديد المسافة من الأسفل */
     left: 50%; /* جعله في منتصف الحاوية أفقيًا */
     transform: translateX(-50%); /* توسيط باستخدام التحويل */
     background-color: #0047ab; /* الأزرق الجميل */
@@ -22,7 +22,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل لإبراز البوكس */
     text-align: center; /* محاذاة النص إلى الوسط */
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     z-index: 1;
     max-width: 300px; /* تحديد عرض أقصى */
 }
