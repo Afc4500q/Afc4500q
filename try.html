@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نافذة تظهر من الأسفل</title>
+  <style>
+      
+  body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background-color: #ffffff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  transition: bottom 0.3s ease-in-out;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+
+.bottom-sheet.active {
+  bottom: 0; /* يجعل النافذة تظهر بالكامل */
+}
+
+.close-btn {
+  align-self: flex-end;
+  padding: 5px 10px;
+  background-color: #ff4136;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+#pricebay {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+#addcart {
+  align-self: center;
+  width: 90%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* الزر غير مرئي حتى يتم تفعيله */
+}
+
+#addcart:hover {
+  background-color: #0056b3;
+}
+
+button#openSheet {
+  position: absolute;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  bottom: 10px;
+  width: 80%;
+  
+}
+
+button#openSheet:hover {
+  background-color: #0056b3;
+}
+
+    
+    
+   </style>
+</head>
+<body>
+  <button id="openSheet">إظهار النافذة</button>
+
+  <div class="bottom-sheet" id="bottomSheet">
+    <!-- زر الإغلاق داخل النافذة -->
+    <button class="close-btn" id="closeSheet">إغلاق</button>
+    <div>
+      <h2>محتوى النافذة</h2>
+      <input typy="number" id="pricebay">
+      <label for="#color">اختر لون اامنتچ</label>
+      <select id="color">
+        <option>ابيض</option>
+        <option>اسود</option>
+        <option>احمر</option>
+
+      </select>
+       <button id="addcart">اضافة الى السلة</button>
+    </div>
+  </div>
+
+  <script>
+
+const openButton = document.getElementById('openSheet');
+    const closeButton = document.getElementById('closeSheet');
+    const bottomSheet = document.getElementById('bottomSheet');
+    const addcart =
+document.getElementById('addcart');
+    
+
+openButton.addEventListener('click', () => {
+      bottomSheet.classList.add('active');
+      closeButton.style.display = "block"
+      addcart.style.display = "block"
+    });
+
+    closeButton.addEventListener('click', () => {
+      bottomSheet.classList.remove('active');
+      closeButton.style.display = "none";
+      addcart.style.display = "none"
+    });
+
+fuugicon price(){}
+
+  </script>
+</body>
+</html>
