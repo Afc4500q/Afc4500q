@@ -121,6 +121,8 @@ button#openSheet:hover {
    </style>
 </head>
 <body>
+
+<div id="section"></div>
   <button id="openSheet">إظهار النافذة</button>
 
   <div class="bottom-sheet" id="bottomSheet">
@@ -161,7 +163,41 @@ openButton.addEventListener('click', () => {
       addcart.style.display = "none"
     });
 
-fuugicon price(){}
+const productId = localStorage.getItem('selectedProductId');
+
+        if (productId) {
+            fetch(`https://673a0d78a3a36b5a62f0945e.mockapi.io/products/api/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    const productDetail = document.getElementById('section');
+                    const images = product.images.map((image, index) => {
+                        return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
+                    }).join('');
+
+                       const color = product.color.map((ci, index) => {
+                        return `<option   id="option">${ci}</option>`;
+                    }).join('');
+                    
+                    productDetail.innerHTML = `
+                        <div class="product-images">
+                            ${images}
+                            <div class="image-navigation">
+                                <button id="prevImage">&#9664;</button>
+                                <button id="nextImage">&#9654;</button>
+                            </div>
+                        </div>
+                        <h2>${product.name}</h2>
+                        <div class="price">
+                            <span id="max-price">السعر الأعلى: ${product.maxprice} دينار عراقي</span>
+                            <span id="min-price">السعر الأدنى: ${product.minprice} دينار عراقي</span>
+                        </div>
+                        <div class="description">${product.description}</div>
+                        <div class="status">حالة المنتج: ${product.condition}</div>
+                        <div class="note">
+                            السعر الأعلى هو أعلى سعر يمكن أن يُباع به المنتج، أما السعر الأدنى فهو أقل سعر ممكن أن يُباع به المنتج.
+                        </div>
+                    `;
+
 
   </script>
 </body>
