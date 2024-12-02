@@ -174,9 +174,6 @@ const productId = localStorage.getItem('selectedProductId');
                         return `<img src="${image}" alt="product image" id="image-${index}" class="product-image">`;
                     }).join('');
 
-                       const color = product.color.map((ci, index) => {
-                        return `<option   id="option">${ci}</option>`;
-                    }).join('');
                     
                     productDetail.innerHTML = `
                         <div class="product-images">
